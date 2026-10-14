@@ -19,7 +19,6 @@
         }
     </script>
     <style>
-        /* Smooth background transitions for the hero section */
         #hero-bg {
             transition: background-image 1s ease-in-out;
             background-size: cover;
@@ -49,8 +48,8 @@
     </nav>
 
     <!-- Hero Section with Slideshow -->
-    <header id="hero-bg" class="text-white relative overflow-hidden bg-deepNavy" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173ff9e5c1c?auto=format&fit=crop&q=80&w=2000');">
-        <div class="absolute inset-0 bg-deepNavy/75"></div> <!-- Dark overlay -->
+    <header id="hero-bg" class="text-white relative overflow-hidden bg-deepNavy" style="background-image: url('hero1.jpg');">
+        <div class="absolute inset-0 bg-deepNavy/75"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40 relative z-10">
             <div class="md:w-2/3">
                 <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
@@ -67,7 +66,7 @@
         </div>
     </header>
 
-    <!-- NEW: About Us Section -->
+    <!-- About Us Section -->
     <section id="about" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-16 items-center">
@@ -90,8 +89,8 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <img src="https://images.unsplash.com/photo-1551076805-e18690c5e45e?auto=format&fit=crop&q=80&w=800" alt="Clinical Analytics" class="rounded-2xl shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1584982751601-97d8cb0f666f?auto=format&fit=crop&q=80&w=800" alt="Medical Technology" class="rounded-2xl shadow-lg mt-8">
+                    <img src="about1.jpg" alt="Clinical Analytics" class="rounded-2xl shadow-lg object-cover h-full w-full">
+                    <img src="about2.jpg" alt="Medical Technology" class="rounded-2xl shadow-lg mt-8 object-cover h-full w-full">
                 </div>
             </div>
         </div>
@@ -131,7 +130,7 @@
         </div>
     </section>
 
-    <!-- NEW: Value Proposition & Publications -->
+    <!-- Value Proposition & Publications -->
     <section id="publications" class="py-24 bg-white border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
             <div class="md:w-1/2">
@@ -140,7 +139,8 @@
                     <div class="text-center relative z-10">
                         <span class="block text-5xl mb-6">📘</span>
                         <h4 class="font-bold text-clinicalBlue tracking-widest text-xs mb-3 uppercase">Flagship Publication</h4>
-                        <p class="text-3xl font-extrabold text-deepNavy leading-tight">GOOD HEALTH<br>BY YOURSELF</p>
+                        <p class="text-3xl font-extrabold text-deepNavy leading-tight mb-6">GOOD HEALTH<br>BY YOURSELF</p>
+                        <a href="https://drive.google.com/file/d/1VHiGD6KFjEsUVHZQTOG9BIwT1KokNZcC/view?usp=sharing" target="_blank" class="inline-block bg-deepNavy hover:bg-slate-800 text-white font-semibold py-2.5 px-6 rounded-lg shadow-md transition duration-200">Read Digital Guide</a>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@
                     <span class="font-bold text-lg text-deepNavy tracking-tight">SANO MEDITECH</span>
                 </div>
                 <p class="mb-2 text-sm"><strong>Operating Entity:</strong> Sano Meditech Ventures</p>
-                <p class="mb-2 text-sm"><strong>Principal Executive:</strong> Shittu Anu Niyi</p>
+                <p class="mb-2 text-sm"><strong>Principal Executive:</strong> SanoMedic</p>
                 <p class="mt-8 text-xs text-gray-400">&copy; 2026 Sano Meditech Solutions. All rights reserved.</p>
             </div>
             
@@ -240,11 +240,10 @@
 
     <!-- Interactive JavaScript -->
     <script>
-        // Preload images for smooth transition
         const heroImages = [
-            "https://images.unsplash.com/photo-1576091160550-2173ff9e5c1c?auto=format&fit=crop&q=80&w=2000",
-            "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&q=80&w=2000",
-            "https://images.unsplash.com/photo-1551076805-e18690c5e45e?auto=format&fit=crop&q=80&w=2000"
+            "hero1.jpg",
+            "hero2.jpg",
+            "hero3.jpg"
         ];
         
         heroImages.forEach(src => {
@@ -260,7 +259,6 @@
             heroElement.style.backgroundImage = `url('${heroImages[currentImageIndex]}')`;
         }, 5000); 
 
-        // Clinical Vitals Calculator Logic
         function analyzeVitals() {
             const email = document.getElementById('calc-email').value;
             const weight = parseFloat(document.getElementById('calc-weight').value);
@@ -292,20 +290,4 @@
             else { bpStatus = "Consult Physician"; bpColor = "text-gray-400"; }
 
             let pulseStatus = ""; let pulseColor = "";
-            if (pulse >= 60 && pulse <= 100) { pulseStatus = "Normal resting heart rate"; pulseColor = "text-green-400"; }
-            else if (pulse < 60) { pulseStatus = "Bradycardia (Slow)"; pulseColor = "text-yellow-400"; }
-            else { pulseStatus = "Tachycardia (Fast)"; pulseColor = "text-red-400"; }
-
-            content.innerHTML = `
-                <p><strong>Body Mass Index (BMI):</strong> <span class="font-bold ${bmiColor}">${bmi} (${bmiStatus})</span></p>
-                <p><strong>Blood Pressure:</strong> <span class="font-bold ${bpColor}">${sys}/${dia} mmHg (${bpStatus})</span></p>
-                <p><strong>Resting Pulse:</strong> <span class="font-bold ${pulseColor}">${pulse} bpm (${pulseStatus})</span></p>
-                <p class="text-xs text-slate-400 mt-4 border-t border-slate-500 pt-2">*This is an automated triage tool and does not replace professional medical diagnosis.</p>
-                ${email ? `<p class="text-sm text-clinicalBlue mt-2 font-medium">A copy of these results has been queued for ${email} (API pending).</p>` : ''}
-            `;
-            
-            resultBox.classList.remove('hidden');
-        }
-    </script>
-</body>
-</html>
+            if (pulse >=
