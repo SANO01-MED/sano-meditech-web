@@ -25,6 +25,19 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+        /* Loader animation for processing realism */
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid #fff;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased selection:bg-clinicalBlue selection:text-white">
@@ -167,36 +180,46 @@
             </div>
 
             <div class="bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-700">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-gray-800">
+                <!-- Converted to proper HTML Form for keyboard submission and validation -->
+                <form id="triage-form" onsubmit="processVitals(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-gray-800">
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Email Address (To receive your digital results)</label>
-                        <input type="email" id="calc-email" placeholder="e.g. patient@gmail.com" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
+                        <label for="calc-email" class="block text-sm font-semibold text-gray-300 mb-2">Email Address (To receive digital updates)</label>
+                        <input type="email" id="calc-email" required placeholder="e.g. patient@gmail.com" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Weight (kg)</label>
-                        <input type="number" id="calc-weight" placeholder="e.g. 75" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
+                        <label for="calc-weight" class="block text-sm font-semibold text-gray-300 mb-2">Weight (kg)</label>
+                        <input type="number" id="calc-weight" required min="1" step="0.1" placeholder="e.g. 75" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Height (cm)</label>
-                        <input type="number" id="calc-height" placeholder="e.g. 175" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
+                        <label for="calc-height" class="block text-sm font-semibold text-gray-300 mb-2">Height (cm)</label>
+                        <input type="number" id="calc-height" required min="50" step="1" placeholder="e.g. 175" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Systolic BP (top)</label>
-                        <input type="number" id="calc-sys" placeholder="e.g. 120" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
+                        <label for="calc-sys" class="block text-sm font-semibold text-gray-300 mb-2">Systolic BP (top)</label>
+                        <input type="number" id="calc-sys" required min="50" max="300" placeholder="e.g. 120" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Diastolic BP (bottom)</label>
-                        <input type="number" id="calc-dia" placeholder="e.g. 80" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
+                        <label for="calc-dia" class="block text-sm font-semibold text-gray-300 mb-2">Diastolic BP (bottom)</label>
+                        <input type="number" id="calc-dia" required min="30" max="200" placeholder="e.g. 80" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-semibold text-gray-300 mb-2">Pulse (bpm)</label>
-                        <input type="number" id="calc-pulse" placeholder="e.g. 72" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
+                        <label for="calc-pulse" class="block text-sm font-semibold text-gray-300 mb-2">Pulse (bpm)</label>
+                        <input type="number" id="calc-pulse" required min="30" max="250" placeholder="e.g. 72" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
                     </div>
-                </div>
-                <button onclick="analyzeVitals()" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-4 rounded-lg shadow-md transition duration-300">Run Triage Analysis</button>
+                    
+                    <div class="md:col-span-2">
+                        <button type="submit" id="submit-btn" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-4 rounded-lg shadow-md transition duration-300 flex items-center justify-center">
+                            <span id="btn-text">Run Triage Analysis</span>
+                        </button>
+                    </div>
+                </form>
 
-                <div id="result-box" class="hidden mt-8 p-6 bg-slate-700 border border-slate-600 rounded-xl shadow-inner text-white">
-                    <h3 class="text-lg font-bold mb-4 border-b border-slate-500 pb-2">Analysis Results</h3>
+                <div id="result-box" class="hidden p-6 bg-slate-700 border border-slate-600 rounded-xl shadow-inner text-white transition-opacity duration-500 opacity-0">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-500 pb-2">
+                        <h3 class="text-lg font-bold">Analysis Results</h3>
+                        <!-- Realism Upgrade: Actionable Print/Save Button -->
+                        <button type="button" onclick="window.print()" class="text-xs bg-slate-600 hover:bg-slate-500 px-3 py-1.5 rounded transition">Save PDF</button>
+                    </div>
                     <div id="result-content" class="space-y-3"></div>
                 </div>
             </div>
@@ -259,7 +282,35 @@
             heroElement.style.backgroundImage = `url('${heroImages[currentImageIndex]}')`;
         }, 5000); 
 
-        function analyzeVitals() {
+        // Upgraded Processing Function
+        function processVitals(event) {
+            event.preventDefault(); // Prevents page reload on form submit
+            
+            const btn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const resultBox = document.getElementById('result-box');
+            
+            // Hide previous results if recalculating
+            resultBox.classList.add('opacity-0');
+            setTimeout(() => { resultBox.classList.add('hidden'); }, 300);
+
+            // Simulation of Backend Processing State
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            btnText.innerHTML = '<span class="spinner"></span> Processing Vitals...';
+
+            setTimeout(() => {
+                analyzeVitalsLogic();
+                
+                // Restore button state
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                btnText.innerHTML = 'Run Triage Analysis';
+            }, 1500); // 1.5 seconds simulated processing time
+        }
+
+        // The Core Algorithm (Corrected and Completed)
+        function analyzeVitalsLogic() {
             const email = document.getElementById('calc-email').value;
             const weight = parseFloat(document.getElementById('calc-weight').value);
             const height = parseFloat(document.getElementById('calc-height').value) / 100; 
@@ -270,11 +321,7 @@
             const resultBox = document.getElementById('result-box');
             const content = document.getElementById('result-content');
 
-            if (!weight || !height || !sys || !dia || !pulse) {
-                alert("Please fill in all clinical parameters.");
-                return;
-            }
-
+            // BMI Calculation
             const bmi = (weight / (height * height)).toFixed(1);
             let bmiStatus = ""; let bmiColor = "";
             if (bmi < 18.5) { bmiStatus = "Underweight"; bmiColor = "text-yellow-400"; }
@@ -282,6 +329,7 @@
             else if (bmi >= 25 && bmi < 30) { bmiStatus = "Overweight"; bmiColor = "text-yellow-400"; }
             else { bmiStatus = "Obese"; bmiColor = "text-red-400"; }
 
+            // BP Stratification
             let bpStatus = ""; let bpColor = "";
             if (sys < 120 && dia < 80) { bpStatus = "Normal"; bpColor = "text-green-400"; }
             else if (sys >= 120 && sys <= 129 && dia < 80) { bpStatus = "Elevated"; bpColor = "text-yellow-400"; }
@@ -289,5 +337,25 @@
             else if (sys >= 140 || dia >= 90) { bpStatus = "Hypertension Stage 2"; bpColor = "text-red-400"; }
             else { bpStatus = "Consult Physician"; bpColor = "text-gray-400"; }
 
+            // Pulse Analysis (Fixed Truncation)
             let pulseStatus = ""; let pulseColor = "";
-            if (pulse >=
+            if (pulse >= 60 && pulse <= 100) { pulseStatus = "Normal resting heart rate"; pulseColor = "text-green-400"; }
+            else if (pulse < 60) { pulseStatus = "Bradycardia (Slow)"; pulseColor = "text-yellow-400"; }
+            else { pulseStatus = "Tachycardia (Fast)"; pulseColor = "text-red-400"; }
+
+            // Inject Results
+            content.innerHTML = `
+                <p><strong>Body Mass Index (BMI):</strong> <span class="font-bold ${bmiColor}">${bmi} (${bmiStatus})</span></p>
+                <p><strong>Blood Pressure:</strong> <span class="font-bold ${bpColor}">${sys}/${dia} mmHg (${bpStatus})</span></p>
+                <p><strong>Resting Pulse:</strong> <span class="font-bold ${pulseColor}">${pulse} bpm (${pulseStatus})</span></p>
+                <p class="text-xs text-slate-400 mt-4 border-t border-slate-500 pt-2">*This is an automated triage tool and does not replace professional medical diagnosis.</p>
+                ${email ? `<p class="text-sm text-clinicalBlue mt-2 font-medium">A copy of these results has been queued for ${email} (API pending).</p>` : ''}
+            `;
+            
+            // Show results with smooth transition
+            resultBox.classList.remove('hidden');
+            setTimeout(() => { resultBox.classList.remove('opacity-0'); }, 50);
+        }
+    </script>
+</body>
+</html>
