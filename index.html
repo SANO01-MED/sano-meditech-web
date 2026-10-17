@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sano Meditech Solutions - Advancing healthcare through data analytics, clinical strategy, and digital medical innovation in Nigeria.">
     <title>Sano Meditech Solutions | Digital Health & Analytics</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -19,6 +21,16 @@
             }
         }
     </script>
+    
+    <!-- Dark Mode Pre-Initialization (Prevents FOUC - Flash of Unstyled Content) -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
     <style>
         #hero-bg {
             transition: background-image 1s ease-in-out;
@@ -72,8 +84,8 @@
         <div class="absolute inset-0 bg-deepNavy/80 dark:bg-slate-900/90"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40 relative z-10">
             <div class="md:w-2/3">
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-white">
-                    Advancing Healthcare Through Data & Clinical Strategy.
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-white min-h-[120px] md:min-h-[144px]">
+                    Advancing Healthcare <br>Through <span id="dynamic-text" class="text-clinicalBlue inline-block transition-opacity duration-500 opacity-100">Data Analytics</span>.
                 </h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light max-w-2xl">
                     Bridging the gap between empirical medical science and community impact. We deploy structured health analytics, robust clinical research, and scalable lifestyle protocols to optimize patient outcomes.
@@ -243,6 +255,7 @@
                     <span class="font-bold text-lg text-deepNavy dark:text-white tracking-tight">SANO MEDITECH</span>
                 </div>
                 <p class="mb-1 text-sm"><strong>Official Registry:</strong> Sano Meditech Ventures</p>
+                <p class="mb-1 text-sm"><strong>CAC Registration:</strong> BN 9753717</p>
                 <p class="mb-4 text-sm"><strong>Principal Executive:</strong> SanoMedic</p>
                 <p class="text-xs text-gray-400">&copy; 2026 Sano Meditech Solutions. All rights reserved.</p>
             </div>
@@ -278,8 +291,36 @@
 
     <!-- Interactive JavaScript -->
     <script>
-        // 1. Hero Image Slideshow
+        // 1. Dynamic Text Word Swapper
+        const words = ["Data Analytics", "Clinical Strategy", "Medical Research", "Digital Innovation"];
+        let wordIndex = 0;
+        const dynamicText = document.getElementById('dynamic-text');
+
+        setInterval(() => {
+            // Fade out
+            dynamicText.classList.remove('opacity-100');
+            dynamicText.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                // Change word
+                wordIndex = (wordIndex + 1) % words.length;
+                dynamicText.textContent = words[wordIndex];
+                
+                // Fade in
+                dynamicText.classList.remove('opacity-0');
+                dynamicText.classList.add('opacity-100');
+            }, 500); 
+        }, 3000); 
+
+        // 2. Hero Image Slideshow & Background Preloading
         const heroImages = ["hero1.jpg", "hero2.jpg", "hero3.jpg"];
+        
+        // Preload images to prevent flashing on swap
+        heroImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+
         let currentImageIndex = 0;
         const heroElement = document.getElementById('hero-bg');
         
@@ -288,17 +329,15 @@
             heroElement.style.backgroundImage = `url('${heroImages[currentImageIndex]}')`;
         }, 5000); 
 
-        // 2. Dark Mode Toggle Logic
+        // 3. Dark Mode Toggle Logic
         const themeToggleBtn = document.getElementById('theme-toggle');
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
 
-        // Check local storage or system preference on load
+        // Check local storage setting for icon rendering
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
             lightIcon.classList.remove('hidden');
         } else {
-            document.documentElement.classList.remove('dark');
             darkIcon.classList.remove('hidden');
         }
 
@@ -315,24 +354,21 @@
             }
         });
 
-        // 3. Bulletproof Triage Algorithm
+        // 4. Bulletproof Triage Algorithm
         const form = document.getElementById('triage-form');
         form.addEventListener('submit', function(event) {
-            event.preventDefault(); // STOP the page from reloading
+            event.preventDefault(); 
             
             const btn = document.getElementById('submit-btn');
             const btnText = document.getElementById('btn-text');
             const resultBox = document.getElementById('result-box');
             
-            // Hide box temporarily for realism
             resultBox.classList.add('hidden');
 
-            // Processing UI state
             btn.disabled = true;
             btnText.innerHTML = '<span class="spinner"></span> Processing...';
 
             setTimeout(() => {
-                // Get values
                 const email = document.getElementById('calc-email').value;
                 const weight = parseFloat(document.getElementById('calc-weight').value);
                 const height = parseFloat(document.getElementById('calc-height').value) / 100; 
@@ -341,7 +377,6 @@
                 const pulse = parseInt(document.getElementById('calc-pulse').value);
                 const content = document.getElementById('result-content');
 
-                // BMI Math
                 const bmi = (weight / (height * height)).toFixed(1);
                 let bmiStatus = ""; let bmiColor = "";
                 if (bmi < 18.5) { bmiStatus = "Underweight"; bmiColor = "text-yellow-500"; }
@@ -349,7 +384,6 @@
                 else if (bmi >= 25 && bmi < 30) { bmiStatus = "Overweight"; bmiColor = "text-yellow-500"; }
                 else { bmiStatus = "Obese"; bmiColor = "text-red-500"; }
 
-                // BP Math
                 let bpStatus = ""; let bpColor = "";
                 if (sys < 120 && dia < 80) { bpStatus = "Normal"; bpColor = "text-green-500"; }
                 else if (sys >= 120 && sys <= 129 && dia < 80) { bpStatus = "Elevated"; bpColor = "text-yellow-500"; }
@@ -357,13 +391,11 @@
                 else if (sys >= 140 || dia >= 90) { bpStatus = "Hypertension Stage 2"; bpColor = "text-red-500"; }
                 else { bpStatus = "Consult Physician"; bpColor = "text-gray-400"; }
 
-                // Pulse Math
                 let pulseStatus = ""; let pulseColor = "";
                 if (pulse >= 60 && pulse <= 100) { pulseStatus = "Normal resting heart rate"; pulseColor = "text-green-500"; }
                 else if (pulse < 60) { pulseStatus = "Bradycardia (Slow)"; pulseColor = "text-yellow-500"; }
                 else { pulseStatus = "Tachycardia (Fast)"; pulseColor = "text-red-500"; }
 
-                // Inject HTML
                 content.innerHTML = `
                     <p><strong>Body Mass Index (BMI):</strong> <span class="font-bold ${bmiColor}">${bmi} (${bmiStatus})</span></p>
                     <p><strong>Blood Pressure:</strong> <span class="font-bold ${bpColor}">${sys}/${dia} mmHg (${bpStatus})</span></p>
@@ -371,7 +403,6 @@
                     <p class="text-xs text-slate-400 mt-4 border-t border-slate-500 pt-2">*This assessment is an algorithmic estimate and does not constitute a formal clinical diagnosis.</p>
                 `;
                 
-                // Show Box and reset button
                 resultBox.classList.remove('hidden');
                 btn.disabled = false;
                 btnText.innerHTML = 'Run Triage Analysis';
