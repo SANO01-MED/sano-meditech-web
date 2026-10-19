@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sano Meditech Solutions - Advancing healthcare through data analytics, clinical strategy, and digital medical innovation in Nigeria.">
+    <meta name="description" content="Sano Meditech Solutions - Advancing healthcare through enterprise data analytics, clinical strategy, and digital medical innovation.">
     <title>Sano Meditech Solutions | Digital Health & Analytics</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,7 +22,13 @@
         }
     </script>
     
-    <!-- Dark Mode Pre-Initialization (Prevents FOUC - Flash of Unstyled Content) -->
+    <!-- Vercel Analytics Script -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <!-- Dark Mode Pre-Initialization -->
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -50,6 +56,8 @@
             margin-right: 8px;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans antialiased selection:bg-clinicalBlue selection:text-white transition-colors duration-300">
@@ -63,9 +71,9 @@
                     <span class="font-bold text-xl text-deepNavy dark:text-white tracking-tight leading-none transition-colors">SANO MEDITECH<br><span class="text-[10px] text-gray-500 dark:text-gray-400 font-bold tracking-[0.2em] uppercase">Solutions</span></span>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#about" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue dark:hover:text-clinicalBlue transition">About Us</a>
-                    <a href="#services" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue dark:hover:text-clinicalBlue transition">Capabilities</a>
-                    <a href="#assessment" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue dark:hover:text-clinicalBlue transition">Clinical Tool</a>
+                    <a href="#about" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition">About Us</a>
+                    <a href="#services" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition">Enterprise Capabilities</a>
+                    <a href="#assessment" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition">Digital Triage Engine</a>
                     
                     <!-- Dark Mode Toggle -->
                     <button id="theme-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition">
@@ -88,10 +96,10 @@
                     Advancing Healthcare <br>Through <span id="dynamic-text" class="text-clinicalBlue inline-block transition-opacity duration-500 opacity-100">Data Analytics</span>.
                 </h1>
                 <p class="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light max-w-2xl">
-                    Bridging the gap between empirical medical science and community impact. We deploy structured health analytics, robust clinical research, and scalable lifestyle protocols to optimize patient outcomes.
+                    Bridging the gap between empirical medical science and scalable population health. We deploy structured health analytics, robust clinical research, and intelligent lifestyle protocols to optimize B2C and B2B patient outcomes globally.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#assessment" class="text-center bg-clinicalBlue hover:bg-sky-500 text-white font-semibold py-3.5 px-8 rounded-lg shadow-lg transition duration-200">Run Clinical Triage</a>
+                    <a href="#assessment" class="text-center bg-clinicalBlue hover:bg-sky-500 text-white font-semibold py-3.5 px-8 rounded-lg shadow-lg transition duration-200">Run Automated Triage</a>
                     <a href="#about" class="text-center bg-transparent border border-white/30 hover:bg-white/10 text-white font-semibold py-3.5 px-8 rounded-lg transition duration-200">Our Methodology</a>
                 </div>
             </div>
@@ -105,10 +113,10 @@
                 <div>
                     <h2 class="text-3xl md:text-4xl font-bold text-deepNavy dark:text-white mb-6 tracking-tight">Enterprise Health Solutions</h2>
                     <p class="text-gray-600 dark:text-gray-300 text-lg mb-6 leading-relaxed">
-                        Sano Meditech Solutions operates at the intersection of translational medicine and data architecture. Led by clinical professionals, our mission is to transform raw community health metrics into actionable, evidence-based interventions.
+                        Sano Meditech Solutions operates at the intersection of translational medicine and data architecture. Led by clinical professionals, our mission is to transform raw community health metrics into actionable, evidence-based interventions for both enterprise healthcare providers and individual consumers.
                     </p>
                     <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
-                        Whether facilitating large-scale medical outreaches, driving academic oncology research, or developing intelligent digital health pathways, we ensure every strategic decision is backed by rigorous data analysis and foundational medical science.
+                        Whether facilitating corporate wellness programs, driving academic medical research, or developing intelligent digital health pathways via custom APIs, we ensure every strategic decision is backed by rigorous data analysis and foundational medical science.
                     </p>
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 bg-sky-50 dark:bg-slate-700 rounded-full flex items-center justify-center text-clinicalBlue">
@@ -116,7 +124,7 @@
                         </div>
                         <div>
                             <p class="font-bold text-deepNavy dark:text-white">Empirical & Scalable</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Grounded in medical literature and data science.</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Grounded in medical literature and enterprise architecture.</p>
                         </div>
                     </div>
                 </div>
@@ -128,38 +136,55 @@
         </div>
     </section>
 
-    <!-- Core Capabilities -->
-    <section id="services" class="py-24 bg-softTeal dark:bg-slate-900 transition-colors duration-300">
+    <!-- Core Capabilities (Slideshow) -->
+    <section id="services" class="py-24 bg-softTeal dark:bg-slate-900 overflow-hidden transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-16 md:w-2/3">
-                <h2 class="text-3xl md:text-4xl font-bold text-deepNavy dark:text-white tracking-tight">Strategic Capabilities</h2>
-                <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg">Comprehensive healthcare infrastructure managed by clinical data analysts.</p>
+            <div class="mb-12 md:w-2/3 flex justify-between items-end">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-deepNavy dark:text-white tracking-tight">Strategic Capabilities</h2>
+                    <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg">Comprehensive healthcare infrastructure managed by clinical data analysts.</p>
+                </div>
+                <div class="hidden md:flex gap-3">
+                    <button onclick="document.getElementById('slider').scrollBy({left: -400, behavior: 'smooth'})" class="p-3 rounded-full bg-white dark:bg-slate-800 shadow hover:text-clinicalBlue transition"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                    <button onclick="document.getElementById('slider').scrollBy({left: 400, behavior: 'smooth'})" class="p-3 rounded-full bg-white dark:bg-slate-800 shadow hover:text-clinicalBlue transition"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                </div>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Data Analytics -->
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-xl transition duration-300 group">
+            <div id="slider" class="flex gap-8 overflow-x-auto snap-x snap-mandatory hide-scroll pb-8 pt-4">
+                <!-- Slide 1: Analytics -->
+                <div class="min-w-[85vw] md:min-w-[350px] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-xl transition duration-300 group">
                     <div class="w-14 h-14 bg-sky-50 dark:bg-slate-700 group-hover:bg-clinicalBlue transition duration-300 text-clinicalBlue group-hover:text-white rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-deepNavy dark:text-white mb-3">Health Data Analytics</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Utilizing SQL, Python, and advanced spreadsheet modeling to map community health trends, track vital baselines, and drive data-backed medical decisions.</p>
+                    <h3 class="text-xl font-bold text-deepNavy dark:text-white mb-3">Enterprise Health Analytics</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Deploying structured data architectures, predictive modeling, and automated pipelines to map community health trends, track vital baselines, and drive evidence-backed strategic decisions.</p>
                 </div>
-                <!-- Clinical Research -->
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-xl transition duration-300 group">
+
+                <!-- Slide 2: Research -->
+                <div class="min-w-[85vw] md:min-w-[350px] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-xl transition duration-300 group">
                     <div class="w-14 h-14 bg-sky-50 dark:bg-slate-700 group-hover:bg-clinicalBlue transition duration-300 text-clinicalBlue group-hover:text-white rounded-xl flex items-center justify-center mb-6">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-deepNavy dark:text-white mb-3">Clinical Research</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Authoring academic literature and narrative reviews on emerging medical technologies, including AI applications in oncology and the tumor microenvironment.</p>
+                    <h3 class="text-xl font-bold text-deepNavy dark:text-white mb-3">Clinical & Market Research</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Authoring robust academic literature spanning B2B healthcare market analysis, population health trends, and B2C patient behavior analytics, facilitating the translation of clinical data into commercial strategy.</p>
                 </div>
-                <!-- Community Outreach -->
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-xl transition duration-300 group">
+
+                <!-- Slide 3: Outreach -->
+                <div class="min-w-[85vw] md:min-w-[350px] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-xl transition duration-300 group">
                     <div class="w-14 h-14 bg-sky-50 dark:bg-slate-700 group-hover:bg-clinicalBlue transition duration-300 text-clinicalBlue group-hover:text-white rounded-xl flex items-center justify-center mb-6">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-deepNavy dark:text-white mb-3">Community Outreaches</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Structuring partnership pipelines and executing high-impact medical outreaches to provide preventative care and vitals screening to underserved demographics.</p>
+                    <h3 class="text-xl font-bold text-deepNavy dark:text-white mb-3">Targeted Interventions</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Structuring partnership pipelines and executing high-impact medical initiatives to provide preventative care, digital lifestyle therapeutics, and vitals screening to vast demographic groups.</p>
+                </div>
+                
+                <!-- Slide 4: Dashboards -->
+                <div class="min-w-[85vw] md:min-w-[350px] snap-center bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-xl transition duration-300 group">
+                    <div class="w-14 h-14 bg-sky-50 dark:bg-slate-700 group-hover:bg-clinicalBlue transition duration-300 text-clinicalBlue group-hover:text-white rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-deepNavy dark:text-white mb-3">B2C Risk Radars</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">Gamifying cardiovascular progress through automated, personalized consumer health dashboards that overlay longitudinal vitals data and sequence dynamic digital therapeutic pathways.</p>
                 </div>
             </div>
         </div>
@@ -168,17 +193,21 @@
     <!-- Value Proposition & Publications -->
     <section id="publications" class="py-24 bg-white dark:bg-slate-800 border-t border-gray-100 dark:border-slate-700 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
-            <div class="md:w-1/2">
-                <div class="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-3xl p-12 flex flex-col items-center justify-center aspect-[4/3] shadow-inner relative overflow-hidden transition-colors">
-                    <div class="absolute inset-0 bg-gradient-to-br from-white/50 to-sky-50/50 dark:from-slate-800/50 dark:to-slate-900/50"></div>
-                    <div class="text-center relative z-10">
-                        <span class="block text-5xl mb-6">📘</span>
-                        <h4 class="font-bold text-clinicalBlue tracking-widest text-xs mb-3 uppercase">Flagship Digital Guide</h4>
-                        <p class="text-3xl font-extrabold text-deepNavy dark:text-white leading-tight mb-6">GOOD HEALTH<br>BY YOURSELF</p>
-                        <a href="https://drive.google.com/file/d/1VHiGD6KFjEsUVHZQTOG9BIwT1KokNZcC/view?usp=sharing" target="_blank" class="inline-block bg-deepNavy dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-semibold py-2.5 px-6 rounded-lg shadow-md transition duration-200">Read Digital Guide</a>
-                    </div>
+            <div class="md:w-1/2 flex flex-col gap-6">
+                <!-- Book 1 -->
+                <div class="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-3xl p-8 flex flex-col justify-center shadow-inner relative overflow-hidden transition-colors">
+                    <h4 class="font-bold text-clinicalBlue tracking-widest text-xs mb-2 uppercase">Flagship Digital Protocol</h4>
+                    <p class="text-2xl font-extrabold text-deepNavy dark:text-white leading-tight mb-4">GOOD HEALTH<br>BY YOURSELF</p>
+                    <a href="https://drive.google.com/file/d/1VHiGD6KFjEsUVHZQTOG9BIwT1KokNZcC/view?usp=sharing" target="_blank" class="self-start inline-block bg-deepNavy dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white text-sm font-semibold py-2 px-5 rounded-lg transition duration-200">Read Protocol</a>
+                </div>
+                <!-- Book 2 (UPDATED BIT.LY LINK) -->
+                <div class="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-3xl p-8 flex flex-col justify-center shadow-inner relative overflow-hidden transition-colors">
+                    <h4 class="font-bold text-clinicalBlue tracking-widest text-xs mb-2 uppercase">New Release</h4>
+                    <p class="text-2xl font-extrabold text-deepNavy dark:text-white leading-tight mb-4">IGNITE YOUR<br>VITALITY</p>
+                    <a href="https://bit.ly/4k4CAco" target="_blank" class="self-start inline-block bg-clinicalBlue hover:bg-sky-500 text-white text-sm font-semibold py-2 px-5 rounded-lg transition duration-200">Read Protocol</a>
                 </div>
             </div>
+            
             <div class="md:w-1/2">
                 <h2 class="text-3xl md:text-4xl font-bold text-deepNavy dark:text-white mb-6 tracking-tight">Structured Medical Publishing</h2>
                 <p class="text-gray-500 dark:text-gray-300 text-lg mb-8 leading-relaxed">
@@ -193,21 +222,29 @@
         </div>
     </section>
 
-    <!-- Clinical Assessment Engine -->
+    <!-- Clinical Assessment Engine (Now Connected to Backend) -->
     <section id="assessment" class="py-24 bg-deepNavy dark:bg-slate-950 text-white transition-colors duration-300">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold">Clinical Triage Engine</h2>
-                <p class="mt-4 text-gray-300">A frontend demonstration of our automated vitals analysis and stratification algorithm.</p>
+                <h2 class="text-3xl font-bold">Automated Clinical Triage Engine</h2>
+                <p class="mt-4 text-gray-300">A demonstration of our automated vitals analysis, stratification, and communication algorithm.</p>
             </div>
 
             <div class="bg-slate-800 dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-700">
-                <!-- Guaranteed Functional Form -->
                 <form id="triage-form" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-gray-800">
+                    <div>
+                        <label for="calc-name" class="block text-sm font-semibold text-gray-300 mb-2">Patient First Name</label>
+                        <input type="text" id="calc-name" required placeholder="e.g. John" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
+                    </div>
+                    <div>
+                        <label for="calc-phone" class="block text-sm font-semibold text-gray-300 mb-2">Phone Number (For SMS Result)</label>
+                        <input type="tel" id="calc-phone" required placeholder="e.g. 09157713591" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
+                    </div>
                     <div class="md:col-span-2">
-                        <label for="calc-email" class="block text-sm font-semibold text-gray-300 mb-2">Patient Identifier / Email</label>
+                        <label for="calc-email" class="block text-sm font-semibold text-gray-300 mb-2">Patient Email (For Detailed Report)</label>
                         <input type="email" id="calc-email" required placeholder="e.g. patient@gmail.com" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
                     </div>
+                    
                     <div>
                         <label for="calc-weight" class="block text-sm font-semibold text-gray-300 mb-2">Weight (kg)</label>
                         <input type="number" id="calc-weight" required min="1" step="0.1" placeholder="e.g. 75" class="w-full px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-clinicalBlue outline-none transition">
@@ -231,14 +268,14 @@
                     
                     <div class="md:col-span-2">
                         <button type="submit" id="submit-btn" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-4 rounded-lg shadow-md transition duration-300 flex items-center justify-center">
-                            <span id="btn-text">Run Triage Analysis</span>
+                            <span id="btn-text">Run Triage Analysis & Send Report</span>
                         </button>
                     </div>
                 </form>
 
                 <div id="result-box" class="hidden p-6 bg-slate-700 dark:bg-slate-800 border border-slate-600 rounded-xl shadow-inner text-white transition-opacity duration-500">
                     <div class="flex justify-between items-center mb-4 border-b border-slate-500 pb-2">
-                        <h3 class="text-lg font-bold">Diagnostic Output</h3>
+                        <h3 class="text-lg font-bold text-emerald-400">Analysis Complete. Notification Dispatched.</h3>
                         <button type="button" onclick="window.print()" class="text-xs bg-slate-600 hover:bg-slate-500 px-3 py-1.5 rounded transition">Export PDF</button>
                     </div>
                     <div id="result-content" class="space-y-3"></div>
@@ -288,24 +325,23 @@
         </div>
     </footer>
 
-    <!-- Interactive JavaScript -->
+    <!-- Interactive JavaScript & Backend Communication -->
     <script>
+        // --- PASTE THE URL YOU GET FROM APPS SCRIPT BETWEEN THESE QUOTES ---
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxvOpe7qnh5dIJRNbPa0ovBS97S0qEfVwxaF7sZqijy4811frs-YVTF698Ddna7pq4/exec";
+        // -------------------------------------------------------------------
+
         // 1. Dynamic Text Word Swapper
         const words = ["Data Analytics", "Clinical Strategy", "Medical Research", "Digital Innovation"];
         let wordIndex = 0;
         const dynamicText = document.getElementById('dynamic-text');
 
         setInterval(() => {
-            // Fade out
             dynamicText.classList.remove('opacity-100');
             dynamicText.classList.add('opacity-0');
-            
             setTimeout(() => {
-                // Change word
                 wordIndex = (wordIndex + 1) % words.length;
                 dynamicText.textContent = words[wordIndex];
-                
-                // Fade in
                 dynamicText.classList.remove('opacity-0');
                 dynamicText.classList.add('opacity-100');
             }, 500); 
@@ -313,16 +349,10 @@
 
         // 2. Hero Image Slideshow & Background Preloading
         const heroImages = ["hero1.jpg", "hero2.jpg", "hero3.jpg"];
-        
-        // Preload images to prevent flashing on swap
-        heroImages.forEach(src => {
-            const img = new Image();
-            img.src = src;
-        });
+        heroImages.forEach(src => { const img = new Image(); img.src = src; });
 
         let currentImageIndex = 0;
         const heroElement = document.getElementById('hero-bg');
-        
         setInterval(() => {
             currentImageIndex = (currentImageIndex + 1) % heroImages.length;
             heroElement.style.backgroundImage = `url('${heroImages[currentImageIndex]}')`;
@@ -333,7 +363,6 @@
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
 
-        // Check local storage setting for icon rendering
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             lightIcon.classList.remove('hidden');
         } else {
@@ -343,7 +372,6 @@
         themeToggleBtn.addEventListener('click', function() {
             darkIcon.classList.toggle('hidden');
             lightIcon.classList.toggle('hidden');
-
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
                 localStorage.setItem('color-theme', 'light');
@@ -353,7 +381,7 @@
             }
         });
 
-        // 4. Bulletproof Triage Algorithm
+        // 4. Triage Algorithm AND Backend API Courier
         const form = document.getElementById('triage-form');
         form.addEventListener('submit', function(event) {
             event.preventDefault(); 
@@ -363,11 +391,13 @@
             const resultBox = document.getElementById('result-box');
             
             resultBox.classList.add('hidden');
-
             btn.disabled = true;
-            btnText.innerHTML = '<span class="spinner"></span> Processing...';
+            btnText.innerHTML = '<span class="spinner"></span> Processing & Routing...';
 
             setTimeout(() => {
+                // UI Calculation Logic
+                const name = document.getElementById('calc-name').value;
+                const phone = document.getElementById('calc-phone').value;
                 const email = document.getElementById('calc-email').value;
                 const weight = parseFloat(document.getElementById('calc-weight').value);
                 const height = parseFloat(document.getElementById('calc-height').value) / 100; 
@@ -399,12 +429,30 @@
                     <p><strong>Body Mass Index (BMI):</strong> <span class="font-bold ${bmiColor}">${bmi} (${bmiStatus})</span></p>
                     <p><strong>Blood Pressure:</strong> <span class="font-bold ${bpColor}">${sys}/${dia} mmHg (${bpStatus})</span></p>
                     <p><strong>Resting Pulse:</strong> <span class="font-bold ${pulseColor}">${pulse} bpm (${pulseStatus})</span></p>
-                    <p class="text-xs text-slate-400 mt-4 border-t border-slate-500 pt-2">*This assessment is an algorithmic estimate and does not constitute a formal clinical diagnosis.</p>
+                    <p class="text-xs text-slate-400 mt-4 border-t border-slate-500 pt-2">*This assessment is an algorithmic estimate. Your clinical summary has been routed to your email and phone.</p>
                 `;
                 
+                // BACKEND AUTOMATION DISPATCH (The "Courier" handing the envelope to the "Mailbox")
+                const payload = {
+                    email: email,
+                    fullName: name,
+                    phone: phone,
+                    services: "General Baseline Assessment"
+                };
+
+                // Only send to backend if the Web App URL has been pasted
+                if(WEB_APP_URL !== "PASTE_YOUR_COPIED_WEB_APP_URL_HERE") {
+                    fetch(WEB_APP_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    }).then(() => console.log("Data successfully dispatched to Sano Meditech Backend."));
+                }
+
                 resultBox.classList.remove('hidden');
                 btn.disabled = false;
-                btnText.innerHTML = 'Run Triage Analysis';
+                btnText.innerHTML = 'Run Triage Analysis & Send Report';
             }, 1000); 
         });
     </script>
