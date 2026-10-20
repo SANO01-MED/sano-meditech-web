@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sano Meditech Client Portal - Manage personal vitals, health journals, and medical profiles.">
+    <title>Client Portal | Sano Meditech Solutions</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        clinicalBlue: '#0ea5e9',
+                        deepNavy: '#0f172a',
+                        softTeal: '#f8fafc'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Dark Mode Init -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid #fff;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header Navigation -->
+    <nav class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="logo.png" alt="Sano Meditech Logo" onerror="this.style.display='none'" class="h-8 w-auto">
+                    <span class="font-bold text-base sm:text-lg text-deepNavy dark:text-white tracking-tight">SANO MEDITECH <span class="text-clinicalBlue text-xs block font-semibold uppercase">Client Workspace</span></span>
+                </a>
+                <a href="index.html" class="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition flex items-center gap-1">
+                    &larr; Back to Main Site
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Portal Section -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full flex-1">
+
+        <!-- AUTH CONTAINER (When Signed Out) -->
+        <div id="auth-container" class="max-w-md mx-auto bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-700 my-auto">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-deepNavy dark:text-white">Client Portal Access</h2>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Sign in to sync your vitals, health journals, and profile.</p>
+            </div>
+
+            <div class="flex border-b border-gray-200 dark:border-slate-700 mb-6">
+                <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 py-2.5 text-center font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition">Sign In</button>
+                <button id="tab-signup" onclick="switchAuthTab('signup')" class="flex-1 py-2.5 text-center font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm transition">Create Account</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold mb-1">Email Address</label>
+                    <input type="email" id="login-email" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1">Password</label>
+                    <input type="password" id="login-password" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                </div>
+                <button type="submit" class="w-full bg-clinicalBlue hover:bg-sky-600 text-white font-bold py-3 rounded-lg shadow text-sm transition">Sign In</button>
+            </form>
+
+            <!-- SIGNUP FORM -->
+            <form id="signup-form" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-semibold mb-1">Full Name</label>
+                    <input type="text" id="signup-name" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1">Email Address</label>
+                    <input type="email" id="signup-email" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1">Password</label>
+                    <input type="password" id="signup-password" required minlength="6" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                </div>
+                <button type="submit" class="w-full bg-clinicalBlue hover:bg-sky-600 text-white font-bold py-3 rounded-lg shadow text-sm transition">Create Account</button>
+            </form>
+
+            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-slate-700 text-center">
+                <p class="text-xs text-gray-500 mb-3">Testing or evaluating the workspace?</p>
+                <button onclick="loginGuest()" class="w-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 text-gray-700 dark:text-gray-200 font-semibold py-2.5 rounded-lg text-xs sm:text-sm transition">Continue as Guest</button>
+            </div>
+            <div id="auth-error" class="hidden text-xs text-red-500 text-center mt-3"></div>
+        </div>
+
+        <!-- DASHBOARD CONTAINER (When Signed In) -->
+        <div id="dashboard-container" class="hidden bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-700 overflow-hidden">
+            <!-- Header Bar -->
+            <div class="bg-deepNavy text-white p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <span class="text-[10px] text-clinicalBlue uppercase font-bold tracking-widest">Sano Meditech Workspace</span>
+                    <h3 class="text-xl sm:text-2xl font-bold" id="user-display-name">Welcome</h3>
+                    <p class="text-xs text-gray-300" id="user-display-email">user@sanomeditech.com</p>
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button onclick="window.print()" class="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 text-white px-3.5 py-2 rounded-lg text-xs font-semibold transition">Export Summary</button>
+                    <button onclick="logoutUser()" class="flex-1 sm:flex-none bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 px-3.5 py-2 rounded-lg text-xs font-semibold transition">Sign Out</button>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="flex border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/50 overflow-x-auto">
+                <button id="dtab-vitals" onclick="switchDashTab('vitals')" class="px-5 py-3.5 font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition">Vitals Log</button>
+                <button id="dtab-journal" onclick="switchDashTab('journal')" class="px-5 py-3.5 font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition">Health Journal</button>
+                <button id="dtab-profile" onclick="switchDashTab('profile')" class="px-5 py-3.5 font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition">Client Profile</button>
+            </div>
+
+            <!-- TAB 1: VITALS LOG -->
+            <div id="sec-vitals" class="p-4 sm:p-8 space-y-6">
+                <form id="vitals-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 dark:bg-slate-900/50 p-4 sm:p-6 rounded-xl border border-gray-200 dark:border-slate-700">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Blood Pressure (mmHg)</label>
+                        <input type="text" id="v-bp" placeholder="120/80" required class="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Heart Rate (bpm)</label>
+                        <input type="number" id="v-hr" placeholder="72" required class="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Blood Glucose (mg/dL)</label>
+                        <input type="number" id="v-bg" placeholder="95" class="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Weight (kg)</label>
+                        <input type="number" step="0.1" id="v-weight" placeholder="70" required class="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800">
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-4 flex justify-end">
+                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-600 text-white font-bold px-6 py-2.5 rounded-lg text-xs sm:text-sm shadow transition">Log Vitals Record</button>
+                    </div>
+                </form>
+
+                <div>
+                    <h4 class="font-bold text-base sm:text-lg mb-3">Recorded History</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm">
+                            <thead class="bg-gray-100 dark:bg-slate-700/50 text-gray-600 dark:text-gray-300 uppercase text-[10px] tracking-wider">
+                                <tr>
+                                    <th class="p-3 rounded-l-lg">Timestamp</th>
+                                    <th class="p-3">Blood Pressure</th>
+                                    <th class="p-3">Heart Rate</th>
+                                    <th class="p-3">Glucose</th>
+                                    <th class="p-3 rounded-r-lg">Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vitals-list" class="divide-y divide-gray-200 dark:divide-slate-700 font-medium">
+                                <tr><td colspan="5" class="p-4 text-center text-gray-400">Loading vitals...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: HEALTH JOURNAL -->
+            <div id="sec-journal" class="p-4 sm:p-8 space-y-6 hidden">
+                <form id="journal-form" class="space-y-4 bg-gray-50 dark:bg-slate-900/50 p-4 sm:p-6 rounded-xl border border-gray-200 dark:border-slate-700">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Entry Title</label>
+                        <input type="text" id="j-title" placeholder="e.g. Weekly Summary / Exercise Baseline" required class="w-full px-3.5 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Journal Notes & Observations</label>
+                        <textarea id="j-content" rows="3" placeholder="Log details regarding sleep, energy, stress levels, or symptoms..." required class="w-full px-3.5 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm"></textarea>
+                    </div>
+                    <button type="submit" class="bg-clinicalBlue hover:bg-sky-600 text-white font-bold px-6 py-2.5 rounded-lg text-xs sm:text-sm shadow transition">Save Journal Entry</button>
+                </form>
+
+                <div id="journal-entries" class="space-y-4">
+                    <p class="text-center text-gray-400 py-4 text-sm">Loading health journal...</p>
+                </div>
+            </div>
+
+            <!-- TAB 3: CLIENT PROFILE -->
+            <div id="sec-profile" class="p-4 sm:p-8 hidden">
+                <form id="profile-form" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Blood Group</label>
+                        <select id="p-blood" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                            <option value="Unknown">Select Blood Group</option>
+                            <option value="O+">O Positive (O+)</option>
+                            <option value="O-">O Negative (O-)</option>
+                            <option value="A+">A Positive (A+)</option>
+                            <option value="A-">A Negative (A-)</option>
+                            <option value="B+">B Positive (B+)</option>
+                            <option value="B-">B Negative (B-)</option>
+                            <option value="AB+">AB Positive (AB+)</option>
+                            <option value="AB-">AB Negative (AB-)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Genotype</label>
+                        <select id="p-genotype" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                            <option value="Unknown">Select Genotype</option>
+                            <option value="AA">AA</option>
+                            <option value="AS">AS</option>
+                            <option value="AC">AC</option>
+                            <option value="SS">SS</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Known Allergies</label>
+                        <input type="text" id="p-allergies" placeholder="e.g. Penicillin, Peanuts, None" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Emergency Contact Phone</label>
+                        <input type="tel" id="p-emergency" placeholder="e.g. +234 915 771 3591" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-semibold mb-1">Medical Background / History</label>
+                        <textarea id="p-conditions" rows="3" placeholder="e.g. Mild Asthma, Seasonal Allergies..." class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm"></textarea>
+                    </div>
+                    <div class="sm:col-span-2 flex justify-end">
+                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-600 text-white font-bold px-6 py-2.5 rounded-lg text-xs sm:text-sm shadow transition">Update Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 py-6 text-center text-xs text-gray-500">
+        &copy; 2026 Sano Meditech Solutions. All rights reserved.
+    </footer>
+
+    <!-- Firebase Logic -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCVZHQ3cPVWxE3gZmBrWyC7iGkIjras3kQ",
+            authDomain: "sanomed001.firebaseapp.com",
+            projectId: "sanomed001",
+            storageBucket: "sanomed001.firebasestorage.app",
+            messagingSenderId: "970699648017",
+            appId: "1:970699648017:web:4eed811aead41ade1a15b0",
+            measurementId: "G-4GGZ5Z785B"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        let currentUser = null;
+
+        auth.onAuthStateChanged(user => {
+            const authContainer = document.getElementById('auth-container');
+            const dashboardContainer = document.getElementById('dashboard-container');
+
+            if (user) {
+                currentUser = user;
+                authContainer.classList.add('hidden');
+                dashboardContainer.classList.remove('hidden');
+                document.getElementById('user-display-name').textContent = user.displayName || (user.isAnonymous ? "Guest Client" : "Registered Client");
+                document.getElementById('user-display-email').textContent = user.email || "Active Session";
+
+                loadVitals();
+                loadJournal();
+                loadProfile();
+            } else {
+                currentUser = null;
+                authContainer.classList.remove('hidden');
+                dashboardContainer.classList.add('hidden');
+            }
+        });
+
+        function switchAuthTab(type) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const tabLogin = document.getElementById('tab-login');
+            const tabSignup = document.getElementById('tab-signup');
+
+            if (type === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                tabLogin.className = "flex-1 py-2.5 text-center font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition";
+                tabSignup.className = "flex-1 py-2.5 text-center font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm transition";
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                tabSignup.className = "flex-1 py-2.5 text-center font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition";
+                tabLogin.className = "flex-1 py-2.5 text-center font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm transition";
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', e => {
+            e.preventDefault();
+            auth.signInWithEmailAndPassword(
+                document.getElementById('login-email').value,
+                document.getElementById('login-password').value
+            ).catch(err => showAuthError(err.message));
+        });
+
+        document.getElementById('signup-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            auth.createUserWithEmailAndPassword(
+                document.getElementById('signup-email').value,
+                document.getElementById('signup-password').value
+            ).then(cred => cred.user.updateProfile({ displayName: name }))
+            .catch(err => showAuthError(err.message));
+        });
+
+        function loginGuest() { auth.signInAnonymously().catch(err => showAuthError(err.message)); }
+        function logoutUser() { auth.signOut(); }
+
+        function showAuthError(msg) {
+            const errBox = document.getElementById('auth-error');
+            errBox.textContent = msg;
+            errBox.classList.remove('hidden');
+        }
+
+        function switchDashTab(tab) {
+            document.getElementById('sec-vitals').classList.add('hidden');
+            document.getElementById('sec-journal').classList.add('hidden');
+            document.getElementById('sec-profile').classList.add('hidden');
+
+            document.getElementById('dtab-vitals').className = "px-5 py-3.5 font-semibold text-gray-500 text-xs sm:text-sm whitespace-nowrap transition";
+            document.getElementById('dtab-journal').className = "px-5 py-3.5 font-semibold text-gray-500 text-xs sm:text-sm whitespace-nowrap transition";
+            document.getElementById('dtab-profile').className = "px-5 py-3.5 font-semibold text-gray-500 text-xs sm:text-sm whitespace-nowrap transition";
+
+            if (tab === 'vitals') {
+                document.getElementById('sec-vitals').classList.remove('hidden');
+                document.getElementById('dtab-vitals').className = "px-5 py-3.5 font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition";
+            } else if (tab === 'journal') {
+                document.getElementById('sec-journal').classList.remove('hidden');
+                document.getElementById('dtab-journal').className = "px-5 py-3.5 font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition";
+            } else if (tab === 'profile') {
+                document.getElementById('sec-profile').classList.remove('hidden');
+                document.getElementById('dtab-profile').className = "px-5 py-3.5 font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition";
+            }
+        }
+
+        // Firestore Actions
+        document.getElementById('vitals-form').addEventListener('submit', e => {
+            e.preventDefault();
+            if (!currentUser) return;
+            db.collection('users').doc(currentUser.uid).collection('vitals').add({
+                bp: document.getElementById('v-bp').value,
+                hr: parseInt(document.getElementById('v-hr').value),
+                bg: document.getElementById('v-bg').value ? parseInt(document.getElementById('v-bg').value) : 'N/A',
+                weight: parseFloat(document.getElementById('v-weight').value),
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                document.getElementById('vitals-form').reset();
+                loadVitals();
+            });
+        });
+
+        function loadVitals() {
+            if (!currentUser) return;
+            const list = document.getElementById('vitals-list');
+            db.collection('users').doc(currentUser.uid).collection('vitals').orderBy('timestamp', 'desc').get().then(snap => {
+                if (snap.empty) {
+                    list.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400 text-xs">No records logged yet. Add your first set above.</td></tr>`;
+                    return;
+                }
+                let html = '';
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now';
+                    html += `
+                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/30 transition">
+                            <td class="p-3 text-[11px] text-gray-400">${date}</td>
+                            <td class="p-3 text-clinicalBlue font-bold">${data.bp} mmHg</td>
+                            <td class="p-3">${data.hr} bpm</td>
+                            <td class="p-3">${data.bg}</td>
+                            <td class="p-3">${data.weight} kg</td>
+                        </tr>
+                    `;
+                });
+                list.innerHTML = html;
+            });
+        }
+
+        document.getElementById('journal-form').addEventListener('submit', e => {
+            e.preventDefault();
+            if (!currentUser) return;
+            db.collection('users').doc(currentUser.uid).collection('journal').add({
+                title: document.getElementById('j-title').value,
+                content: document.getElementById('j-content').value,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                document.getElementById('journal-form').reset();
+                loadJournal();
+            });
+        });
+
+        function loadJournal() {
+            if (!currentUser) return;
+            const container = document.getElementById('journal-entries');
+            db.collection('users').doc(currentUser.uid).collection('journal').orderBy('timestamp', 'desc').get().then(snap => {
+                if (snap.empty) {
+                    container.innerHTML = `<p class="text-center text-gray-400 py-4 text-xs">No journal entries found.</p>`;
+                    return;
+                }
+                let html = '';
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now';
+                    html += `
+                        <div class="p-4 bg-gray-50 dark:bg-slate-900/50 rounded-xl border border-gray-200 dark:border-slate-700">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <h5 class="font-bold text-sm text-deepNavy dark:text-white">${data.title}</h5>
+                                <span class="text-[10px] text-gray-400">${date}</span>
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">${data.content}</p>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            });
+        }
+
+        document.getElementById('profile-form').addEventListener('submit', e => {
+            e.preventDefault();
+            if (!currentUser) return;
+            db.collection('users').doc(currentUser.uid).collection('profile').doc('main').set({
+                bloodGroup: document.getElementById('p-blood').value,
+                genotype: document.getElementById('p-genotype').value,
+                allergies: document.getElementById('p-allergies').value,
+                emergencyPhone: document.getElementById('p-emergency').value,
+                conditions: document.getElementById('p-conditions').value
+            }, { merge: true }).then(() => alert("Profile updated successfully."));
+        });
+
+        function loadProfile() {
+            if (!currentUser) return;
+            db.collection('users').doc(currentUser.uid).collection('profile').doc('main').get().then(doc => {
+                if (doc.exists) {
+                    const d = doc.data();
+                    if(d.bloodGroup) document.getElementById('p-blood').value = d.bloodGroup;
+                    if(d.genotype) document.getElementById('p-genotype').value = d.genotype;
+                    if(d.allergies) document.getElementById('p-allergies').value = d.allergies;
+                    if(d.emergencyPhone) document.getElementById('p-emergency').value = d.emergencyPhone;
+                    if(d.conditions) document.getElementById('p-conditions').value = d.conditions;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
