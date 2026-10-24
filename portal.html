@@ -6,6 +6,11 @@
     <meta name="description" content="Sano Meditech Client Portal - Manage personal vitals, health journals, and medical profiles.">
     <title>Client Portal | Sano Meditech Solutions</title>
     
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,6 +18,9 @@
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
                     colors: {
                         clinicalBlue: '#0ea5e9',
                         deepNavy: '#0f172a',
@@ -52,17 +60,20 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-gray-100 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-clinicalBlue selection:text-white transition-colors duration-300">
 
-    <!-- Header Navigation -->
-    <nav class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 shadow-sm sticky top-0 z-50">
+    <!-- Synchronized Professional Header Navigation -->
+    <nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm sticky top-0 z-50 border-b border-gray-200/50 dark:border-slate-800/50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <a href="index.html" class="flex items-center gap-3">
-                    <img src="logo.png" alt="Sano Meditech Logo" onerror="this.style.display='none'" class="h-8 w-auto">
-                    <span class="font-bold text-base sm:text-lg text-deepNavy dark:text-white tracking-tight">SANO MEDITECH <span class="text-clinicalBlue text-xs block font-semibold uppercase">Client Workspace</span></span>
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <img src="logo.png" alt="Sano Meditech Logo" onerror="this.style.display='none'" class="h-10 w-auto transform group-hover:scale-105 transition duration-200">
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-lg text-deepNavy dark:text-white tracking-tight leading-none">SANO MEDITECH</span>
+                        <span class="text-[10px] text-clinicalBlue font-bold tracking-[0.2em] uppercase mt-0.5">Client Workspace</span>
+                    </div>
                 </a>
-                <a href="index.html" class="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition flex items-center gap-1">
+                <a href="index.html" class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition flex items-center gap-1.5 bg-gray-100 dark:bg-slate-800 px-4 py-2 rounded-full">
                     &larr; Back to Main Site
                 </a>
             </div>
@@ -73,115 +84,115 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full flex-1">
 
         <!-- AUTH CONTAINER (When Signed Out) -->
-        <div id="auth-container" class="max-w-md mx-auto bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-700 my-auto">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-deepNavy dark:text-white">Client Portal Access</h2>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Sign in to sync your vitals, health journals, and profile.</p>
+        <div id="auth-container" class="max-w-md mx-auto bg-white dark:bg-slate-800 p-8 sm:p-10 rounded-3xl shadow-2xl border border-gray-100 dark:border-slate-700 my-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-extrabold text-deepNavy dark:text-white tracking-tight">Portal Access</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Sign in to sync your vitals, health journals, and medical profile.</p>
             </div>
 
             <div class="flex border-b border-gray-200 dark:border-slate-700 mb-6">
-                <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 py-2.5 text-center font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition">Sign In</button>
-                <button id="tab-signup" onclick="switchAuthTab('signup')" class="flex-1 py-2.5 text-center font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm transition">Create Account</button>
+                <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 py-3 text-center font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition">Sign In</button>
+                <button id="tab-signup" onclick="switchAuthTab('signup')" class="flex-1 py-3 text-center font-bold text-gray-400 hover:text-clinicalBlue text-sm transition">Create Account</button>
             </div>
 
             <!-- LOGIN FORM -->
-            <form id="login-form" class="space-y-4">
+            <form id="login-form" class="space-y-5">
                 <div>
-                    <label class="block text-xs font-semibold mb-1">Email Address</label>
-                    <input type="email" id="login-email" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Email Address</label>
+                    <input type="email" id="login-email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold mb-1">Password</label>
-                    <input type="password" id="login-password" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Password</label>
+                    <input type="password" id="login-password" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
-                <button type="submit" class="w-full bg-clinicalBlue hover:bg-sky-600 text-white font-bold py-3 rounded-lg shadow text-sm transition">Sign In</button>
+                <button type="submit" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-3.5 rounded-lg shadow-md transition duration-200">Sign In</button>
             </form>
 
             <!-- SIGNUP FORM -->
-            <form id="signup-form" class="space-y-4 hidden">
+            <form id="signup-form" class="space-y-5 hidden">
                 <div>
-                    <label class="block text-xs font-semibold mb-1">Full Name</label>
-                    <input type="text" id="signup-name" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Full Name</label>
+                    <input type="text" id="signup-name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold mb-1">Email Address</label>
-                    <input type="email" id="signup-email" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Email Address</label>
+                    <input type="email" id="signup-email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold mb-1">Password</label>
-                    <input type="password" id="signup-password" required minlength="6" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Password</label>
+                    <input type="password" id="signup-password" required minlength="6" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
-                <button type="submit" class="w-full bg-clinicalBlue hover:bg-sky-600 text-white font-bold py-3 rounded-lg shadow text-sm transition">Create Account</button>
+                <button type="submit" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-3.5 rounded-lg shadow-md transition duration-200">Create Account</button>
             </form>
 
-            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-slate-700 text-center">
-                <p class="text-xs text-gray-500 mb-3">Testing or evaluating the workspace?</p>
-                <button onclick="loginGuest()" class="w-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 text-gray-700 dark:text-gray-200 font-semibold py-2.5 rounded-lg text-xs sm:text-sm transition">Continue as Guest</button>
+            <div class="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700 text-center">
+                <p class="text-xs text-gray-500 mb-4 font-medium">Testing or evaluating the workspace?</p>
+                <button onclick="loginGuest()" class="w-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 font-bold py-3 rounded-lg text-sm transition">Continue as Guest</button>
             </div>
-            <div id="auth-error" class="hidden text-xs text-red-500 text-center mt-3"></div>
+            <div id="auth-error" class="hidden text-xs text-red-500 font-semibold text-center mt-4"></div>
         </div>
 
         <!-- DASHBOARD CONTAINER (When Signed In) -->
-        <div id="dashboard-container" class="hidden bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-700 overflow-hidden">
+        <div id="dashboard-container" class="hidden bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-slate-700 overflow-hidden">
             <!-- Header Bar -->
-            <div class="bg-deepNavy text-white p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="bg-gradient-to-r from-deepNavy to-slate-800 text-white p-6 sm:p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-700">
                 <div>
-                    <span class="text-[10px] text-clinicalBlue uppercase font-bold tracking-widest">Sano Meditech Workspace</span>
-                    <h3 class="text-xl sm:text-2xl font-bold" id="user-display-name">Welcome</h3>
-                    <p class="text-xs text-gray-300" id="user-display-email">user@sanomeditech.com</p>
+                    <span class="text-[10px] text-sky-400 uppercase font-extrabold tracking-widest block mb-1">Sano Meditech Workspace</span>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight" id="user-display-name">Welcome</h3>
+                    <p class="text-sm text-gray-300 font-medium" id="user-display-email">user@sanomeditech.com</p>
                 </div>
-                <div class="flex gap-2 w-full sm:w-auto">
-                    <button onclick="window.print()" class="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 text-white px-3.5 py-2 rounded-lg text-xs font-semibold transition">Export Summary</button>
-                    <button onclick="logoutUser()" class="flex-1 sm:flex-none bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 px-3.5 py-2 rounded-lg text-xs font-semibold transition">Sign Out</button>
+                <div class="flex gap-3 w-full sm:w-auto mt-2 sm:mt-0">
+                    <button onclick="window.print()" class="flex-1 sm:flex-none bg-white/10 hover:bg-white/20 text-white px-4 py-2.5 rounded-lg text-sm font-bold backdrop-blur-sm transition border border-white/10">Export Summary</button>
+                    <button onclick="logoutUser()" class="flex-1 sm:flex-none bg-red-500/20 hover:bg-red-500/30 text-red-200 border border-red-500/30 px-4 py-2.5 rounded-lg text-sm font-bold backdrop-blur-sm transition">Sign Out</button>
                 </div>
             </div>
 
             <!-- Navigation Tabs -->
             <div class="flex border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/50 overflow-x-auto">
-                <button id="dtab-vitals" onclick="switchDashTab('vitals')" class="px-5 py-3.5 font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition">Vitals Log</button>
-                <button id="dtab-journal" onclick="switchDashTab('journal')" class="px-5 py-3.5 font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition">Health Journal</button>
-                <button id="dtab-profile" onclick="switchDashTab('profile')" class="px-5 py-3.5 font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition">Client Profile</button>
+                <button id="dtab-vitals" onclick="switchDashTab('vitals')" class="px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition">Vitals Log</button>
+                <button id="dtab-journal" onclick="switchDashTab('journal')" class="px-6 py-4 font-bold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm whitespace-nowrap transition">Health Journal</button>
+                <button id="dtab-profile" onclick="switchDashTab('profile')" class="px-6 py-4 font-bold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm whitespace-nowrap transition">Client Profile</button>
             </div>
 
             <!-- TAB 1: VITALS LOG -->
-            <div id="sec-vitals" class="p-4 sm:p-8 space-y-6">
-                <form id="vitals-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 dark:bg-slate-900/50 p-4 sm:p-6 rounded-xl border border-gray-200 dark:border-slate-700">
+            <div id="sec-vitals" class="p-6 sm:p-8 space-y-8">
+                <form id="vitals-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 bg-gray-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-gray-200 dark:border-slate-700">
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Blood Pressure (mmHg)</label>
-                        <input type="text" id="v-bp" placeholder="120/80" required class="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800">
+                        <label class="block text-xs font-bold mb-1.5">Blood Pressure (mmHg)</label>
+                        <input type="text" id="v-bp" placeholder="120/80" required class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Heart Rate (bpm)</label>
-                        <input type="number" id="v-hr" placeholder="72" required class="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800">
+                        <label class="block text-xs font-bold mb-1.5">Heart Rate (bpm)</label>
+                        <input type="number" id="v-hr" placeholder="72" required class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Blood Glucose (mg/dL)</label>
-                        <input type="number" id="v-bg" placeholder="95" class="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800">
+                        <label class="block text-xs font-bold mb-1.5">Blood Glucose (mg/dL)</label>
+                        <input type="number" id="v-bg" placeholder="95" class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Weight (kg)</label>
-                        <input type="number" step="0.1" id="v-weight" placeholder="70" required class="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800">
+                        <label class="block text-xs font-bold mb-1.5">Weight (kg)</label>
+                        <input type="number" step="0.1" id="v-weight" placeholder="70" required class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
-                    <div class="sm:col-span-2 lg:col-span-4 flex justify-end">
-                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-600 text-white font-bold px-6 py-2.5 rounded-lg text-xs sm:text-sm shadow transition">Log Vitals Record</button>
+                    <div class="sm:col-span-2 lg:col-span-4 flex justify-end pt-2">
+                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-500 text-white font-bold px-8 py-3 rounded-lg shadow-md transition duration-200 text-sm">Log Vitals Record</button>
                     </div>
                 </form>
 
                 <div>
-                    <h4 class="font-bold text-base sm:text-lg mb-3">Recorded History</h4>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs sm:text-sm">
-                            <thead class="bg-gray-100 dark:bg-slate-700/50 text-gray-600 dark:text-gray-300 uppercase text-[10px] tracking-wider">
+                    <h4 class="font-extrabold text-lg sm:text-xl mb-4 text-deepNavy dark:text-white tracking-tight">Recorded History</h4>
+                    <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead class="bg-gray-50 dark:bg-slate-800/80 text-gray-600 dark:text-gray-300 uppercase text-[11px] font-bold tracking-wider border-b border-gray-200 dark:border-slate-700">
                                 <tr>
-                                    <th class="p-3 rounded-l-lg">Timestamp</th>
-                                    <th class="p-3">Blood Pressure</th>
-                                    <th class="p-3">Heart Rate</th>
-                                    <th class="p-3">Glucose</th>
-                                    <th class="p-3 rounded-r-lg">Weight</th>
+                                    <th class="p-4">Timestamp</th>
+                                    <th class="p-4">Blood Pressure</th>
+                                    <th class="p-4">Heart Rate</th>
+                                    <th class="p-4">Glucose</th>
+                                    <th class="p-4">Weight</th>
                                 </tr>
                             </thead>
                             <tbody id="vitals-list" class="divide-y divide-gray-200 dark:divide-slate-700 font-medium">
-                                <tr><td colspan="5" class="p-4 text-center text-gray-400">Loading vitals...</td></tr>
+                                <tr><td colspan="5" class="p-6 text-center text-gray-500 text-sm">Loading vitals...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -189,30 +200,32 @@
             </div>
 
             <!-- TAB 2: HEALTH JOURNAL -->
-            <div id="sec-journal" class="p-4 sm:p-8 space-y-6 hidden">
-                <form id="journal-form" class="space-y-4 bg-gray-50 dark:bg-slate-900/50 p-4 sm:p-6 rounded-xl border border-gray-200 dark:border-slate-700">
+            <div id="sec-journal" class="p-6 sm:p-8 space-y-8 hidden">
+                <form id="journal-form" class="space-y-5 bg-gray-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-gray-200 dark:border-slate-700">
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Entry Title</label>
-                        <input type="text" id="j-title" placeholder="e.g. Weekly Summary / Exercise Baseline" required class="w-full px-3.5 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                        <label class="block text-xs font-bold mb-1.5">Entry Title</label>
+                        <input type="text" id="j-title" placeholder="e.g. Weekly Summary / Exercise Baseline" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Journal Notes & Observations</label>
-                        <textarea id="j-content" rows="3" placeholder="Log details regarding sleep, energy, stress levels, or symptoms..." required class="w-full px-3.5 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm"></textarea>
+                        <label class="block text-xs font-bold mb-1.5">Journal Notes & Observations</label>
+                        <textarea id="j-content" rows="4" placeholder="Log details regarding sleep, energy, stress levels, or symptoms..." required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition"></textarea>
                     </div>
-                    <button type="submit" class="bg-clinicalBlue hover:bg-sky-600 text-white font-bold px-6 py-2.5 rounded-lg text-xs sm:text-sm shadow transition">Save Journal Entry</button>
+                    <div class="flex justify-end pt-2">
+                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-500 text-white font-bold px-8 py-3 rounded-lg shadow-md transition duration-200 text-sm">Save Journal Entry</button>
+                    </div>
                 </form>
 
-                <div id="journal-entries" class="space-y-4">
-                    <p class="text-center text-gray-400 py-4 text-sm">Loading health journal...</p>
+                <div id="journal-entries" class="space-y-5">
+                    <p class="text-center text-gray-500 py-6 text-sm">Loading health journal...</p>
                 </div>
             </div>
 
             <!-- TAB 3: CLIENT PROFILE -->
-            <div id="sec-profile" class="p-4 sm:p-8 hidden">
-                <form id="profile-form" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div id="sec-profile" class="p-6 sm:p-8 hidden">
+                <form id="profile-form" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Blood Group</label>
-                        <select id="p-blood" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                        <label class="block text-xs font-bold mb-1.5">Blood Group</label>
+                        <select id="p-blood" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                             <option value="Unknown">Select Blood Group</option>
                             <option value="O+">O Positive (O+)</option>
                             <option value="O-">O Negative (O-)</option>
@@ -225,8 +238,8 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Genotype</label>
-                        <select id="p-genotype" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                        <label class="block text-xs font-bold mb-1.5">Genotype</label>
+                        <select id="p-genotype" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                             <option value="Unknown">Select Genotype</option>
                             <option value="AA">AA</option>
                             <option value="AS">AS</option>
@@ -235,19 +248,19 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Known Allergies</label>
-                        <input type="text" id="p-allergies" placeholder="e.g. Penicillin, Peanuts, None" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                        <label class="block text-xs font-bold mb-1.5">Known Allergies</label>
+                        <input type="text" id="p-allergies" placeholder="e.g. Penicillin, Peanuts, None" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold mb-1">Emergency Contact Phone</label>
-                        <input type="tel" id="p-emergency" placeholder="e.g. +234 915 771 3591" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm">
+                        <label class="block text-xs font-bold mb-1.5">Emergency Contact Phone</label>
+                        <input type="tel" id="p-emergency" placeholder="e.g. +234 915 771 3591" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-semibold mb-1">Medical Background / History</label>
-                        <textarea id="p-conditions" rows="3" placeholder="e.g. Mild Asthma, Seasonal Allergies..." class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm"></textarea>
+                        <label class="block text-xs font-bold mb-1.5">Medical Background / History</label>
+                        <textarea id="p-conditions" rows="4" placeholder="e.g. Mild Asthma, Seasonal Allergies..." class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition"></textarea>
                     </div>
-                    <div class="sm:col-span-2 flex justify-end">
-                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-600 text-white font-bold px-6 py-2.5 rounded-lg text-xs sm:text-sm shadow transition">Update Profile</button>
+                    <div class="sm:col-span-2 flex justify-end pt-2">
+                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-500 text-white font-bold px-8 py-3 rounded-lg shadow-md transition duration-200 text-sm">Update Profile</button>
                     </div>
                 </form>
             </div>
@@ -255,11 +268,11 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 py-6 text-center text-xs text-gray-500">
+    <footer class="bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 py-8 text-center text-sm font-medium text-gray-500">
         &copy; 2026 Sano Meditech Solutions. All rights reserved.
     </footer>
 
-    <!-- Firebase Logic -->
+    <!-- Firebase Logic (Preserved exactly as requested) -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCVZHQ3cPVWxE3gZmBrWyC7iGkIjras3kQ",
@@ -307,13 +320,13 @@
             if (type === 'login') {
                 loginForm.classList.remove('hidden');
                 signupForm.classList.add('hidden');
-                tabLogin.className = "flex-1 py-2.5 text-center font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition";
-                tabSignup.className = "flex-1 py-2.5 text-center font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm transition";
+                tabLogin.className = "flex-1 py-3 text-center font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition";
+                tabSignup.className = "flex-1 py-3 text-center font-bold text-gray-400 hover:text-clinicalBlue text-sm transition";
             } else {
                 loginForm.classList.add('hidden');
                 signupForm.classList.remove('hidden');
-                tabSignup.className = "flex-1 py-2.5 text-center font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition";
-                tabLogin.className = "flex-1 py-2.5 text-center font-semibold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm transition";
+                tabSignup.className = "flex-1 py-3 text-center font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition";
+                tabLogin.className = "flex-1 py-3 text-center font-bold text-gray-400 hover:text-clinicalBlue text-sm transition";
             }
         }
 
@@ -349,19 +362,19 @@
             document.getElementById('sec-journal').classList.add('hidden');
             document.getElementById('sec-profile').classList.add('hidden');
 
-            document.getElementById('dtab-vitals').className = "px-5 py-3.5 font-semibold text-gray-500 text-xs sm:text-sm whitespace-nowrap transition";
-            document.getElementById('dtab-journal').className = "px-5 py-3.5 font-semibold text-gray-500 text-xs sm:text-sm whitespace-nowrap transition";
-            document.getElementById('dtab-profile').className = "px-5 py-3.5 font-semibold text-gray-500 text-xs sm:text-sm whitespace-nowrap transition";
+            document.getElementById('dtab-vitals').className = "px-6 py-4 font-bold text-gray-500 text-sm whitespace-nowrap transition";
+            document.getElementById('dtab-journal').className = "px-6 py-4 font-bold text-gray-500 text-sm whitespace-nowrap transition";
+            document.getElementById('dtab-profile').className = "px-6 py-4 font-bold text-gray-500 text-sm whitespace-nowrap transition";
 
             if (tab === 'vitals') {
                 document.getElementById('sec-vitals').classList.remove('hidden');
-                document.getElementById('dtab-vitals').className = "px-5 py-3.5 font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition";
+                document.getElementById('dtab-vitals').className = "px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition";
             } else if (tab === 'journal') {
                 document.getElementById('sec-journal').classList.remove('hidden');
-                document.getElementById('dtab-journal').className = "px-5 py-3.5 font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition";
+                document.getElementById('dtab-journal').className = "px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition";
             } else if (tab === 'profile') {
                 document.getElementById('sec-profile').classList.remove('hidden');
-                document.getElementById('dtab-profile').className = "px-5 py-3.5 font-semibold text-clinicalBlue border-b-2 border-clinicalBlue text-xs sm:text-sm whitespace-nowrap transition";
+                document.getElementById('dtab-profile').className = "px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition";
             }
         }
 
@@ -386,7 +399,7 @@
             const list = document.getElementById('vitals-list');
             db.collection('users').doc(currentUser.uid).collection('vitals').orderBy('timestamp', 'desc').get().then(snap => {
                 if (snap.empty) {
-                    list.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-gray-400 text-xs">No records logged yet. Add your first set above.</td></tr>`;
+                    list.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-gray-500 text-sm">No records logged yet. Add your first set above.</td></tr>`;
                     return;
                 }
                 let html = '';
@@ -394,12 +407,12 @@
                     const data = doc.data();
                     const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now';
                     html += `
-                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/30 transition">
-                            <td class="p-3 text-[11px] text-gray-400">${date}</td>
-                            <td class="p-3 text-clinicalBlue font-bold">${data.bp} mmHg</td>
-                            <td class="p-3">${data.hr} bpm</td>
-                            <td class="p-3">${data.bg}</td>
-                            <td class="p-3">${data.weight} kg</td>
+                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-800 transition">
+                            <td class="p-4 text-[12px] text-gray-500">${date}</td>
+                            <td class="p-4 text-clinicalBlue font-extrabold">${data.bp} mmHg</td>
+                            <td class="p-4">${data.hr} bpm</td>
+                            <td class="p-4">${data.bg}</td>
+                            <td class="p-4">${data.weight} kg</td>
                         </tr>
                     `;
                 });
@@ -425,7 +438,7 @@
             const container = document.getElementById('journal-entries');
             db.collection('users').doc(currentUser.uid).collection('journal').orderBy('timestamp', 'desc').get().then(snap => {
                 if (snap.empty) {
-                    container.innerHTML = `<p class="text-center text-gray-400 py-4 text-xs">No journal entries found.</p>`;
+                    container.innerHTML = `<p class="text-center text-gray-500 py-6 text-sm">No journal entries found.</p>`;
                     return;
                 }
                 let html = '';
@@ -433,12 +446,12 @@
                     const data = doc.data();
                     const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now';
                     html += `
-                        <div class="p-4 bg-gray-50 dark:bg-slate-900/50 rounded-xl border border-gray-200 dark:border-slate-700">
-                            <div class="flex justify-between items-center mb-1.5">
-                                <h5 class="font-bold text-sm text-deepNavy dark:text-white">${data.title}</h5>
-                                <span class="text-[10px] text-gray-400">${date}</span>
+                        <div class="p-6 bg-gray-50 dark:bg-slate-900/50 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                            <div class="flex justify-between items-center mb-2">
+                                <h5 class="font-extrabold text-base text-deepNavy dark:text-white">${data.title}</h5>
+                                <span class="text-[11px] text-gray-500 font-medium">${date}</span>
                             </div>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">${data.content}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">${data.content}</p>
                         </div>
                     `;
                 });
