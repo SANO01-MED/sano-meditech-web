@@ -18,9 +18,7 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
                         clinicalBlue: '#0ea5e9',
                         deepNavy: '#0f172a',
@@ -46,23 +44,13 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <style>
-        .spinner {
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top: 3px solid #fff;
-            width: 18px;
-            height: 18px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 6px;
-        }
+        .spinner { border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top: 3px solid #fff; width: 18px; height: 18px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-clinicalBlue selection:text-white transition-colors duration-300">
 
-    <!-- Synchronized Professional Header Navigation -->
+    <!-- Header Navigation -->
     <nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm sticky top-0 z-50 border-b border-gray-200/50 dark:border-slate-800/50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
@@ -73,9 +61,18 @@
                         <span class="text-[10px] text-clinicalBlue font-bold tracking-[0.2em] uppercase mt-0.5">Client Workspace</span>
                     </div>
                 </a>
-                <a href="index.html" class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition flex items-center gap-1.5 bg-gray-100 dark:bg-slate-800 px-4 py-2 rounded-full">
-                    &larr; Back to Main Site
-                </a>
+                
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <!-- ADDED: BULLETPROOF Dark Mode Toggle for Portal -->
+                    <button id="theme-toggle" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition">
+                        <svg class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
+                    </button>
+                    
+                    <a href="index.html" class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition flex items-center gap-1.5 bg-gray-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-gray-200 dark:border-slate-700">
+                        &larr; <span class="hidden sm:inline">Back to Main Site</span><span class="sm:hidden">Home</span>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
@@ -272,7 +269,7 @@
         &copy; 2026 Sano Meditech Solutions. All rights reserved.
     </footer>
 
-    <!-- Firebase Logic (Preserved exactly as requested) -->
+    <!-- Firebase Logic -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCVZHQ3cPVWxE3gZmBrWyC7iGkIjras3kQ",
@@ -289,6 +286,17 @@
         const db = firebase.firestore();
 
         let currentUser = null;
+
+        // FIXED Dark Mode Logic for Portal
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.setItem('color-theme', 'dark');
+            } else {
+                localStorage.setItem('color-theme', 'light');
+            }
+        }
+        document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
 
         auth.onAuthStateChanged(user => {
             const authContainer = document.getElementById('auth-container');
