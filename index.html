@@ -18,9 +18,7 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
                         clinicalBlue: '#0ea5e9',
                         deepNavy: '#0f172a',
@@ -32,9 +30,7 @@
     </script>
     
     <!-- Vercel Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
     <script defer src="/_vercel/insights/script.js"></script>
 
     <!-- Dark Mode Init -->
@@ -47,23 +43,8 @@
     </script>
 
     <style>
-        #hero-bg {
-            transition: background-image 1.5s ease-in-out;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        .spinner {
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top: 3px solid #fff;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
+        #hero-bg { transition: background-image 1.5s ease-in-out; background-size: cover; background-position: center; background-repeat: no-repeat; }
+        .spinner { border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top: 3px solid #fff; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
@@ -71,7 +52,7 @@
 </head>
 <body class="bg-gray-50 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans antialiased selection:bg-clinicalBlue selection:text-white transition-colors duration-300 overflow-x-hidden">
 
-    <!-- Redesigned Professional Navigation -->
+    <!-- Navigation -->
     <nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm fixed w-full top-0 z-50 border-b border-gray-200/50 dark:border-slate-800/50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
@@ -91,10 +72,10 @@
                     <a href="#publications" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition">Protocols</a>
                     <a href="#assessment" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition">Triage Engine</a>
                     
-                    <!-- Dark Mode Toggle -->
+                    <!-- BULLETPROOF Dark Mode Toggle -->
                     <button id="theme-toggle" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
+                        <svg class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
                     </button>
 
                     <div class="flex items-center gap-3 border-l border-gray-200 dark:border-slate-700 pl-6">
@@ -103,7 +84,7 @@
                     </div>
                 </div>
 
-                <!-- Mobile Menu Button -->
+                <!-- Mobile Menu Button & Toggle -->
                 <div class="flex items-center gap-2 lg:hidden">
                     <button id="theme-toggle-mobile" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition">
                         <svg class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
@@ -151,14 +132,13 @@
         </div>
     </header>
 
-    <!-- NEW FEATURE: Live Health News & Alerts -->
+    <!-- Health News Section -->
     <section id="news" class="py-12 bg-white dark:bg-slate-800 transition-colors duration-300 border-b border-gray-100 dark:border-slate-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center gap-3 mb-6">
                 <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <h2 class="text-xl sm:text-2xl font-bold text-deepNavy dark:text-white tracking-tight">Active Health Alerts</h2>
             </div>
-            
             <div class="bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500 p-6 rounded-r-2xl shadow-sm flex flex-col md:flex-row gap-6 items-start">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 mb-2">
@@ -177,7 +157,7 @@
         </div>
     </section>
 
-    <!-- About Us Section (Restored from Original) -->
+    <!-- About Us Section -->
     <section id="about" class="py-16 sm:py-24 bg-white dark:bg-slate-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -481,14 +461,13 @@
             heroElement.style.backgroundImage = `url('${heroImages[currentImageIndex]}')`;
         }, 5000); 
 
-        // Dark Mode Logic
+        // FIXED Dark Mode Logic
         function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
             if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
                 localStorage.setItem('color-theme', 'dark');
+            } else {
+                localStorage.setItem('color-theme', 'light');
             }
         }
         document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
