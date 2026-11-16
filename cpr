@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Collegiate CPR & Basic Life Support Readiness Drill - Powered by Sano Meditech Solutions.">
+    <title>Collegiate CPR Drill &amp; Assessment | Sano Meditech Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { clinicalBlue: '#0ea5e9', deepNavy: '#0f172a' }
+                }
+            }
+        }
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col justify-between transition-colors duration-300">
+
+    <!-- Navbar -->
+    <nav class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-sm sticky top-0 z-50 border-b border-gray-200/60 dark:border-slate-800/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2.5">
+                <img src="logo.png" alt="Sano Meditech Logo" onerror="this.style.display='none'" class="h-8 w-auto">
+                <div>
+                    <span class="font-extrabold text-base text-deepNavy dark:text-white tracking-tight block leading-none">SANO MEDITECH</span>
+                    <span class="text-[9px] text-clinicalBlue font-bold tracking-[0.2em] uppercase">Clinical Simulation</span>
+                </div>
+            </a>
+            <a href="index.html" class="text-xs font-bold bg-gray-100 dark:bg-slate-800 px-3.5 py-2 rounded-full border border-gray-200 dark:border-slate-700 hover:text-clinicalBlue transition">&larr; Main Site</a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full flex-1 space-y-8">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-deepNavy to-slate-800 text-white p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-700">
+            <span class="inline-block bg-clinicalBlue/20 border border-clinicalBlue/40 text-clinicalBlue text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">
+                Be the First Link in the Chain of Survival
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">Collegiate CPR Readiness &amp; Code Blue Drill</h1>
+            <p class="text-sm text-gray-300">Complete the 60-second Pre/Post clinical knowledge check and practice the interactive adult cardiac arrest response sequence.</p>
+        </div>
+
+        <!-- Mode Switcher -->
+        <div class="grid grid-cols-2 gap-3 bg-white dark:bg-slate-800 p-2 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700">
+            <button id="btn-mode-quiz" onclick="switchMode('quiz')" class="py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-clinicalBlue text-white shadow transition">
+                1. Pre / Post Readiness Check
+            </button>
+            <button id="btn-mode-sim" onclick="switchMode('sim')" class="py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition">
+                2. "Code Blue" Decision Drill
+            </button>
+        </div>
+
+        <!-- SECTION 1: PRE / POST ASSESSMENT -->
+        <section id="sec-quiz" class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl shadow-sm border border-gray-200 dark:border-slate-700">
+            <form id="cpr-form" class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label for="cpr-stage" class="block text-xs font-bold mb-1.5">Assessment Stage</label>
+                        <select id="cpr-stage" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                            <option value="PRE_TRAINING">Pre-Training (Baseline)</option>
+                            <option value="POST_TRAINING">Post-Training (Exit Check)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="cpr-name" class="block text-xs font-bold mb-1.5">Full Name / Initials</label>
+                        <input type="text" id="cpr-name" required placeholder="e.g. A.B. Adeyemi" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                    </div>
+                    <div>
+                        <label for="cpr-level" class="block text-xs font-bold mb-1.5">Level / Department</label>
+                        <input type="text" id="cpr-level" required placeholder="e.g. 200L MBBS / Nursing" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue">
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-2 border-t border-gray-100 dark:border-slate-700">
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold mb-1.5">Q1. What is the recommended chest compression rate for adult CPR?</label>
+                        <select id="q1" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-sm">
+                            <option value="">Select answer...</option>
+                            <option value="60-80">60 – 80 compressions per minute</option>
+                            <option value="100-120">100 – 120 compressions per minute</option>
+                            <option value="140-160">140 – 160 compressions per minute</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold mb-1.5">Q2. What is the single-rescuer compression-to-ventilation ratio in adults?</label>
+                        <select id="q2" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-sm">
+                            <option value="">Select answer...</option>
+                            <option value="15:2">15 compressions : 2 breaths</option>
+                            <option value="30:2">30 compressions : 2 breaths</option>
+                            <option value="5:1">5 compressions : 1 breath</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold mb-1.5">Q3. What is the target chest compression depth in an adult?</label>
+                        <select id="q3" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-sm">
+                            <option value="">Select answer...</option>
+                            <option value="2-3cm">2 – 3 cm (about 1 inch)</option>
+                            <option value="5-6cm">5 – 6 cm (at least 2 inches, not exceeding 2.4 inches)</option>
+                            <option value="8-10cm">8 – 10 cm (4 inches)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold mb-1.5">Q4. Self-Rated Emergency Confidence (1 = Not Confident, 5 = Ready to Lead CPR)</label>
+                        <select id="cpr-confidence" required class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-sm">
+                            <option value="1">1 — Not confident at all</option>
+                            <option value="2">2 — Slightly confident</option>
+                            <option value="3" selected>3 — Moderately confident</option>
+                            <option value="4">4 — Confident</option>
+                            <option value="5">5 — Fully confident to initiate BLS</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" id="cpr-submit" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-3.5 rounded-xl shadow-md transition text-sm">
+                    Submit Assessment &amp; View Score
+                </button>
+            </form>
+
+            <div id="cpr-result" class="hidden mt-6 p-5 rounded-2xl bg-slate-900 text-white border border-slate-700"></div>
+        </section>
+
+        <!-- SECTION 2: INTERACTIVE CODE BLUE DRILL -->
+        <section id="sec-sim" class="hidden bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl shadow-sm border border-gray-200 dark:border-slate-700 space-y-6">
+            <div class="flex justify-between items-center border-b border-gray-100 dark:border-slate-700 pb-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-clinicalBlue" id="sim-step-label">Step 1 of 4</span>
+                    <h2 class="text-lg sm:text-xl font-extrabold text-deepNavy dark:text-white" id="sim-title">Scene Arrival</h2>
+                </div>
+                <button type="button" onclick="resetSim()" class="text-xs font-bold text-gray-500 hover:text-clinicalBlue">Restart Drill</button>
+            </div>
+            <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed" id="sim-prompt"></p>
+            <div id="sim-options" class="space-y-3"></div>
+            <div id="sim-feedback" class="hidden p-4 rounded-xl text-sm font-medium"></div>
+        </section>
+    </main>
+
+    <footer class="py-6 text-center text-xs text-gray-500 border-t border-gray-200 dark:border-slate-800">
+        Clinical Analytics &amp; Simulation Infrastructure • Powered by <strong>Sano Meditech Solutions</strong>
+    </footer>
+
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxvOpe7qnh5dIJRNbPa0ovBS97S0qEfVwxaF7sZqijy4811frs-YVTF698Ddna7pq4/exec";
+
+        function switchMode(mode) {
+            const isQuiz = mode === 'quiz';
+            document.getElementById('sec-quiz').classList.toggle('hidden', !isQuiz);
+            document.getElementById('sec-sim').classList.toggle('hidden', isQuiz);
+            document.getElementById('btn-mode-quiz').className = isQuiz
+                ? "py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-clinicalBlue text-white shadow transition"
+                : "py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition";
+            document.getElementById('btn-mode-sim').className = !isQuiz
+                ? "py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-clinicalBlue text-white shadow transition"
+                : "py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition";
+        }
+
+        // Pre/Post Assessment Handler
+        document.getElementById('cpr-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('cpr-submit');
+            btn.disabled = true;
+            btn.textContent = "Recording Score...";
+
+            const q1 = document.getElementById('q1').value;
+            const q2 = document.getElementById('q2').value;
+            const q3 = document.getElementById('q3').value;
+            let score = 0;
+            if (q1 === "100-120") score++;
+            if (q2 === "30:2") score++;
+            if (q3 === "5-6cm") score++;
+            const pct = Math.round((score / 3) * 100);
+
+            const payload = {
+                formType: "cpr_assessment",
+                stage: document.getElementById('cpr-stage').value,
+                fullName: document.getElementById('cpr-name').value.trim(),
+                level: document.getElementById('cpr-level').value.trim(),
+                score: `${score}/3 (${pct}%)`,
+                confidence: document.getElementById('cpr-confidence').value,
+                answers: `Q1:${q1} | Q2:${q2} | Q3:${q3}`
+            };
+
+            try {
+                if (navigator.onLine) {
+                    await fetch(WEB_APP_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'text/plain' },
+                        body: JSON.stringify(payload)
+                    });
+                }
+            } catch (_) {}
+
+            const box = document.getElementById('cpr-result');
+            box.innerHTML = `
+                <p class="text-xs uppercase tracking-wider text-clinicalBlue font-bold mb-1">${payload.stage.replace('_', ' ')} RECORDED</p>
+                <p class="text-xl font-extrabold mb-2">Score: ${score} / 3 (${pct}%)</p>
+                <p class="text-xs text-gray-300">Key Protocol Benchmarks: Rate <strong>100–120/min</strong> • Ratio <strong>30:2</strong> • Depth <strong>5–6 cm</strong> with full chest recoil.</p>
+            `;
+            box.classList.remove('hidden');
+            btn.disabled = false;
+            btn.textContent = "Submit Assessment & View Score";
+        });
+
+        // 4-Step Code Blue Simulator
+        const simSteps = [
+            {
+                title: "Step 1 of 4: Scene Arrival",
+                prompt: "A 21-year-old student suddenly collapses in the lecture corridor. What is your immediate first action?",
+                options: [
+                    { text: "Verify scene safety, tap shoulders firmly, and shout to check responsiveness", ok: true, msg: "Correct. Always confirm scene safety and check responsiveness before anything else." },
+                    { text: "Immediately begin rescue breaths before checking responsiveness", ok: false, msg: "Incorrect. Confirm scene safety and unresponsiveness first." }
+                ]
+            },
+            {
+                title: "Step 2 of 4: Activation & Pulse Check",
+                prompt: "The student is unresponsive and only gasping (agonal breaths). What do you do next?",
+                options: [
+                    { text: "Call for emergency help/AED, simultaneously check carotid pulse & breathing for ≤10 seconds", ok: true, msg: "Correct. Agonal gasps are not normal breathing; activate emergency response and check pulse within 10 seconds." },
+                    { text: "Place them in the recovery position and wait 5 minutes", ok: false, msg: "Incorrect. Agonal gasps indicate cardiac arrest—delaying CPR reduces survival by ~10% per minute." }
+                ]
+            },
+            {
+                title: "Step 3 of 4: High-Quality Chest Compressions",
+                prompt: "No carotid pulse is felt within 10 seconds. Where and how do you start compressions?",
+                options: [
+                    { text: "Center of chest (lower half of sternum), 5–6 cm deep at 100–120/min, allowing full recoil", ok: true, msg: "Correct. Hard, fast compressions on the lower half of the sternum with minimal interruptions." },
+                    { text: "Upper left chest over the apex at 70 compressions/min", ok: false, msg: "Incorrect. Compress the lower half of the sternum at 100–120/min." }
+                ]
+            },
+            {
+                title: "Step 4 of 4: AED Arrival",
+                prompt: "A responder arrives with an Automated External Defibrillator (AED) while you are compressing. What is the priority?",
+                options: [
+                    { text: "Power on the AED immediately, attach pads to bare chest, and follow voice prompts", ok: true, msg: "Drill Complete! Early defibrillation combined with high-quality CPR maximizes survival." },
+                    { text: "Finish 5 full cycles of CPR before turning on the AED", ok: false, msg: "Incorrect. Turn on and apply the AED as soon as it arrives." }
+                ]
+            }
+        ];
+
+        let simIndex = 0;
+        function renderSim() {
+            const s = simSteps[simIndex];
+            document.getElementById('sim-step-label').textContent = `Scenario ${simIndex + 1} / ${simSteps.length}`;
+            document.getElementById('sim-title').textContent = s.title;
+            document.getElementById('sim-prompt').textContent = s.prompt;
+            const fb = document.getElementById('sim-feedback');
+            fb.classList.add('hidden');
+            const opts = document.getElementById('sim-options');
+            opts.innerHTML = '';
+            s.options.forEach(opt => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = "w-full text-left p-4 rounded-xl border border-gray-200 dark:border-slate-700 hover:border-clinicalBlue bg-gray-50 dark:bg-slate-900 text-sm font-semibold transition";
+                b.textContent = opt.text;
+                b.onclick = () => {
+                    fb.textContent = opt.msg;
+                    fb.className = opt.ok
+                        ? "p-4 rounded-xl text-sm font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30"
+                        : "p-4 rounded-xl text-sm font-semibold bg-red-500/15 text-red-600 dark:text-red-300 border border-red-500/30";
+                    fb.classList.remove('hidden');
+                    if (opt.ok && simIndex < simSteps.length - 1) {
+                        setTimeout(() => { simIndex++; renderSim(); }, 1400);
+                    }
+                };
+                opts.appendChild(b);
+            });
+        }
+        function resetSim() { simIndex = 0; renderSim(); }
+        renderSim();
+    </script>
+</body>
+</html>
