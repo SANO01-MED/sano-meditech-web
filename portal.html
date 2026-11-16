@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sano Meditech Client Portal - Manage personal vitals, health journals, and medical profiles.">
+    <link rel="canonical" href="https://sanomeditech.vercel.app/portal.html">
     <title>Client Portal | Sano Meditech Solutions</title>
-    
+
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -44,14 +45,14 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <style>
-        .spinner { border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top: 3px solid #fff; width: 18px; height: 18px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px; }
+        .spinner { border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top: 3px solid #fff; width: 16px; height: 16px; animation: spin 0.8s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-clinicalBlue selection:text-white transition-colors duration-300">
 
     <!-- Header Navigation -->
-    <nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm sticky top-0 z-50 border-b border-gray-200/50 dark:border-slate-800/50 transition-colors duration-300">
+    <nav class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-sm sticky top-0 z-50 border-b border-gray-200/60 dark:border-slate-800/60 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <a href="index.html" class="flex items-center gap-3 group">
@@ -61,14 +62,15 @@
                         <span class="text-[10px] text-clinicalBlue font-bold tracking-[0.2em] uppercase mt-0.5">Client Workspace</span>
                     </div>
                 </a>
-                
-                <div class="flex items-center gap-4 sm:gap-6">
-                    <!-- ADDED: BULLETPROOF Dark Mode Toggle for Portal -->
-                    <button id="theme-toggle" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition">
+
+                <div class="flex items-center gap-3 sm:gap-5">
+                    <a href="cpr.html" class="hidden md:inline-block text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition">CPR Drill</a>
+
+                    <button id="theme-toggle" aria-label="Toggle color theme" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 transition">
                         <svg class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                         <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
                     </button>
-                    
+
                     <a href="index.html" class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-clinicalBlue transition flex items-center gap-1.5 bg-gray-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-gray-200 dark:border-slate-700">
                         &larr; <span class="hidden sm:inline">Back to Main Site</span><span class="sm:hidden">Home</span>
                     </a>
@@ -88,45 +90,48 @@
             </div>
 
             <div class="flex border-b border-gray-200 dark:border-slate-700 mb-6">
-                <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 py-3 text-center font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition">Sign In</button>
-                <button id="tab-signup" onclick="switchAuthTab('signup')" class="flex-1 py-3 text-center font-bold text-gray-400 hover:text-clinicalBlue text-sm transition">Create Account</button>
+                <button id="tab-login" type="button" onclick="switchAuthTab('login')" class="flex-1 py-3 text-center font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm transition">Sign In</button>
+                <button id="tab-signup" type="button" onclick="switchAuthTab('signup')" class="flex-1 py-3 text-center font-bold text-gray-400 hover:text-clinicalBlue text-sm transition">Create Account</button>
             </div>
 
             <!-- LOGIN FORM -->
             <form id="login-form" class="space-y-5">
                 <div>
-                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Email Address</label>
+                    <label for="login-email" class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Email Address</label>
                     <input type="email" id="login-email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Password</label>
+                    <div class="flex justify-between items-center mb-1.5">
+                        <label for="login-password" class="block text-xs font-bold text-gray-600 dark:text-gray-300">Password</label>
+                        <button type="button" onclick="resetPassword()" class="text-[11px] font-semibold text-clinicalBlue hover:underline">Forgot password?</button>
+                    </div>
                     <input type="password" id="login-password" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
-                <button type="submit" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-3.5 rounded-lg shadow-md transition duration-200">Sign In</button>
+                <button type="submit" id="login-btn" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-3.5 rounded-lg shadow-md transition duration-200">Sign In</button>
             </form>
 
             <!-- SIGNUP FORM -->
             <form id="signup-form" class="space-y-5 hidden">
                 <div>
-                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Full Name</label>
+                    <label for="signup-name" class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Full Name</label>
                     <input type="text" id="signup-name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Email Address</label>
+                    <label for="signup-email" class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Email Address</label>
                     <input type="email" id="signup-email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Password</label>
+                    <label for="signup-password" class="block text-xs font-bold mb-1.5 text-gray-600 dark:text-gray-300">Password (min. 6 characters)</label>
                     <input type="password" id="signup-password" required minlength="6" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                 </div>
-                <button type="submit" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-3.5 rounded-lg shadow-md transition duration-200">Create Account</button>
+                <button type="submit" id="signup-btn" class="w-full bg-clinicalBlue hover:bg-sky-500 text-white font-bold py-3.5 rounded-lg shadow-md transition duration-200">Create Account</button>
             </form>
 
             <div class="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700 text-center">
                 <p class="text-xs text-gray-500 mb-4 font-medium">Testing or evaluating the workspace?</p>
-                <button onclick="loginGuest()" class="w-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 font-bold py-3 rounded-lg text-sm transition">Continue as Guest</button>
+                <button type="button" id="guest-btn" onclick="loginGuest()" class="w-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 font-bold py-3 rounded-lg text-sm transition">Continue as Guest</button>
             </div>
-            <div id="auth-error" class="hidden text-xs text-red-500 font-semibold text-center mt-4"></div>
+            <div id="auth-feedback" class="hidden text-xs font-semibold text-center mt-4"></div>
         </div>
 
         <!-- DASHBOARD CONTAINER (When Signed In) -->
@@ -139,39 +144,42 @@
                     <p class="text-sm text-gray-300 font-medium" id="user-display-email">user@sanomeditech.com</p>
                 </div>
                 <div class="flex gap-3 w-full sm:w-auto mt-2 sm:mt-0">
-                    <button onclick="window.print()" class="flex-1 sm:flex-none bg-white/10 hover:bg-white/20 text-white px-4 py-2.5 rounded-lg text-sm font-bold backdrop-blur-sm transition border border-white/10">Export Summary</button>
-                    <button onclick="logoutUser()" class="flex-1 sm:flex-none bg-red-500/20 hover:bg-red-500/30 text-red-200 border border-red-500/30 px-4 py-2.5 rounded-lg text-sm font-bold backdrop-blur-sm transition">Sign Out</button>
+                    <button type="button" onclick="window.print()" class="flex-1 sm:flex-none bg-white/10 hover:bg-white/20 text-white px-4 py-2.5 rounded-lg text-sm font-bold backdrop-blur-sm transition border border-white/10">Export Summary</button>
+                    <button type="button" onclick="logoutUser()" class="flex-1 sm:flex-none bg-red-500/20 hover:bg-red-500/30 text-red-200 border border-red-500/30 px-4 py-2.5 rounded-lg text-sm font-bold backdrop-blur-sm transition">Sign Out</button>
                 </div>
             </div>
 
+            <!-- Inline Status Banner -->
+            <div id="dash-banner" class="hidden px-6 py-3 text-xs sm:text-sm font-semibold text-center"></div>
+
             <!-- Navigation Tabs -->
             <div class="flex border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/50 overflow-x-auto">
-                <button id="dtab-vitals" onclick="switchDashTab('vitals')" class="px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition">Vitals Log</button>
-                <button id="dtab-journal" onclick="switchDashTab('journal')" class="px-6 py-4 font-bold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm whitespace-nowrap transition">Health Journal</button>
-                <button id="dtab-profile" onclick="switchDashTab('profile')" class="px-6 py-4 font-bold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm whitespace-nowrap transition">Client Profile</button>
+                <button type="button" id="dtab-vitals" onclick="switchDashTab('vitals')" class="px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition">Vitals Log</button>
+                <button type="button" id="dtab-journal" onclick="switchDashTab('journal')" class="px-6 py-4 font-bold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm whitespace-nowrap transition">Health Journal</button>
+                <button type="button" id="dtab-profile" onclick="switchDashTab('profile')" class="px-6 py-4 font-bold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm whitespace-nowrap transition">Client Profile</button>
             </div>
 
             <!-- TAB 1: VITALS LOG -->
             <div id="sec-vitals" class="p-6 sm:p-8 space-y-8">
                 <form id="vitals-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 bg-gray-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-gray-200 dark:border-slate-700">
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Blood Pressure (mmHg)</label>
-                        <input type="text" id="v-bp" placeholder="120/80" required class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
+                        <label for="v-bp" class="block text-xs font-bold mb-1.5">Blood Pressure (mmHg)</label>
+                        <input type="text" id="v-bp" placeholder="120/80" pattern="^\d{2,3}\/\d{2,3}$" title="Enter format like 120/80" required class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Heart Rate (bpm)</label>
-                        <input type="number" id="v-hr" placeholder="72" required class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
+                        <label for="v-hr" class="block text-xs font-bold mb-1.5">Heart Rate (bpm)</label>
+                        <input type="number" id="v-hr" placeholder="72" min="30" max="250" required class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Blood Glucose (mg/dL)</label>
-                        <input type="number" id="v-bg" placeholder="95" class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
+                        <label for="v-bg" class="block text-xs font-bold mb-1.5">Blood Glucose (mg/dL)</label>
+                        <input type="number" id="v-bg" placeholder="95" min="20" max="800" class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Weight (kg)</label>
-                        <input type="number" step="0.1" id="v-weight" placeholder="70" required class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
+                        <label for="v-weight" class="block text-xs font-bold mb-1.5">Weight (kg)</label>
+                        <input type="number" step="0.1" min="1" max="400" id="v-weight" placeholder="70" required class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div class="sm:col-span-2 lg:col-span-4 flex justify-end pt-2">
-                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-500 text-white font-bold px-8 py-3 rounded-lg shadow-md transition duration-200 text-sm">Log Vitals Record</button>
+                        <button type="submit" id="vitals-submit-btn" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-500 text-white font-bold px-8 py-3 rounded-lg shadow-md transition duration-200 text-sm">Log Vitals Record</button>
                     </div>
                 </form>
 
@@ -200,15 +208,15 @@
             <div id="sec-journal" class="p-6 sm:p-8 space-y-8 hidden">
                 <form id="journal-form" class="space-y-5 bg-gray-50 dark:bg-slate-900/50 p-6 rounded-2xl border border-gray-200 dark:border-slate-700">
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Entry Title</label>
+                        <label for="j-title" class="block text-xs font-bold mb-1.5">Entry Title</label>
                         <input type="text" id="j-title" placeholder="e.g. Weekly Summary / Exercise Baseline" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Journal Notes & Observations</label>
+                        <label for="j-content" class="block text-xs font-bold mb-1.5">Journal Notes &amp; Observations</label>
                         <textarea id="j-content" rows="4" placeholder="Log details regarding sleep, energy, stress levels, or symptoms..." required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition"></textarea>
                     </div>
                     <div class="flex justify-end pt-2">
-                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-500 text-white font-bold px-8 py-3 rounded-lg shadow-md transition duration-200 text-sm">Save Journal Entry</button>
+                        <button type="submit" id="journal-submit-btn" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-500 text-white font-bold px-8 py-3 rounded-lg shadow-md transition duration-200 text-sm">Save Journal Entry</button>
                     </div>
                 </form>
 
@@ -221,7 +229,7 @@
             <div id="sec-profile" class="p-6 sm:p-8 hidden">
                 <form id="profile-form" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Blood Group</label>
+                        <label for="p-blood" class="block text-xs font-bold mb-1.5">Blood Group</label>
                         <select id="p-blood" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                             <option value="Unknown">Select Blood Group</option>
                             <option value="O+">O Positive (O+)</option>
@@ -235,7 +243,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Genotype</label>
+                        <label for="p-genotype" class="block text-xs font-bold mb-1.5">Genotype</label>
                         <select id="p-genotype" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                             <option value="Unknown">Select Genotype</option>
                             <option value="AA">AA</option>
@@ -245,19 +253,19 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Known Allergies</label>
+                        <label for="p-allergies" class="block text-xs font-bold mb-1.5">Known Allergies</label>
                         <input type="text" id="p-allergies" placeholder="e.g. Penicillin, Peanuts, None" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold mb-1.5">Emergency Contact Phone</label>
+                        <label for="p-emergency" class="block text-xs font-bold mb-1.5">Emergency Contact Phone</label>
                         <input type="tel" id="p-emergency" placeholder="e.g. +234 915 771 3591" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition">
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-bold mb-1.5">Medical Background / History</label>
+                        <label for="p-conditions" class="block text-xs font-bold mb-1.5">Medical Background / History</label>
                         <textarea id="p-conditions" rows="4" placeholder="e.g. Mild Asthma, Seasonal Allergies..." class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm outline-none focus:ring-2 focus:ring-clinicalBlue transition"></textarea>
                     </div>
                     <div class="sm:col-span-2 flex justify-end pt-2">
-                        <button type="submit" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-500 text-white font-bold px-8 py-3 rounded-lg shadow-md transition duration-200 text-sm">Update Profile</button>
+                        <button type="submit" id="profile-submit-btn" class="w-full sm:w-auto bg-clinicalBlue hover:bg-sky-500 text-white font-bold px-8 py-3 rounded-lg shadow-md transition duration-200 text-sm">Update Profile</button>
                     </div>
                 </form>
             </div>
@@ -284,17 +292,32 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
-
         let currentUser = null;
 
-        // FIXED Dark Mode Logic for Portal
+        // Escape helper to prevent XSS from user-entered strings
+        function escapeHTML(str) {
+            return String(str ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function showBanner(msg, isError = false) {
+            const banner = document.getElementById('dash-banner');
+            banner.textContent = msg;
+            banner.className = isError
+                ? "px-6 py-3 text-xs sm:text-sm font-semibold text-center bg-red-500/15 text-red-600 dark:text-red-300 border-b border-red-500/30"
+                : "px-6 py-3 text-xs sm:text-sm font-semibold text-center bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-b border-emerald-500/30";
+            banner.classList.remove('hidden');
+            setTimeout(() => banner.classList.add('hidden'), 4000);
+        }
+
+        // Dark Mode Logic
         function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
-            if (document.documentElement.classList.contains('dark')) {
-                localStorage.setItem('color-theme', 'dark');
-            } else {
-                localStorage.setItem('color-theme', 'light');
-            }
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
         }
         document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
 
@@ -307,7 +330,7 @@
                 authContainer.classList.add('hidden');
                 dashboardContainer.classList.remove('hidden');
                 document.getElementById('user-display-name').textContent = user.displayName || (user.isAnonymous ? "Guest Client" : "Registered Client");
-                document.getElementById('user-display-email').textContent = user.email || "Active Session";
+                document.getElementById('user-display-email').textContent = user.email || "Temporary Guest Session";
 
                 loadVitals();
                 loadJournal();
@@ -324,6 +347,7 @@
             const signupForm = document.getElementById('signup-form');
             const tabLogin = document.getElementById('tab-login');
             const tabSignup = document.getElementById('tab-signup');
+            document.getElementById('auth-feedback').classList.add('hidden');
 
             if (type === 'login') {
                 loginForm.classList.remove('hidden');
@@ -338,74 +362,124 @@
             }
         }
 
-        document.getElementById('login-form').addEventListener('submit', e => {
-            e.preventDefault();
-            auth.signInWithEmailAndPassword(
-                document.getElementById('login-email').value,
-                document.getElementById('login-password').value
-            ).catch(err => showAuthError(err.message));
-        });
-
-        document.getElementById('signup-form').addEventListener('submit', e => {
-            e.preventDefault();
-            const name = document.getElementById('signup-name').value;
-            auth.createUserWithEmailAndPassword(
-                document.getElementById('signup-email').value,
-                document.getElementById('signup-password').value
-            ).then(cred => cred.user.updateProfile({ displayName: name }))
-            .catch(err => showAuthError(err.message));
-        });
-
-        function loginGuest() { auth.signInAnonymously().catch(err => showAuthError(err.message)); }
-        function logoutUser() { auth.signOut(); }
-
-        function showAuthError(msg) {
-            const errBox = document.getElementById('auth-error');
-            errBox.textContent = msg;
-            errBox.classList.remove('hidden');
+        function showAuthFeedback(msg, isSuccess = false) {
+            const box = document.getElementById('auth-feedback');
+            box.textContent = msg;
+            box.className = isSuccess
+                ? "text-xs text-emerald-500 font-semibold text-center mt-4"
+                : "text-xs text-red-500 font-semibold text-center mt-4";
+            box.classList.remove('hidden');
         }
 
-        function switchDashTab(tab) {
-            document.getElementById('sec-vitals').classList.add('hidden');
-            document.getElementById('sec-journal').classList.add('hidden');
-            document.getElementById('sec-profile').classList.add('hidden');
+        document.getElementById('login-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            const btn = document.getElementById('login-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Signing In...';
+            try {
+                await auth.signInWithEmailAndPassword(
+                    document.getElementById('login-email').value.trim(),
+                    document.getElementById('login-password').value
+                );
+            } catch (err) {
+                showAuthFeedback(err.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Sign In';
+            }
+        });
 
-            document.getElementById('dtab-vitals').className = "px-6 py-4 font-bold text-gray-500 text-sm whitespace-nowrap transition";
-            document.getElementById('dtab-journal').className = "px-6 py-4 font-bold text-gray-500 text-sm whitespace-nowrap transition";
-            document.getElementById('dtab-profile').className = "px-6 py-4 font-bold text-gray-500 text-sm whitespace-nowrap transition";
+        document.getElementById('signup-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            const btn = document.getElementById('signup-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Creating Account...';
+            try {
+                const name = document.getElementById('signup-name').value.trim();
+                const cred = await auth.createUserWithEmailAndPassword(
+                    document.getElementById('signup-email').value.trim(),
+                    document.getElementById('signup-password').value
+                );
+                await cred.user.updateProfile({ displayName: name });
+                document.getElementById('user-display-name').textContent = name;
+            } catch (err) {
+                showAuthFeedback(err.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Create Account';
+            }
+        });
 
-            if (tab === 'vitals') {
-                document.getElementById('sec-vitals').classList.remove('hidden');
-                document.getElementById('dtab-vitals').className = "px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition";
-            } else if (tab === 'journal') {
-                document.getElementById('sec-journal').classList.remove('hidden');
-                document.getElementById('dtab-journal').className = "px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition";
-            } else if (tab === 'profile') {
-                document.getElementById('sec-profile').classList.remove('hidden');
-                document.getElementById('dtab-profile').className = "px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition";
+        async function resetPassword() {
+            const email = document.getElementById('login-email').value.trim();
+            if (!email) {
+                showAuthFeedback("Enter your email address above first, then click Forgot password.");
+                return;
+            }
+            try {
+                await auth.sendPasswordResetEmail(email);
+                showAuthFeedback("Password reset link sent to " + email, true);
+            } catch (err) {
+                showAuthFeedback(err.message);
             }
         }
 
-        // Firestore Actions
-        document.getElementById('vitals-form').addEventListener('submit', e => {
+        async function loginGuest() {
+            const btn = document.getElementById('guest-btn');
+            btn.disabled = true;
+            btn.textContent = 'Starting Guest Session...';
+            try {
+                await auth.signInAnonymously();
+            } catch (err) {
+                showAuthFeedback(err.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Continue as Guest';
+            }
+        }
+
+        function logoutUser() { auth.signOut(); }
+
+        function switchDashTab(tab) {
+            ['vitals', 'journal', 'profile'].forEach(t => {
+                document.getElementById('sec-' + t).classList.toggle('hidden', t !== tab);
+                document.getElementById('dtab-' + t).className = t === tab
+                    ? "px-6 py-4 font-bold text-clinicalBlue border-b-2 border-clinicalBlue text-sm whitespace-nowrap transition"
+                    : "px-6 py-4 font-bold text-gray-500 dark:text-gray-400 hover:text-clinicalBlue text-sm whitespace-nowrap transition";
+            });
+        }
+
+        // Firestore: Vitals
+        document.getElementById('vitals-form').addEventListener('submit', async e => {
             e.preventDefault();
             if (!currentUser) return;
-            db.collection('users').doc(currentUser.uid).collection('vitals').add({
-                bp: document.getElementById('v-bp').value,
-                hr: parseInt(document.getElementById('v-hr').value),
-                bg: document.getElementById('v-bg').value ? parseInt(document.getElementById('v-bg').value) : 'N/A',
-                weight: parseFloat(document.getElementById('v-weight').value),
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
+            const btn = document.getElementById('vitals-submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Saving...';
+            try {
+                await db.collection('users').doc(currentUser.uid).collection('vitals').add({
+                    bp: document.getElementById('v-bp').value.trim(),
+                    hr: parseInt(document.getElementById('v-hr').value, 10),
+                    bg: document.getElementById('v-bg').value ? parseInt(document.getElementById('v-bg').value, 10) : 'N/A',
+                    weight: parseFloat(document.getElementById('v-weight').value),
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
                 document.getElementById('vitals-form').reset();
-                loadVitals();
-            });
+                showBanner("Vitals record saved.");
+                await loadVitals();
+            } catch (err) {
+                showBanner("Failed to save vitals: " + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Log Vitals Record';
+            }
         });
 
-        function loadVitals() {
+        async function loadVitals() {
             if (!currentUser) return;
             const list = document.getElementById('vitals-list');
-            db.collection('users').doc(currentUser.uid).collection('vitals').orderBy('timestamp', 'desc').get().then(snap => {
+            try {
+                const snap = await db.collection('users').doc(currentUser.uid).collection('vitals').orderBy('timestamp', 'desc').get();
                 if (snap.empty) {
                     list.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-gray-500 text-sm">No records logged yet. Add your first set above.</td></tr>`;
                     return;
@@ -416,35 +490,49 @@
                     const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now';
                     html += `
                         <tr class="hover:bg-gray-50 dark:hover:bg-slate-800 transition">
-                            <td class="p-4 text-[12px] text-gray-500">${date}</td>
-                            <td class="p-4 text-clinicalBlue font-extrabold">${data.bp} mmHg</td>
-                            <td class="p-4">${data.hr} bpm</td>
-                            <td class="p-4">${data.bg}</td>
-                            <td class="p-4">${data.weight} kg</td>
+                            <td class="p-4 text-[12px] text-gray-500">${escapeHTML(date)}</td>
+                            <td class="p-4 text-clinicalBlue font-extrabold">${escapeHTML(data.bp)} mmHg</td>
+                            <td class="p-4">${escapeHTML(data.hr)} bpm</td>
+                            <td class="p-4">${escapeHTML(data.bg)}${data.bg !== 'N/A' ? ' mg/dL' : ''}</td>
+                            <td class="p-4">${escapeHTML(data.weight)} kg</td>
                         </tr>
                     `;
                 });
                 list.innerHTML = html;
-            });
+            } catch (err) {
+                list.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-red-500 text-sm">Unable to load vitals: ${escapeHTML(err.message)}</td></tr>`;
+            }
         }
 
-        document.getElementById('journal-form').addEventListener('submit', e => {
+        // Firestore: Journal
+        document.getElementById('journal-form').addEventListener('submit', async e => {
             e.preventDefault();
             if (!currentUser) return;
-            db.collection('users').doc(currentUser.uid).collection('journal').add({
-                title: document.getElementById('j-title').value,
-                content: document.getElementById('j-content').value,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
+            const btn = document.getElementById('journal-submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Saving...';
+            try {
+                await db.collection('users').doc(currentUser.uid).collection('journal').add({
+                    title: document.getElementById('j-title').value.trim(),
+                    content: document.getElementById('j-content').value.trim(),
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
                 document.getElementById('journal-form').reset();
-                loadJournal();
-            });
+                showBanner("Journal entry saved.");
+                await loadJournal();
+            } catch (err) {
+                showBanner("Failed to save journal entry: " + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Save Journal Entry';
+            }
         });
 
-        function loadJournal() {
+        async function loadJournal() {
             if (!currentUser) return;
             const container = document.getElementById('journal-entries');
-            db.collection('users').doc(currentUser.uid).collection('journal').orderBy('timestamp', 'desc').get().then(snap => {
+            try {
+                const snap = await db.collection('users').doc(currentUser.uid).collection('journal').orderBy('timestamp', 'desc').get();
                 if (snap.empty) {
                     container.innerHTML = `<p class="text-center text-gray-500 py-6 text-sm">No journal entries found.</p>`;
                     return;
@@ -455,42 +543,59 @@
                     const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'Just now';
                     html += `
                         <div class="p-6 bg-gray-50 dark:bg-slate-900/50 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
-                            <div class="flex justify-between items-center mb-2">
-                                <h5 class="font-extrabold text-base text-deepNavy dark:text-white">${data.title}</h5>
-                                <span class="text-[11px] text-gray-500 font-medium">${date}</span>
+                            <div class="flex justify-between items-center mb-2 gap-2">
+                                <h5 class="font-extrabold text-base text-deepNavy dark:text-white">${escapeHTML(data.title)}</h5>
+                                <span class="text-[11px] text-gray-500 font-medium">${escapeHTML(date)}</span>
                             </div>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">${data.content}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">${escapeHTML(data.content)}</p>
                         </div>
                     `;
                 });
                 container.innerHTML = html;
-            });
+            } catch (err) {
+                container.innerHTML = `<p class="text-center text-red-500 py-6 text-sm">Unable to load journal: ${escapeHTML(err.message)}</p>`;
+            }
         }
 
-        document.getElementById('profile-form').addEventListener('submit', e => {
+        // Firestore: Profile
+        document.getElementById('profile-form').addEventListener('submit', async e => {
             e.preventDefault();
             if (!currentUser) return;
-            db.collection('users').doc(currentUser.uid).collection('profile').doc('main').set({
-                bloodGroup: document.getElementById('p-blood').value,
-                genotype: document.getElementById('p-genotype').value,
-                allergies: document.getElementById('p-allergies').value,
-                emergencyPhone: document.getElementById('p-emergency').value,
-                conditions: document.getElementById('p-conditions').value
-            }, { merge: true }).then(() => alert("Profile updated successfully."));
+            const btn = document.getElementById('profile-submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Updating...';
+            try {
+                await db.collection('users').doc(currentUser.uid).collection('profile').doc('main').set({
+                    bloodGroup: document.getElementById('p-blood').value,
+                    genotype: document.getElementById('p-genotype').value,
+                    allergies: document.getElementById('p-allergies').value.trim(),
+                    emergencyPhone: document.getElementById('p-emergency').value.trim(),
+                    conditions: document.getElementById('p-conditions').value.trim()
+                }, { merge: true });
+                showBanner("Client profile updated.");
+            } catch (err) {
+                showBanner("Failed to update profile: " + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Update Profile';
+            }
         });
 
-        function loadProfile() {
+        async function loadProfile() {
             if (!currentUser) return;
-            db.collection('users').doc(currentUser.uid).collection('profile').doc('main').get().then(doc => {
+            try {
+                const doc = await db.collection('users').doc(currentUser.uid).collection('profile').doc('main').get();
                 if (doc.exists) {
                     const d = doc.data();
-                    if(d.bloodGroup) document.getElementById('p-blood').value = d.bloodGroup;
-                    if(d.genotype) document.getElementById('p-genotype').value = d.genotype;
-                    if(d.allergies) document.getElementById('p-allergies').value = d.allergies;
-                    if(d.emergencyPhone) document.getElementById('p-emergency').value = d.emergencyPhone;
-                    if(d.conditions) document.getElementById('p-conditions').value = d.conditions;
+                    if (d.bloodGroup) document.getElementById('p-blood').value = d.bloodGroup;
+                    if (d.genotype) document.getElementById('p-genotype').value = d.genotype;
+                    if (d.allergies) document.getElementById('p-allergies').value = d.allergies;
+                    if (d.emergencyPhone) document.getElementById('p-emergency').value = d.emergencyPhone;
+                    if (d.conditions) document.getElementById('p-conditions').value = d.conditions;
                 }
-            });
+            } catch (err) {
+                showBanner("Unable to load profile: " + err.message, true);
+            }
         }
     </script>
 </body>
