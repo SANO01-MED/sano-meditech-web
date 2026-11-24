@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="SkIWce3FxeQoqV6IPMHTQnE669mgplDXR-uIURGBd9k" />
-    <meta name="description" content="Sano Meditech Solutions (RC: 9753717) — Clinical data analytics, digital health registries, and preventative health infrastructure in Nigeria.">
+    <meta name="description" content="Sano Meditech Solutions — Clinical data analytics, preventative vitals stratification, and verified life-support certification across Nigeria.">
     <meta name="author" content="Sano Meditech Solutions">
     <link rel="canonical" href="https://sanomeditech.vercel.app/">
     <title>Sano Meditech Solutions | Clinical Data Analytics &amp; Digital Health</title>
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Sano Meditech Solutions | Clinical Data Analytics & Digital Health">
-    <meta property="og:description" content="Low-bandwidth digital health registries, automated vitals stratification, and clinical research analytics.">
+    <meta property="og:title" content="Sano Meditech Solutions | Clinical Data Analytics &amp; Digital Health">
+    <meta property="og:description" content="Structured vitals stratification, preventative health protocols, and verified basic life support credentials.">
     <meta property="og:url" content="https://sanomeditech.vercel.app/">
     <meta property="og:image" content="https://sanomeditech.vercel.app/logo.png">
 
@@ -20,14 +20,12 @@
       "@context": "https://schema.org",
       "@type": "MedicalBusiness",
       "name": "Sano Meditech Solutions",
-      "alternateName": "Sano Meditech Ventures",
       "url": "https://sanomeditech.vercel.app",
       "logo": "https://sanomeditech.vercel.app/logo.png",
       "telephone": "+2349157713591",
       "email": "sanomeditechsolutions@gmail.com",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "",
         "addressRegion": "Oyo State",
         "addressCountry": "NG"
       },
@@ -38,220 +36,252 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        brand: '#0284c7',
-                        navy: '#0f172a'
-                    }
-                }
-            }
-        }
         if (localStorage.getItem('color-theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
     </script>
 </head>
-<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased">
-
-    <!-- Top Utility Bar -->
-    <div class="bg-slate-900 text-slate-300 text-xs border-b border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-9 flex items-center justify-between">
-            <div class="flex items-center gap-5"></div>
-        </div>
-    </div>
+<body>
 
     <!-- Main Navigation -->
-    <nav class="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-3">
-                <img src="logo.png" alt="Sano Meditech" onerror="this.style.display='none'" class="h-9 w-auto">
+    <nav class="site-nav">
+        <div class="container nav-inner">
+            <a href="/" class="brand-link">
+                <span class="brand-mark" aria-hidden="true">SM</span>
                 <div>
-                    <span class="font-bold text-base text-slate-900 dark:text-white tracking-tight block leading-none">SANO MEDITECH</span>
-                    <span class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Solutions</span>
+                    <span class="brand-title">SANO MEDITECH</span>
+                    <span class="brand-sub">Solutions</span>
                 </div>
             </a>
 
-            <div class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
-                <a href="#about" class="hover:text-brand transition">Overview</a>
-                <a href="#capabilities" class="hover:text-brand transition">Capabilities</a>
-                <a href="#publications" class="hover:text-brand transition">Publications</a>
-                <a href="#triage" class="hover:text-brand transition">Vitals Triage</a>
-                <a href="cpr.html" class="hover:text-brand transition">CPR Assessment</a>
+            <div class="nav-links">
+                <a href="#about">Overview</a>
+                <a href="#capabilities">Capabilities</a>
+                <a href="#publications">Publications</a>
+                <a href="#triage">Vitals Triage</a>
+                <a href="cpr.html">CPR Verification</a>
             </div>
 
-            <div class="hidden md:flex items-center gap-3">
-                <button id="theme-toggle" aria-label="Toggle theme" class="p-2 text-slate-500 hover:text-slate-900 dark:hover:text-white">
-                    <svg class="w-4 h-4 dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg class="w-4 h-4 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <div class="nav-actions">
+                <button id="theme-toggle" type="button" aria-label="Toggle color theme" class="icon-btn">
+                    <svg id="icon-moon" width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <svg id="icon-sun" class="hidden" width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>
+                    </svg>
                 </button>
-                <a href="portal.html" class="px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 transition">Client Portal</a>
-                <a href="#contact" class="px-4 py-2 text-sm font-semibold bg-brand text-white rounded-md hover:bg-sky-700 transition">Contact</a>
+                <a href="portal.html" class="btn btn-sm btn-secondary">Client Portal</a>
+                <a href="#contact" class="btn btn-sm btn-teal">Contact</a>
             </div>
 
-            <button id="mobile-menu-btn" aria-label="Menu" class="md:hidden p-2 text-slate-600 dark:text-slate-300">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+            <div class="mobile-controls">
+                <button id="mobile-theme-toggle" type="button" aria-label="Toggle color theme" class="icon-btn">
+                    <svg id="mobile-icon-moon" width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <svg id="mobile-icon-sun" class="hidden" width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </button>
+                <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" class="icon-btn">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 px-4 py-4 space-y-2 bg-white dark:bg-slate-950 text-sm font-medium">
-            <a href="#about" class="mobile-link block py-2">Overview</a>
-            <a href="#capabilities" class="mobile-link block py-2">Capabilities</a>
-            <a href="#publications" class="mobile-link block py-2">Publications</a>
-            <a href="#triage" class="mobile-link block py-2">Vitals Triage</a>
-            <a href="cpr.html" class="block py-2">CPR Assessment</a>
-            <div class="pt-2 border-t border-slate-100 dark:border-slate-800 flex gap-2">
-                <a href="portal.html" class="flex-1 text-center py-2 border border-slate-300 dark:border-slate-700 rounded-md font-semibold">Client Portal</a>
-                <a href="#contact" class="mobile-link flex-1 text-center py-2 bg-brand text-white rounded-md font-semibold">Contact</a>
+        <div id="mobile-menu" class="mobile-menu hidden">
+            <a href="#about" class="mobile-link">Overview</a>
+            <a href="#capabilities" class="mobile-link">Capabilities</a>
+            <a href="#publications" class="mobile-link">Publications</a>
+            <a href="#triage" class="mobile-link">Vitals Triage</a>
+            <a href="cpr.html">CPR Verification</a>
+            <div class="mobile-menu-actions">
+                <a href="portal.html" class="btn btn-sm btn-secondary">Client Portal</a>
+                <a href="#contact" class="mobile-link btn btn-sm btn-teal">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Editorial Split Hero -->
-    <header class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-7">
-                <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-3">Health Informatics &amp; Clinical Analytics</p>
-                <h1 class="text-3xl sm:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-5">
-                    Empirical clinical data systems for community and institutional care.
-                </h1>
-                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl">
-                    Sano Meditech Solutions builds low-bandwidth patient registries, automated vitals stratification tools, and structured preventative health protocols across Nigeria.
+    <!-- Focused Mobile-First Hero -->
+    <header class="hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow">Health Informatics &amp; Clinical Analytics</span>
+                <h1 class="hero-title">Empirical clinical data systems for community and institutional care.</h1>
+                <p class="hero-subtitle">
+                    Sano Meditech Solutions delivers automated vitals stratification, longitudinal client portals, and verified basic life support credentials across Nigeria.
                 </p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="portal.html" class="px-6 py-3 bg-slate-900 dark:bg-brand text-white text-sm font-semibold rounded-md hover:opacity-90 transition">Open Client Portal</a>
-                    <a href="#triage" class="px-6 py-3 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 text-sm font-semibold rounded-md hover:bg-slate-50 transition">Vitals Screening</a>
-                    <a href="cpr.html" class="px-6 py-3 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 text-sm font-semibold rounded-md hover:bg-slate-50 transition">CPR Readiness Check</a>
+                <div class="hero-cta-group">
+                    <a href="portal.html" class="btn btn-primary">Open Client Portal</a>
+                    <a href="cpr.html" class="btn btn-secondary">Verify a Certificate</a>
                 </div>
             </div>
-            <div class="lg:col-span-5">
-                <div class="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden bg-white dark:bg-slate-900 shadow-sm">
-                    <img src="hero1.jpg" alt="Sano Meditech Clinical Operations" onerror="this.style.display='none'" class="w-full h-64 sm:h-72 object-cover">
-                    <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs text-slate-500">
-                        <span>SanoMed Vitals &amp; Registry Architecture</span>
-                        <span class="font-semibold text-slate-800 dark:text-slate-200">RC: 9753717</span>
+
+            <!-- HTML/CSS Product UI Preview Cards -->
+            <div class="ui-stack" aria-label="Platform capabilities preview">
+                <div class="ui-card">
+                    <div class="ui-card-header">
+                        <span class="ui-card-label">Clinical Vitals Stratification</span>
+                        <span class="pill pill-teal">Instant Summary</span>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-box">
+                            <span class="metric-name">Blood Pressure</span>
+                            <span class="metric-val">118/76</span>
+                            <span class="metric-note">Normal</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-name">Body Mass</span>
+                            <span class="metric-val">22.4</span>
+                            <span class="metric-note">Healthy BMI</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-name">Resting Pulse</span>
+                            <span class="metric-val">72 bpm</span>
+                            <span class="metric-note">Sinus Range</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-card">
+                    <div class="ui-card-header">
+                        <span class="ui-card-label">Credential Registry</span>
+                        <span class="pill pill-success">Verified</span>
+                    </div>
+                    <div class="cred-preview">
+                        <div>
+                            <div class="cred-code">SMS-CPR-26-G8KJZ6</div>
+                            <div class="cred-meta">Basic Life Support &amp; CPR Certification</div>
+                        </div>
+                        <a href="cpr.html" class="btn btn-sm btn-secondary">Verify &rarr;</a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Overview Section -->
-    <section id="about" class="py-16 sm:py-20 border-b border-slate-200 dark:border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-12 gap-12 items-start">
-            <div class="md:col-span-5">
-                <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-2">Institutional Profile</p>
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Bridging medical science and field data infrastructure.</h2>
+    <!-- Institutional Overview -->
+    <section id="about" class="section">
+        <div class="container split-grid">
+            <div>
+                <span class="eyebrow">Institutional Profile</span>
+                <h2 class="section-heading">Bridging medical science and structured clinical care.</h2>
             </div>
-            <div class="md:col-span-7 space-y-4 text-slate-600 dark:text-slate-300 text-base leading-relaxed">
-                <p>
-                    Registered under the Corporate Affairs Commission as <strong>Sano Meditech Ventures (RC: 9753717)</strong>, we design practical digital workflows that turn raw screening metrics into structured clinical follow-up.
+            <div>
+                <p class="card-text" style="font-size: 0.975rem; margin-bottom: 1rem;">
+                    Sano Meditech Solutions designs practical digital clinical workflows that translate raw screening metrics into actionable preventive care and documented follow-up.
                 </p>
-                <p>
-                    From collegiate basic life support drills and community cardiovascular screenings to longitudinal client portals, our infrastructure is built to run reliably on standard mobile browsers with minimal bandwidth.
+                <p class="card-text" style="font-size: 0.975rem;">
+                    From collegiate basic life support training and community cardiovascular screenings to longitudinal client health portals, every tool is engineered for clinical clarity and dependable mobile access.
                 </p>
-                <div class="grid grid-cols-2 gap-4 pt-4">
-                    <img src="about1.jpg" alt="Clinical Data Workflow" onerror="this.style.display='none'" class="rounded-md border border-slate-200 dark:border-slate-800 h-44 w-full object-cover">
-                    <img src="about2.jpg" alt="Medical Outreach" onerror="this.style.display='none'" class="rounded-md border border-slate-200 dark:border-slate-800 h-44 w-full object-cover">
+
+                <div class="workflow-cards">
+                    <div class="card card-compact">
+                        <span class="card-index">STAGE 01</span>
+                        <h3 class="card-title">Preventative Screening</h3>
+                        <p class="card-text">Standardized anthropometric, blood pressure, and pulse classification with immediate patient feedback.</p>
+                    </div>
+                    <div class="card card-compact">
+                        <span class="card-index">STAGE 02</span>
+                        <h3 class="card-title">Verified Training &amp; Follow-Up</h3>
+                        <p class="card-text">Scenario-based BLS readiness evaluation, verifiable certification, and longitudinal vitals monitoring.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Capabilities Grid -->
-    <section id="capabilities" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200 dark:border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <div class="mb-12">
-                <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-2">Core Divisions</p>
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Operational Capabilities</h2>
-            </div>
+    <!-- Operational Capabilities -->
+    <section id="capabilities" class="section section-surface">
+        <div class="container">
+            <span class="eyebrow">Core Divisions</span>
+            <h2 class="section-heading">Operational Capabilities</h2>
+            <p class="section-lead">Focused clinical tools and analytical infrastructure supporting institutions, outreach teams, and individual clients.</p>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-lg border border-slate-200 dark:border-slate-800">
-                    <span class="text-xs font-mono text-brand font-semibold">01</span>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white mt-2 mb-2">Health Informatics</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Structured patient registries, offline-to-online vitals capture, and automated risk stratification pipelines.</p>
+            <div class="grid-4">
+                <div class="card">
+                    <span class="card-index">01</span>
+                    <h3 class="card-title">Health Informatics</h3>
+                    <p class="card-text">Structured patient records, standardized vitals capture, and automated clinical risk stratification.</p>
                 </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-lg border border-slate-200 dark:border-slate-800">
-                    <span class="text-xs font-mono text-brand font-semibold">02</span>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white mt-2 mb-2">Clinical Research</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">SQL and Python dataset cleaning, cohort pre/post evaluation, and empirical public health reporting.</p>
+                <div class="card">
+                    <span class="card-index">02</span>
+                    <h3 class="card-title">Clinical Research</h3>
+                    <p class="card-text">Cohort dataset cleaning, pre- and post-intervention evaluation, and empirical public health reporting.</p>
                 </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-lg border border-slate-200 dark:border-slate-800">
-                    <span class="text-xs font-mono text-brand font-semibold">03</span>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white mt-2 mb-2">Outreach Deployment</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">End-to-end screening logistics, CPR readiness training, and institutional partnership execution.</p>
+                <div class="card">
+                    <span class="card-index">03</span>
+                    <h3 class="card-title">Outreach Deployment</h3>
+                    <p class="card-text">Community screening execution, certified CPR readiness training, and institutional health partnerships.</p>
                 </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-lg border border-slate-200 dark:border-slate-800">
-                    <span class="text-xs font-mono text-brand font-semibold">04</span>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white mt-2 mb-2">Client Portals</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Authenticated longitudinal tracking for blood pressure, blood glucose, weight, and clinical notes.</p>
+                <div class="card">
+                    <span class="card-index">04</span>
+                    <h3 class="card-title">Client Portals</h3>
+                    <p class="card-text">Dedicated longitudinal tracking for blood pressure, blood glucose, weight, and clinical follow-up notes.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Publications -->
-    <section id="publications" class="py-16 sm:py-20 border-b border-slate-200 dark:border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <div class="mb-10">
-                <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-2">Patient Education</p>
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Published Preventative Protocols</h2>
-            </div>
+    <section id="publications" class="section">
+        <div class="container">
+            <span class="eyebrow">Patient Education</span>
+            <h2 class="section-heading">Published Preventative Protocols</h2>
+            <p class="section-lead">Evidence-informed self-monitoring manuals authored for daily metabolic and cardiovascular care.</p>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="p-6 sm:p-8 rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+            <div class="grid-2">
+                <div class="card pub-card">
                     <div>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Flagship Guide</span>
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Good Health By Yourself</h3>
-                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">A practical guide to managing chronic lifestyle disorders, cardiovascular risk factors, and daily metabolic routines.</p>
+                        <span class="ui-card-label">Flagship Guide</span>
+                        <h3 class="card-title" style="font-size: 1.2rem;">Good Health By Yourself</h3>
+                        <p class="card-text">A practical guide to managing chronic lifestyle disorders, cardiovascular risk factors, and daily metabolic routines.</p>
                     </div>
-                    <a href="https://drive.google.com/file/d/1VHiGD6KFjEsUVHZQTOG9BIwT1KokNZcC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="self-start text-sm font-semibold text-brand hover:underline">Access Document &rarr;</a>
+                    <a href="https://drive.google.com/file/d/1VHiGD6KFjEsUVHZQTOG9BIwT1KokNZcC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="pub-link">Access Document &rarr;</a>
                 </div>
 
-                <div class="p-6 sm:p-8 rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+                <div class="card pub-card">
                     <div>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Wellness Manual</span>
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-1 mb-3">Ignite Your Vitality</h3>
-                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">Structured physiological protocols for sustainable energy, sleep hygiene, and preventative self-monitoring.</p>
+                        <span class="ui-card-label">Wellness Manual</span>
+                        <h3 class="card-title" style="font-size: 1.2rem;">Ignite Your Vitality</h3>
+                        <p class="card-text">Structured physiological protocols for sustainable energy, sleep hygiene, and preventative self-monitoring.</p>
                     </div>
-                    <a href="https://bit.ly/4k4CAco" target="_blank" rel="noopener noreferrer" class="self-start text-sm font-semibold text-brand hover:underline">Access Document &rarr;</a>
+                    <a href="https://bit.ly/4k4CAco" target="_blank" rel="noopener noreferrer" class="pub-link">Access Document &rarr;</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Automated Clinical Triage -->
-    <section id="triage" class="py-16 sm:py-20 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200 dark:border-slate-800">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6">
-            <div class="mb-8">
-                <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-2">Vitals Stratification</p>
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Automated Clinical Triage</h2>
-                <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">Compute BMI, blood pressure staging, and resting pulse classification, and log your summary.</p>
-            </div>
+    <section id="triage" class="section section-surface">
+        <div class="container-narrow">
+            <span class="eyebrow">Vitals Stratification</span>
+            <h2 class="section-heading">Automated Clinical Triage</h2>
+            <p class="section-lead">Compute BMI, blood pressure staging, and resting pulse classification, and receive an instant clinical summary.</p>
 
-            <div class="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-lg border border-slate-200 dark:border-slate-800">
-                <form id="triage-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="form-card">
+                <form id="triage-form" class="form-grid">
                     <div>
-                        <label for="calc-name" class="block text-xs font-semibold mb-1.5">Full Name</label>
-                        <input type="text" id="calc-name" required class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                        <label for="calc-name" class="field-label">Full Name</label>
+                        <input type="text" id="calc-name" required class="form-control">
                     </div>
                     <div>
-                        <label for="calc-phone" class="block text-xs font-semibold mb-1.5">Phone Number</label>
-                        <input type="tel" id="calc-phone" required class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                        <label for="calc-phone" class="field-label">Phone Number</label>
+                        <input type="tel" id="calc-phone" required placeholder="e.g., 08012345678" class="form-control">
                     </div>
-                    <div class="sm:col-span-2">
-                        <label for="calc-email" class="block text-xs font-semibold mb-1.5">Email Address</label>
-                        <input type="email" id="calc-email" required class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                    <div class="col-span-2">
+                        <label for="calc-email" class="field-label">Email Address</label>
+                        <input type="email" id="calc-email" required class="form-control">
                     </div>
-                    <div class="sm:col-span-2">
-                        <label for="calc-goal" class="block text-xs font-semibold mb-1.5">Primary Focus</label>
-                        <select id="calc-goal" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                    <div class="col-span-2">
+                        <label for="calc-goal" class="field-label">Primary Focus</label>
+                        <select id="calc-goal" class="form-control">
                             <option value="General Preventative Care">General Preventative Care &amp; Baseline</option>
                             <option value="Cardiovascular/Blood Pressure">Cardiovascular / Blood Pressure Management</option>
                             <option value="Weight Management">Metabolic &amp; Weight Management</option>
@@ -259,143 +289,183 @@
                             <option value="Acute Symptoms">Experiencing Acute Symptoms</option>
                         </select>
                     </div>
-                    <div class="sm:col-span-2">
-                        <label for="calc-symptoms" class="block text-xs font-semibold mb-1.5">Notes or Symptoms (Optional)</label>
-                        <textarea id="calc-symptoms" rows="2" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand"></textarea>
+                    <div class="col-span-2">
+                        <label for="calc-symptoms" class="field-label">Notes or Symptoms (Optional)</label>
+                        <textarea id="calc-symptoms" rows="2" class="form-control"></textarea>
                     </div>
                     <div>
-                        <label for="calc-weight" class="block text-xs font-semibold mb-1.5">Weight (kg)</label>
-                        <input type="number" id="calc-weight" required min="1" max="400" step="0.1" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                        <label for="calc-weight" class="field-label">Weight (kg)</label>
+                        <input type="number" id="calc-weight" required min="1" max="400" step="0.1" class="form-control">
                     </div>
                     <div>
-                        <label for="calc-height" class="block text-xs font-semibold mb-1.5">Height (cm)</label>
-                        <input type="number" id="calc-height" required min="50" max="260" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                        <label for="calc-height" class="field-label">Height (cm)</label>
+                        <input type="number" id="calc-height" required min="50" max="260" class="form-control">
                     </div>
                     <div>
-                        <label for="calc-sys" class="block text-xs font-semibold mb-1.5">Systolic BP (mmHg)</label>
-                        <input type="number" id="calc-sys" required min="50" max="300" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                        <label for="calc-sys" class="field-label">Systolic BP (mmHg)</label>
+                        <input type="number" id="calc-sys" required min="50" max="300" class="form-control">
                     </div>
                     <div>
-                        <label for="calc-dia" class="block text-xs font-semibold mb-1.5">Diastolic BP (mmHg)</label>
-                        <input type="number" id="calc-dia" required min="30" max="200" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                        <label for="calc-dia" class="field-label">Diastolic BP (mmHg)</label>
+                        <input type="number" id="calc-dia" required min="30" max="200" class="form-control">
                     </div>
-                    <div class="sm:col-span-2">
-                        <label for="calc-pulse" class="block text-xs font-semibold mb-1.5">Resting Pulse (bpm)</label>
-                        <input type="number" id="calc-pulse" required min="30" max="250" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                    <div class="col-span-2">
+                        <label for="calc-pulse" class="field-label">Resting Pulse (bpm)</label>
+                        <input type="number" id="calc-pulse" required min="30" max="250" class="form-control">
                     </div>
-                    <div class="sm:col-span-2 pt-2">
-                        <button type="submit" id="submit-btn" class="w-full bg-slate-900 dark:bg-brand text-white font-semibold py-3 rounded-md text-sm hover:opacity-90 transition">
+                    <div class="col-span-2" style="padding-top: 0.4rem;">
+                        <button type="submit" id="submit-btn" class="btn btn-primary btn-full">
                             <span id="btn-text">Calculate &amp; Log Vitals</span>
                         </button>
                     </div>
                 </form>
 
-                <div id="result-box" class="hidden mt-6 p-5 rounded-md border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
-                    <div class="flex justify-between items-center pb-3 mb-3 border-b border-slate-200 dark:border-slate-700">
-                        <h3 id="result-header" class="text-sm font-bold text-emerald-700 dark:text-emerald-400">Stratification Complete</h3>
-                        <button type="button" onclick="window.print()" class="text-xs font-semibold px-2.5 py-1 border border-slate-300 dark:border-slate-600 rounded">Print / PDF</button>
+                <!-- Isolated Print Slip -->
+                <div id="printable-triage-slip" class="result-slip hidden">
+                    <div class="result-slip-header">
+                        <div>
+                            <span class="ui-card-label" style="display:block; margin-bottom: 2px;">Sano Meditech Solutions</span>
+                            <h3 id="result-header" class="result-slip-title">Clinical Vitals Summary</h3>
+                        </div>
+                        <button type="button" onclick="window.print()" class="btn btn-sm btn-secondary no-print">Print Summary</button>
                     </div>
-                    <div id="result-content" class="space-y-2 text-sm"></div>
+                    <div id="result-content" class="result-list"></div>
+                    <div class="result-footer-bar">
+                        <span id="sync-note">Recording summary...</span>
+                        <a href="portal.html" class="pub-link no-print">Open Client Portal &rarr;</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 sm:py-20">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6">
-            <div class="mb-8">
-                <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-2">Direct Desk</p>
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Partnerships &amp; Inquiries</h2>
-            </div>
+    <section id="contact" class="section">
+        <div class="container-narrow">
+            <span class="eyebrow">Direct Desk</span>
+            <h2 class="section-heading">Partnerships &amp; Inquiries</h2>
+            <p class="section-lead">Connect with our team regarding institutional health screenings, CPR certification workshops, or client programs.</p>
 
-            <form id="contact-form" class="space-y-4 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-lg border border-slate-200 dark:border-slate-800">
-                <div class="grid sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="contact-name" class="block text-xs font-semibold mb-1.5">Full Name</label>
-                        <input type="text" id="contact-name" required class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
-                    </div>
-                    <div>
-                        <label for="contact-email" class="block text-xs font-semibold mb-1.5">Email Address</label>
-                        <input type="email" id="contact-email" required class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
-                    </div>
+            <form id="contact-form" class="form-card form-grid">
+                <div>
+                    <label for="contact-name" class="field-label">Full Name</label>
+                    <input type="text" id="contact-name" required class="form-control">
                 </div>
                 <div>
-                    <label for="contact-message" class="block text-xs font-semibold mb-1.5">Message</label>
-                    <textarea id="contact-message" rows="4" required class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand"></textarea>
+                    <label for="contact-email" class="field-label">Email Address</label>
+                    <input type="email" id="contact-email" required class="form-control">
                 </div>
-                <button type="submit" id="contact-btn" class="px-6 py-3 bg-slate-900 dark:bg-brand text-white font-semibold rounded-md text-sm hover:opacity-90 transition">
-                    <span id="contact-btn-text">Send Inquiry</span>
-                </button>
-                <div id="contact-feedback" class="hidden text-sm font-medium mt-2"></div>
+                <div class="col-span-2">
+                    <label for="contact-message" class="field-label">Message</label>
+                    <textarea id="contact-message" rows="4" required class="form-control"></textarea>
+                </div>
+                <div class="col-span-2">
+                    <button type="submit" id="contact-btn" class="btn btn-primary">
+                        <span id="contact-btn-text">Send Inquiry</span>
+                    </button>
+                    <div id="contact-feedback" class="hidden" style="margin-top: 0.75rem; font-size: 0.875rem; font-weight: 600;"></div>
+                </div>
             </form>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40 py-12 text-xs text-slate-500">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 grid sm:grid-cols-3 gap-8">
+    <!-- Minimal Footer -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
             <div>
-                <p class="font-bold text-slate-900 dark:text-white text-sm mb-2">Sano Meditech Solutions</p>
-                <p>Registered Entity: Sano Meditech Ventures (RC: 9753717)</p>
-                <p class="mt-2">&copy; 2026 Sano Meditech Solutions. All rights reserved.</p>
+                <p style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem; margin: 0 0 0.4rem;">Sano Meditech Solutions</p>
+                <p style="margin: 0;">&copy; 2026 Sano Meditech Solutions. All rights reserved.</p>
             </div>
             <div>
-                <p class="font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Compliance</p>
-                <ul class="space-y-1.5">
-                    <li><button type="button" onclick="openLegalModal('terms')" class="hover:text-brand">Terms of Service</button></li>
-                    <li><button type="button" onclick="openLegalModal('privacy')" class="hover:text-brand">Data Privacy Policy</button></li>
-                    <li><button type="button" onclick="openLegalModal('ndpr')" class="hover:text-brand">NDPR &amp; Clinical Disclaimer</button></li>
+                <p class="footer-heading">Compliance</p>
+                <ul class="footer-list">
+                    <li><button type="button" onclick="openLegalModal('terms')" class="footer-link-btn">Terms of Service</button></li>
+                    <li><button type="button" onclick="openLegalModal('privacy')" class="footer-link-btn">Data Privacy Policy</button></li>
+                    <li><button type="button" onclick="openLegalModal('ndpr')" class="footer-link-btn">NDPR &amp; Clinical Disclaimer</button></li>
                 </ul>
             </div>
-            <div class="sm:text-right space-y-1.5">
-                <p class="font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Contact</p>
-                <p><a href="mailto:sanomeditechsolutions@gmail.com" class="hover:text-brand">sanomeditechsolutions@gmail.com</a></p>
-                <p><a href="tel:+2349157713591" class="hover:text-brand">+234 915 771 3591</a></p>
-                <p><a href="https://x.com/AnuMeditech" target="_blank" rel="noopener noreferrer" class="hover:text-brand">X: @AnuMeditech</a></p>
+            <div class="footer-right">
+                <p class="footer-heading">Contact</p>
+                <ul class="footer-list">
+                    <li><a href="mailto:sanomeditechsolutions@gmail.com">sanomeditechsolutions@gmail.com</a></li>
+                    <li><a href="tel:+2349157713591">+234 915 771 3591</a></li>
+                    <li><a href="https://x.com/AnuMeditech" target="_blank" rel="noopener noreferrer">X: @AnuMeditech</a></li>
+                </ul>
             </div>
         </div>
     </footer>
 
     <!-- Compliance Modal -->
-    <div id="legal-modal" class="hidden fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-900 max-w-md w-full rounded-lg p-6 border border-slate-200 dark:border-slate-700 shadow-xl">
-            <div class="flex justify-between items-center mb-3">
-                <h3 id="legal-title" class="text-base font-bold text-slate-900 dark:text-white">Notice</h3>
-                <button type="button" onclick="closeLegalModal()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">&times;</button>
+    <div id="legal-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+        <div class="modal-panel">
+            <div class="modal-header">
+                <h3 id="legal-title" class="card-title" style="margin: 0;">Notice</h3>
+                <button type="button" onclick="closeLegalModal()" aria-label="Close modal" class="modal-close">&times;</button>
             </div>
-            <p id="legal-body" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5"></p>
-            <button type="button" onclick="closeLegalModal()" class="w-full py-2 bg-slate-900 dark:bg-brand text-white text-xs font-semibold rounded-md">Close</button>
+            <p id="legal-body" class="card-text" style="margin-bottom: 1.25rem;"></p>
+            <button type="button" onclick="closeLegalModal()" class="btn btn-sm btn-primary btn-full">Close</button>
         </div>
     </div>
 
     <script>
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxvOpe7qnh5dIJRNbPa0ovBS97S0qEfVwxaF7sZqijy4811frs-YVTF698Ddna7pq4/exec";
 
+        // Mobile navigation toggle
         document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
-        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.add('hidden');
-        }));
-        document.getElementById('theme-toggle')?.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
         });
 
+        // Theme toggle synchronization (Desktop + Mobile)
+        function syncThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.getElementById('icon-moon')?.classList.toggle('hidden', isDark);
+            document.getElementById('icon-sun')?.classList.toggle('hidden', !isDark);
+            document.getElementById('mobile-icon-moon')?.classList.toggle('hidden', isDark);
+            document.getElementById('mobile-icon-sun')?.classList.toggle('hidden', !isDark);
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+            syncThemeIcons();
+        }
+
+        syncThemeIcons();
+        document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+        document.getElementById('mobile-theme-toggle')?.addEventListener('click', toggleTheme);
+
+        // Compliance Modal
         const legalTexts = {
-            terms: "Sano Meditech Solutions provides educational wellness protocols, digital vitals logging, and algorithmic triage estimates. Platform tools do not constitute a formal medical diagnosis or emergency clinical service.",
-            privacy: "Submitted vitals and contact details are transmitted over encrypted HTTPS channels solely for clinical stratification, participant reporting, and authorized outreach analytics.",
-            ndpr: "In alignment with the Nigeria Data Protection Regulation (NDPR), user records are minimized, encrypted in transit, and never sold or shared with third-party advertisers."
+            terms: "Sano Meditech Solutions provides preventative wellness education, vitals stratification tools, and basic life support training verification. Automated platform summaries support preventative awareness and do not replace formal medical diagnosis or emergency clinical care.",
+            privacy: "Submitted vitals and contact details are transmitted over encrypted HTTPS channels solely for clinical risk stratification, participant reporting, and authorized follow-up communication.",
+            ndpr: "In alignment with the Nigeria Data Protection Regulation (NDPR), personal records are minimized, safeguarded in transit, and never sold or shared with third-party advertisers."
         };
-        function openLegalModal(k) {
-            const titles = { terms: "Terms of Service", privacy: "Data Privacy Policy", ndpr: "NDPR & Clinical Disclaimer" };
-            document.getElementById('legal-title').textContent = titles[k];
-            document.getElementById('legal-body').textContent = legalTexts[k];
+
+        function openLegalModal(key) {
+            const titles = {
+                terms: "Terms of Service",
+                privacy: "Data Privacy Policy",
+                ndpr: "NDPR & Clinical Disclaimer"
+            };
+            document.getElementById('legal-title').textContent = titles[key];
+            document.getElementById('legal-body').textContent = legalTexts[key];
             document.getElementById('legal-modal').classList.remove('hidden');
         }
-        function closeLegalModal() { document.getElementById('legal-modal').classList.add('hidden'); }
 
+        function closeLegalModal() {
+            document.getElementById('legal-modal').classList.add('hidden');
+        }
+
+        document.getElementById('legal-modal')?.addEventListener('click', (e) => {
+            if (e.target.id === 'legal-modal') closeLegalModal();
+        });
+
+        // Automated Clinical Triage Submission
         document.getElementById('triage-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -431,15 +501,19 @@
             if (pulse < 60) pulseStatus = "Bradycardia (<60 bpm)";
             else if (pulse > 100) pulseStatus = "Tachycardia (>100 bpm)";
 
+            const slip = document.getElementById('printable-triage-slip');
             const content = document.getElementById('result-content');
+            const syncNote = document.getElementById('sync-note');
+
             content.innerHTML = `
-                <p><strong>Focus:</strong> ${goal}</p>
-                <p><strong>BMI:</strong> ${bmi} kg/m² (${bmiStatus})</p>
-                <p><strong>Blood Pressure:</strong> ${sys}/${dia} mmHg (${bpStatus})</p>
-                <p><strong>Resting Pulse:</strong> ${pulse} bpm (${pulseStatus})</p>
-                <p id="sync-note" class="text-xs text-slate-500 pt-2 border-t border-slate-200 dark:border-slate-700">Logging record...</p>
+                <div><strong>Participant:</strong> ${name}</div>
+                <div><strong>Primary Focus:</strong> ${goal}</div>
+                <div><strong>Body Mass Index:</strong> ${bmi} kg/m&sup2; (${bmiStatus})</div>
+                <div><strong>Blood Pressure:</strong> ${sys}/${dia} mmHg (${bpStatus})</div>
+                <div><strong>Resting Pulse:</strong> ${pulse} bpm (${pulseStatus})</div>
             `;
-            document.getElementById('result-box').classList.remove('hidden');
+            syncNote.textContent = "Recording summary...";
+            slip.classList.remove('hidden');
 
             try {
                 if (!navigator.onLine) throw new Error("Offline");
@@ -461,15 +535,16 @@
                         pulse: `${pulse} (${pulseStatus})`
                     })
                 });
-                document.getElementById('sync-note').textContent = "Record logged to Sano Meditech registry.";
+                syncNote.textContent = "Summary recorded and dispatched to your contact details.";
             } catch (_) {
-                document.getElementById('sync-note').textContent = "Calculated offline. Reconnect to sync record.";
+                syncNote.textContent = "Calculated locally. Reconnect to dispatch summary.";
             } finally {
                 btn.disabled = false;
                 btnText.textContent = "Calculate & Log Vitals";
             }
         });
 
+        // Contact Form Submission
         document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('contact-btn');
@@ -491,13 +566,13 @@
                         message: document.getElementById('contact-message').value.trim()
                     })
                 });
-                feedback.textContent = "Message received. Our desk will respond shortly.";
-                feedback.className = "text-sm font-medium mt-2 text-emerald-600";
+                feedback.textContent = "Message received. Our team will respond shortly.";
+                feedback.style.color = "var(--accent)";
                 feedback.classList.remove('hidden');
                 document.getElementById('contact-form').reset();
             } catch (_) {
-                feedback.textContent = "Network error. Please email sanomeditechsolutions@gmail.com directly.";
-                feedback.className = "text-sm font-medium mt-2 text-red-600";
+                feedback.textContent = "Unable to send right now. Please email sanomeditechsolutions@gmail.com directly.";
+                feedback.style.color = "var(--danger-text)";
                 feedback.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
@@ -506,4 +581,4 @@
         });
     </script>
 </body>
-</html>\
+</html>
