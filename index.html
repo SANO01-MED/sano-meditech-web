@@ -7,6 +7,8 @@
     <meta name="description" content="Sano Meditech Solutions — Clinical data analytics, preventative vitals stratification, and verified life-support certification across Nigeria.">
     <meta name="author" content="Sano Meditech Solutions">
     <link rel="canonical" href="https://sanomeditech.vercel.app/">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
     <title>Sano Meditech Solutions | Clinical Data Analytics &amp; Digital Health</title>
 
     <meta property="og:type" content="website">
@@ -36,13 +38,892 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
 
     <script>
         if (localStorage.getItem('color-theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
     </script>
+
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-surface: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-nav: rgba(255, 255, 255, 0.92);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent: #0d9488;
+            --accent-hover: #0f766e;
+            --accent-soft: rgba(13, 148, 136, 0.1);
+            --primary: #0f172a;
+            --primary-text: #ffffff;
+            --primary-hover: #1e293b;
+            --success-bg: #dcfce7;
+            --success-text: #15803d;
+            --danger-text: #dc2626;
+            --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 8px 24px -6px rgba(15, 23, 42, 0.08);
+        }
+
+        html.dark {
+            --bg-page: #0b1120;
+            --bg-surface: #111827;
+            --bg-card: #1e293b;
+            --bg-nav: rgba(15, 23, 42, 0.92);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --accent: #2dd4bf;
+            --accent-hover: #14b8a6;
+            --accent-soft: rgba(45, 212, 191, 0.14);
+            --primary: #f8fafc;
+            --primary-text: #0f172a;
+            --primary-hover: #e2e8f0;
+            --success-bg: rgba(22, 163, 74, 0.2);
+            --success-text: #4ade80;
+            --danger-text: #f87171;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 10px 28px -6px rgba(0, 0, 0, 0.45);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        .container-narrow {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        /* Navigation */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: var(--bg-nav);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 4.25rem;
+            gap: 1rem;
+        }
+
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+            border-radius: 8px;
+            flex-shrink: 0;
+            background: #ffffff;
+            padding: 2px;
+            border: 1px solid var(--border-color);
+        }
+
+        .brand-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+        }
+
+        .brand-title {
+            display: block;
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1.15;
+            color: var(--text-primary);
+        }
+
+        .brand-sub {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-actions {
+            display: none;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .mobile-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 920px) {
+            .nav-links,
+            .nav-actions {
+                display: flex;
+            }
+            .mobile-controls {
+                display: none;
+            }
+        }
+
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .icon-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--accent);
+        }
+
+        .mobile-menu {
+            padding: 0.9rem 1.25rem 1.25rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .mobile-menu a:not(.btn) {
+            font-size: 0.925rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.25rem 0;
+        }
+
+        .mobile-menu a:not(.btn):hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-actions {
+            display: flex;
+            gap: 0.65rem;
+            padding-top: 0.65rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Buttons & Pills */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.65rem 1.15rem;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            border: 1px solid transparent;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            line-height: 1.2;
+        }
+
+        .btn:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .btn-sm {
+            padding: 0.45rem 0.85rem;
+            font-size: 0.8125rem;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--primary-text);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-teal {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        html.dark .btn-teal {
+            color: #0f172a;
+        }
+
+        .btn-teal:hover:not(:disabled) {
+            background: var(--accent-hover);
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .pill-teal {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .pill-success {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 3.5rem 0 4rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.25rem;
+            align-items: center;
+        }
+
+        @media (min-width: 900px) {
+            .hero {
+                padding: 4.75rem 0 5rem;
+            }
+            .hero-grid {
+                grid-template-columns: 1.15fr 0.85fr;
+                gap: 3rem;
+            }
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            margin-bottom: 0.65rem;
+        }
+
+        .hero-title {
+            font-size: clamp(1.85rem, 3.6vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.025em;
+            margin: 0 0 1rem;
+            color: var(--text-primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.025rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+            margin: 0 0 1.75rem;
+            max-width: 56ch;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        /* Product Preview Cards */
+        .ui-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .ui-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.85rem;
+            padding: 1.25rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .ui-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .ui-card-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+        }
+
+        .metric-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.65rem;
+        }
+
+        @media (max-width: 420px) {
+            .metric-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .metric-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 0.6rem;
+            padding: 0.75rem;
+        }
+
+        .metric-name {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-val {
+            display: block;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .metric-note {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 0.15rem;
+        }
+
+        .cred-preview {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cred-code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .cred-meta {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.15rem;
+        }
+
+        /* Sections & Grids */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-surface {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 820px) {
+            .split-grid {
+                grid-template-columns: 0.8fr 1.2fr;
+                gap: 2.75rem;
+            }
+        }
+
+        .section-heading {
+            font-size: clamp(1.5rem, 2.6vw, 2rem);
+            font-weight: 700;
+            line-height: 1.22;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .section-lead {
+            font-size: 0.975rem;
+            color: var(--text-secondary);
+            margin: 0 0 2rem;
+            max-width: 62ch;
+        }
+
+        .workflow-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .workflow-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.15rem;
+        }
+
+        @media (min-width: 600px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 960px) {
+            .grid-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (min-width: 720px) {
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.85rem;
+            padding: 1.4rem;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.15s ease, transform 0.15s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+        }
+
+        .card-compact {
+            padding: 1.15rem;
+        }
+
+        .card-index {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .pub-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.25rem;
+        }
+
+        .pub-link {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .pub-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Forms & Clinical Triage Slip */
+        .form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.9rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 600px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .col-span-2 {
+                grid-column: span 2;
+            }
+        }
+
+        .field-label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.625rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            background: var(--bg-page);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        .result-slip {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+        }
+
+        .result-slip-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 0.85rem;
+            margin-bottom: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .result-slip-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .result-list {
+            display: grid;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .result-list strong {
+            color: var(--text-primary);
+        }
+
+        .result-footer-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 720px) {
+            .footer-grid {
+                grid-template-columns: 1.3fr 1fr 1fr;
+            }
+            .footer-right {
+                text-align: right;
+            }
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-logo {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            border-radius: 6px;
+            background: #ffffff;
+            padding: 2px;
+            border: 1px solid var(--border-color);
+        }
+
+        .footer-heading {
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-primary);
+            margin: 0 0 0.65rem;
+        }
+
+        .footer-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .footer-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-list a:hover {
+            color: var(--accent);
+        }
+
+        .footer-link-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            font: inherit;
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .footer-link-btn:hover {
+            color: var(--accent);
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            z-index: 60;
+        }
+
+        .modal-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.9rem;
+            max-width: 460px;
+            width: 100%;
+            padding: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* Isolated Print Layout for Triage Slip */
+        @media print {
+            .no-print,
+            .site-nav,
+            .hero,
+            #about,
+            #capabilities,
+            #publications,
+            #contact,
+            .site-footer,
+            #triage-form,
+            #triage .eyebrow,
+            #triage .section-heading,
+            #triage .section-lead {
+                display: none !important;
+            }
+
+            body,
+            #triage,
+            .form-card,
+            .result-slip {
+                background: #ffffff !important;
+                color: #000000 !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .result-slip {
+                border: 1px solid #cbd5e1 !important;
+                padding: 1.25rem !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -50,7 +931,8 @@
     <nav class="site-nav">
         <div class="container nav-inner">
             <a href="/" class="brand-link">
-                <span class="brand-mark" aria-hidden="true">SM</span>
+                <img src="logo.png" alt="Sano Meditech Solutions Logo" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <span class="brand-mark" aria-hidden="true" style="display: none;">SM</span>
                 <div>
                     <span class="brand-title">SANO MEDITECH</span>
                     <span class="brand-sub">Solutions</span>
@@ -84,7 +966,7 @@
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                     </svg>
                     <svg id="mobile-icon-sun" class="hidden" width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>
                     </svg>
                 </button>
                 <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" class="icon-btn">
@@ -323,9 +1205,12 @@
                 <!-- Isolated Print Slip -->
                 <div id="printable-triage-slip" class="result-slip hidden">
                     <div class="result-slip-header">
-                        <div>
-                            <span class="ui-card-label" style="display:block; margin-bottom: 2px;">Sano Meditech Solutions</span>
-                            <h3 id="result-header" class="result-slip-title">Clinical Vitals Summary</h3>
+                        <div style="display: flex; align-items: center; gap: 0.65rem;">
+                            <img src="logo.png" alt="Sano Meditech Solutions Logo" class="footer-logo" onerror="this.style.display='none';">
+                            <div>
+                                <span class="ui-card-label" style="display:block; margin-bottom: 2px;">Sano Meditech Solutions</span>
+                                <h3 id="result-header" class="result-slip-title">Clinical Vitals Summary</h3>
+                            </div>
                         </div>
                         <button type="button" onclick="window.print()" class="btn btn-sm btn-secondary no-print">Print Summary</button>
                     </div>
@@ -373,7 +1258,10 @@
     <footer class="site-footer">
         <div class="container footer-grid">
             <div>
-                <p style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem; margin: 0 0 0.4rem;">Sano Meditech Solutions</p>
+                <div class="footer-brand">
+                    <img src="logo.png" alt="Sano Meditech Solutions Logo" class="footer-logo" onerror="this.style.display='none';">
+                    <p style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem; margin: 0;">Sano Meditech Solutions</p>
+                </div>
                 <p style="margin: 0;">&copy; 2026 Sano Meditech Solutions. All rights reserved.</p>
             </div>
             <div>
