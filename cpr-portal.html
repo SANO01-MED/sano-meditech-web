@@ -69,7 +69,7 @@
         <h2 style="margin-top:0;font-size:1.1rem;">Verify Participant or Certificate ID</h2>
         <p class="muted">Enter a Registration ID (e.g., <strong>Reg-001</strong>) or Certificate ID (e.g., <strong>LAUMSA-BLS-2026-001</strong>).</p>
         <div class="row">
-          <input type="text" id="verifyInput" placeholder="Reg-001 or LAUMSA-BLS-2026-001" />
+          <input type="text" id="verifyInput" placeholder="Reg-001 or LAUMSA-BLS-2026-001" onkeydown="if(event.key==='Enter') verifyRecord()" />
           <button onclick="verifyRecord()">Verify</button>
         </div>
         <div id="verifyResult" style="margin-top:16px;"></div>
@@ -83,8 +83,8 @@
         <h2 style="margin-top:0;font-size:1.1rem;">Coordinator Sign-In</h2>
         <p class="muted">Sign in with your authorized Sano Meditech admin account.</p>
         <form id="loginForm" class="row">
-          <input type="email" id="adminEmail" value="anu@sanomeditechsolutions.com.ng" required />
-          <input type="password" id="adminPassword" placeholder="Admin Password" required />
+          <input type="email" id="adminEmail" placeholder="Admin Email" autocomplete="username" required />
+          <input type="password" id="adminPassword" placeholder="Admin Password" autocomplete="current-password" required />
           <button type="submit">Sign In</button>
         </form>
         <p id="loginError" class="muted" style="color:#f87171;margin-top:10px;"></p>
@@ -236,7 +236,6 @@
       rosterCache = [];
       snap.forEach(docSnap => {
         const d = docSnap.data();
-        // Exclude mirror certificate lookup docs from main roster table
         if (d.recordType !== "CERT_ALIAS") {
           rosterCache.push({ id: docSnap.id, ...d });
         }
@@ -299,7 +298,6 @@
         issuedAt: serverTimestamp()
       });
 
-      // Mirror doc keyed by Cert_ID so public getDoc() works by Certificate ID too
       await setDoc(doc(db, COLLECTION, certId), {
         recordType: "CERT_ALIAS",
         regId: record.regId,
