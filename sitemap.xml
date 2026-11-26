@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sanomeditech.vercel.app/</loc>
+    <loc>https://sanomeditechsolutions.com.ng/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://sanomeditech.vercel.app/portal.html</loc>
+    <loc>https://sanomeditechsolutions.com.ng/portal.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanomeditech.vercel.app/cpr.html</loc>
+    <loc>https://sanomeditechsolutions.com.ng/cpr.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanomeditechsolutions.com.ng/cpr-portal.html</loc>
     <priority>0.8</priority>
   </url>
 </urlset>
