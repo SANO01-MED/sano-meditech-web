@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPR &amp; BLS Training Portal — LAUMSA-MOP × Sano Meditech Solutions</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #121c2e;
+      --border: #22314d;
+      --text: #eef3fb;
+      --muted: #93a4c3;
+      --primary: #0ea5e9;
+      --primary-hover: #0284c7;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.5; }
+    .container { max-width: 960px; margin: 0 auto; padding: 24px 16px 64px; }
+    header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px; }
+    h1 { font-size: 1.35rem; margin: 0; }
+    .subtitle { color: var(--muted); font-size: 0.9rem; margin: 4px 0 0; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .tab-btn { background: var(--card); color: var(--muted); border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+    .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; }
+    input { flex: 1; min-width: 200px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); background: #080e1a; color: var(--text); font-size: 0.95rem; }
+    button { padding: 10px 16px; border-radius: 8px; border: none; background: var(--primary); color: #fff; font-weight: 600; cursor: pointer; }
+    button:hover { background: var(--primary-hover); }
+    button.secondary { background: #1e2d4a; }
+    button.success { background: var(--success); color: #052e16; }
+    button.danger { background: var(--danger); }
+    .badge { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; }
+    .badge.ok { background: rgba(16, 185, 129, 0.18); color: #34d399; }
+    .badge.pending { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
+    .badge.err { background: rgba(239, 68, 68, 0.18); color: #f87171; }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.9rem; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 600; }
+    .hidden { display: none; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+    .stat-box { background: #080e1a; border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+    .stat-num { font-size: 1.5rem; font-weight: 700; }
+    .muted { color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Collegiate CPR &amp; Basic Life Support (BLS) Training</h1>
+        <p class="subtitle">LAUMSA-MOP × Sano Meditech Solutions • Saturday, December 5, 2026</p>
+      </div>
+      <div id="authBadge" class="muted">Public Mode</div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" id="tabVerifyBtn" onclick="switchTab('verify')">Verify Registration / Certificate</button>
+      <button class="tab-btn" id="tabAdminBtn" onclick="switchTab('admin')">Coordinator Check-In</button>
+    </div>
+
+    <!-- PUBLIC VERIFICATION SECTION -->
+    <section id="verifySection">
+      <div class="card">
+        <h2 style="margin-top:0;font-size:1.1rem;">Verify Participant or Certificate ID</h2>
+        <p class="muted">Enter a Registration ID (e.g., <strong>Reg-001</strong>) or Certificate ID (e.g., <strong>LAUMSA-BLS-2026-001</strong>).</p>
+        <div class="row">
+          <input type="text" id="verifyInput" placeholder="Reg-001 or LAUMSA-BLS-2026-001" />
+          <button onclick="verifyRecord()">Verify</button>
+        </div>
+        <div id="verifyResult" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <!-- ADMIN CHECK-IN SECTION -->
+    <section id="adminSection" class="hidden">
+      <!-- Login Form -->
+      <div id="loginCard" class="card">
+        <h2 style="margin-top:0;font-size:1.1rem;">Coordinator Sign-In</h2>
+        <p class="muted">Sign in with your authorized Sano Meditech admin account.</p>
+        <form id="loginForm" class="row">
+          <input type="email" id="adminEmail" value="anu@sanomeditechsolutions.com.ng" required />
+          <input type="password" id="adminPassword" placeholder="Admin Password" required />
+          <button type="submit">Sign In</button>
+        </form>
+        <p id="loginError" class="muted" style="color:#f87171;margin-top:10px;"></p>
+      </div>
+
+      <!-- Authenticated Dashboard -->
+      <div id="dashboardCard" class="hidden">
+        <div class="stats">
+          <div class="stat-box"><div class="muted">Total Roster</div><div class="stat-num" id="statTotal">0</div></div>
+          <div class="stat-box"><div class="muted">Checked In (Dec 5)</div><div class="stat-num" id="statCheckedIn">0</div></div>
+          <div class="stat-box"><div class="muted">Certificates Issued</div><div class="stat-num" id="statIssued">0</div></div>
+        </div>
+
+        <div class="card">
+          <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <input type="text" id="rosterSearch" placeholder="Search by Reg_ID, name, or department..." oninput="renderRoster()" />
+            <button class="secondary" onclick="loadRoster()">Refresh</button>
+            <button class="danger" onclick="logoutAdmin()">Sign Out</button>
+          </div>
+
+          <details style="margin-bottom:12px;">
+            <summary class="muted" style="cursor:pointer;">+ Quick Add / Sync Participant Manually</summary>
+            <form id="addParticipantForm" class="row" style="margin-top:10px;">
+              <input type="text" id="newRegId" placeholder="Reg-001" required />
+              <input type="text" id="newFullName" placeholder="Full Name" required />
+              <input type="text" id="newDept" placeholder="Dept & Level (e.g., MBBS - 200L)" required />
+              <button type="submit">Save to Roster</button>
+            </form>
+          </details>
+
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reg_ID</th>
+                  <th>Participant</th>
+                  <th>Dept &amp; Level</th>
+                  <th>Attendance</th>
+                  <th>Certificate</th>
+                </tr>
+              </thead>
+              <tbody id="rosterBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCVZHQ3cPVWxE3gZmBrWyC7iGkIjras3kQ",
+      authDomain: "sanomed001.firebaseapp.com",
+      projectId: "sanomed001",
+      storageBucket: "sanomed001.firebasestorage.app",
+      messagingSenderId: "970699648017",
+      appId: "1:970699648017:web:4eed811aead41ade1a15b0",
+      measurementId: "G-4GGZ5Z785B"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const COLLECTION = "cpr_bls_2026";
+    let rosterCache = [];
+
+    function esc(str) {
+      return String(str || "").replace(/[&<>"']/g, m => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[m]));
+    }
+
+    window.switchTab = (tab) => {
+      document.getElementById("verifySection").classList.toggle("hidden", tab !== "verify");
+      document.getElementById("adminSection").classList.toggle("hidden", tab !== "admin");
+      document.getElementById("tabVerifyBtn").classList.toggle("active", tab === "verify");
+      document.getElementById("tabAdminBtn").classList.toggle("active", tab === "admin");
+    };
+
+    window.verifyRecord = async () => {
+      const raw = document.getElementById("verifyInput").value.trim().toUpperCase();
+      const box = document.getElementById("verifyResult");
+      if (!raw) return;
+      box.innerHTML = `<span class="muted">Checking database...</span>`;
+
+      try {
+        const snap = await getDoc(doc(db, COLLECTION, raw));
+        if (!snap.exists()) {
+          box.innerHTML = `<span class="badge err">NOT FOUND</span> <span class="muted">No record matches ${esc(raw)}.</span>`;
+          return;
+        }
+        const d = snap.data();
+        const certBadge = d.certStatus === "ISSUED"
+          ? `<span class="badge ok">CERTIFICATE ISSUED (${esc(d.certId)})</span>`
+          : `<span class="badge pending">${esc(d.certStatus || "REGISTERED")}</span>`;
+
+        box.innerHTML = `
+          <div style="padding:14px;border:1px solid var(--border);border-radius:8px;background:#080e1a;">
+            <div style="margin-bottom:6px;">${certBadge}</div>
+            <div><strong>Name:</strong> ${esc(d.fullName)}</div>
+            <div><strong>Registration ID:</strong> ${esc(d.regId)}</div>
+            <div><strong>Department &amp; Level:</strong> ${esc(d.dept)}</div>
+            <div><strong>Event:</strong> Collegiate CPR &amp; BLS Training (Dec 5, 2026)</div>
+          </div>`;
+      } catch (err) {
+        box.innerHTML = `<span class="badge err">ERROR</span> <span class="muted">${esc(err.message)}</span>`;
+      }
+    };
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("adminEmail").value.trim();
+      const pass = document.getElementById("adminPassword").value;
+      const errBox = document.getElementById("loginError");
+      errBox.textContent = "";
+
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+      } catch (err) {
+        errBox.textContent = err.message;
+      }
+    });
+
+    window.logoutAdmin = () => signOut(auth);
+
+    onAuthStateChanged(auth, async (user) => {
+      const badge = document.getElementById("authBadge");
+      const loginCard = document.getElementById("loginCard");
+      const dashCard = document.getElementById("dashboardCard");
+
+      if (user) {
+        badge.textContent = `Signed in: ${user.email}`;
+        loginCard.classList.add("hidden");
+        dashCard.classList.remove("hidden");
+        await loadRoster();
+      } else {
+        badge.textContent = "Public Mode";
+        loginCard.classList.remove("hidden");
+        dashCard.classList.add("hidden");
+      }
+    });
+
+    window.loadRoster = async () => {
+      const snap = await getDocs(collection(db, COLLECTION));
+      rosterCache = [];
+      snap.forEach(docSnap => {
+        const d = docSnap.data();
+        // Exclude mirror certificate lookup docs from main roster table
+        if (d.recordType !== "CERT_ALIAS") {
+          rosterCache.push({ id: docSnap.id, ...d });
+        }
+      });
+      rosterCache.sort((a, b) => String(a.regId).localeCompare(String(b.regId)));
+      renderRoster();
+    };
+
+    window.renderRoster = () => {
+      const q = document.getElementById("rosterSearch").value.trim().toLowerCase();
+      const filtered = rosterCache.filter(r =>
+        !q ||
+        String(r.regId).toLowerCase().includes(q) ||
+        String(r.fullName).toLowerCase().includes(q) ||
+        String(r.dept).toLowerCase().includes(q)
+      );
+
+      document.getElementById("statTotal").textContent = rosterCache.length;
+      document.getElementById("statCheckedIn").textContent = rosterCache.filter(r => r.checkedIn).length;
+      document.getElementById("statIssued").textContent = rosterCache.filter(r => r.certStatus === "ISSUED").length;
+
+      const tbody = document.getElementById("rosterBody");
+      tbody.innerHTML = filtered.map(r => `
+        <tr>
+          <td><strong>${esc(r.regId)}</strong></td>
+          <td>${esc(r.fullName)}</td>
+          <td>${esc(r.dept)}</td>
+          <td>
+            ${r.checkedIn
+              ? `<span class="badge ok">Checked In</span>`
+              : `<button class="success" onclick="checkInParticipant('${esc(r.id)}')">Check In</button>`}
+          </td>
+          <td>
+            ${r.certStatus === "ISSUED"
+              ? `<span class="badge ok">${esc(r.certId)}</span>`
+              : r.checkedIn
+                ? `<button class="secondary" onclick="issueCert('${esc(r.id)}', '${esc(r.regId)}')">Issue Cert ID</button>`
+                : `<span class="muted">Check in first</span>`}
+          </td>
+        </tr>
+      `).join("");
+    };
+
+    window.checkInParticipant = async (docId) => {
+      await updateDoc(doc(db, COLLECTION, docId), {
+        checkedIn: true,
+        checkedInAt: serverTimestamp()
+      });
+      await loadRoster();
+    };
+
+    window.issueCert = async (docId, regId) => {
+      const numPart = String(regId).replace(/\D/g, "").padStart(3, "0");
+      const certId = `LAUMSA-BLS-2026-${numPart}`;
+      const record = rosterCache.find(r => r.id === docId);
+
+      await updateDoc(doc(db, COLLECTION, docId), {
+        certId: certId,
+        certStatus: "ISSUED",
+        issuedAt: serverTimestamp()
+      });
+
+      // Mirror doc keyed by Cert_ID so public getDoc() works by Certificate ID too
+      await setDoc(doc(db, COLLECTION, certId), {
+        recordType: "CERT_ALIAS",
+        regId: record.regId,
+        fullName: record.fullName,
+        dept: record.dept,
+        certId: certId,
+        certStatus: "ISSUED"
+      });
+
+      await loadRoster();
+    };
+
+    document.getElementById("addParticipantForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const regId = document.getElementById("newRegId").value.trim().toUpperCase();
+      const fullName = document.getElementById("newFullName").value.trim();
+      const dept = document.getElementById("newDept").value.trim();
+
+      await setDoc(doc(db, COLLECTION, regId), {
+        regId: regId,
+        fullName: fullName,
+        dept: dept,
+        checkedIn: false,
+        certId: "",
+        certStatus: "REGISTERED",
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+
+      e.target.reset();
+      await loadRoster();
+    });
+  </script>
+</body>
+</html>
