@@ -18,21 +18,27 @@
     <meta property="og:url" content="https://sanomeditechsolutions.com.ng/">
     <meta property="og:image" content="https://sanomeditechsolutions.com.ng/logo.png">
 
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@AnuMeditech">
+    <meta name="twitter:title" content="Sano Meditech Solutions | Clinical Data Analytics &amp; Digital Health">
+    <meta name="twitter:description" content="Medical outreach technical & data management, structured vitals stratification, cardiometabolic programs, and verified basic life support credentials.">
+    <meta name="twitter:image" content="https://sanomeditechsolutions.com.ng/logo.png">
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "MedicalBusiness",
       "name": "Sano Meditech Solutions",
       "legalName": "Sano Meditech Ventures",
-      "identifier": "RC 9753717",
+      "identifier": "BN 9753717",
       "url": "https://sanomeditechsolutions.com.ng",
       "logo": "https://sanomeditechsolutions.com.ng/logo.png",
       "telephone": "+2349157713591",
       "email": "sanomeditechsolutions@gmail.com",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "",
-        "addressRegion": "",
+        "addressLocality": "Ogbomosho",
+        "addressRegion": "Oyo State",
         "addressCountry": "NG"
       },
       "sameAs": ["https://x.com/AnuMeditech"]
@@ -248,8 +254,9 @@
             .nav-actions {
                 display: flex;
             }
-            .mobile-controls {
-                display: none;
+            .mobile-controls,
+            .mobile-menu {
+                display: none !important;
             }
         }
 
@@ -1148,30 +1155,50 @@
             color: var(--text-primary);
         }
 
-        /* Strict Isolated Print Layout — Prints ONLY #printable-triage-slip */
+        /* Strict Isolated Print Layout — Prints ONLY #printable-triage-slip in normal document flow */
         @media print {
             @page {
                 margin: 14mm;
             }
 
-            body * {
-                visibility: hidden !important;
+            html, body {
+                background: #ffffff !important;
+                color: #0f172a !important;
             }
 
+            body > *:not(#triage) {
+                display: none !important;
+            }
+
+            #triage {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            #triage .container-narrow {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+
+            #triage .eyebrow,
+            #triage .section-heading,
+            #triage .section-lead,
+            #triage-form,
             .no-print,
             .no-print * {
                 display: none !important;
             }
 
-            #printable-triage-slip,
-            #printable-triage-slip * {
-                visibility: visible !important;
+            #triage .form-card {
+                border: none !important;
+                padding: 0 !important;
+                background: transparent !important;
+                box-shadow: none !important;
             }
 
             #printable-triage-slip {
-                position: fixed !important;
-                left: 0 !important;
-                top: 0 !important;
+                position: static !important;
+                display: block !important;
                 width: 100% !important;
                 margin: 0 !important;
                 padding: 1.25rem !important;
@@ -1180,6 +1207,7 @@
                 border: 1px solid #cbd5e1 !important;
                 border-radius: 8px !important;
                 box-shadow: none !important;
+                page-break-inside: avoid;
             }
 
             #printable-triage-slip .result-row {
@@ -1235,7 +1263,7 @@
                         <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>
                     </svg>
                 </button>
-                <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" class="icon-btn">
+                <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="icon-btn">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -1269,7 +1297,6 @@
                 <div class="hero-cta-group">
                     <a href="portal.html" class="btn btn-primary">Open Client Portal</a>
                     <a href="cpr.html" class="btn btn-secondary">Verify a Certificate</a>
-                    <a href="#triage" class="btn btn-teal">Run Vitals Triage</a>
                 </div>
             </div>
 
@@ -1500,7 +1527,7 @@
         </div>
     </section>
 
-    <!-- Operational Capabilities (Interactive Slideshow on Mobile / Highlight Carousel on Desktop) -->
+    <!-- Operational Capabilities -->
     <section id="capabilities" class="section section-surface">
         <div class="container">
             <div class="section-header-row">
@@ -1677,7 +1704,7 @@
         <div class="container-narrow">
             <span class="eyebrow">Vitals Stratification</span>
             <h2 class="section-heading">Automated Clinical Triage</h2>
-            <p class="section-lead">Compute BMI, blood pressure staging, resting pulse, and optional blood glucose classification, and generate an isolated printable clinical slip.</p>
+            <p class="section-lead">Compute BMI, blood pressure staging, resting pulse, and optional random blood glucose classification, and generate an isolated printable clinical slip.</p>
 
             <div class="form-card">
                 <form id="triage-form" class="form-grid">
@@ -1735,12 +1762,12 @@
                         <input type="number" id="calc-pulse" required min="30" max="250" placeholder="e.g., 72" class="form-control">
                     </div>
                     <div>
-                        <label for="calc-glucose" class="field-label">Blood Glucose (mg/dL) — Optional</label>
+                        <label for="calc-glucose" class="field-label">Random Blood Glucose (mg/dL) — Optional</label>
                         <input type="number" id="calc-glucose" min="20" max="700" placeholder="e.g., 95" class="form-control">
                     </div>
                     <div class="col-span-2">
                         <label for="calc-symptoms" class="field-label">Notes or Symptoms (Optional)</label>
-                        <textarea id="calc-symptoms" rows="2" placeholder="Any current symptoms, medications, or fasting status..." class="form-control"></textarea>
+                        <textarea id="calc-symptoms" rows="2" placeholder="Any current symptoms, medications, or meal timing..." class="form-control"></textarea>
                     </div>
 
                     <div id="triage-error" class="col-span-2 inline-alert hidden" role="alert"></div>
@@ -1880,7 +1907,7 @@
         <div class="modal-panel">
             <div class="modal-header">
                 <h3 id="legal-title" class="card-title" style="margin: 0;">Notice</h3>
-                <button type="button" onclick="closeLegalModal()" aria-label="Close modal" class="modal-close">&times;</button>
+                <button type="button" id="legal-close-x" onclick="closeLegalModal()" aria-label="Close modal" class="modal-close">&times;</button>
             </div>
             <p id="legal-body" class="card-text" style="margin-bottom: 1.25rem;"></p>
             <button type="button" onclick="closeLegalModal()" class="btn btn-sm btn-primary btn-full">Close</button>
@@ -1891,13 +1918,21 @@
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxvOpe7qnh5dIJRNbPa0ovBS97S0qEfVwxaF7sZqijy4811frs-YVTF698Ddna7pq4/exec";
 
         // Mobile navigation toggle
-        document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function setMobileMenuOpen(isOpen) {
+            if (!mobileMenu || !mobileMenuBtn) return;
+            mobileMenu.classList.toggle('hidden', !isOpen);
+            mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        mobileMenuBtn?.addEventListener('click', () => {
+            const isCurrentlyHidden = mobileMenu.classList.contains('hidden');
+            setMobileMenuOpen(isCurrentlyHidden);
         });
         document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
+            link.addEventListener('click', () => setMobileMenuOpen(false));
         });
 
         // Theme toggle synchronization (Desktop + Mobile)
@@ -2029,12 +2064,13 @@
             }, 350);
         }
 
-        // Compliance Modal
+        // Compliance Modal with Focus & Scroll Management
         const legalTexts = {
             terms: "Sano Meditech Solutions (Sano Meditech Ventures, BN 9753717) provides preventative wellness education, vitals stratification tools, outreach data management, and basic life support training verification. Automated platform summaries support preventative awareness and do not replace formal medical diagnosis or emergency clinical care.",
             privacy: "Submitted vitals and contact details are transmitted over encrypted HTTPS channels solely for clinical risk stratification, participant reporting, and authorized follow-up communication.",
             ndpr: "In alignment with the Nigeria Data Protection Regulation (NDPR), personal records are minimized, safeguarded in transit, and never sold or shared with third-party advertisers."
         };
+        let lastModalTrigger = null;
 
         function openLegalModal(key) {
             const titles = {
@@ -2042,13 +2078,22 @@
                 privacy: "Data Privacy Policy",
                 ndpr: "NDPR & Clinical Disclaimer"
             };
+            lastModalTrigger = document.activeElement;
             document.getElementById('legal-title').textContent = titles[key];
             document.getElementById('legal-body').textContent = legalTexts[key];
             document.getElementById('legal-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('legal-close-x')?.focus();
         }
 
         function closeLegalModal() {
-            document.getElementById('legal-modal').classList.add('hidden');
+            const modal = document.getElementById('legal-modal');
+            if (!modal || modal.classList.contains('hidden')) return;
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+            if (lastModalTrigger && typeof lastModalTrigger.focus === 'function') {
+                lastModalTrigger.focus();
+            }
         }
 
         document.getElementById('legal-modal')?.addEventListener('click', (e) => {
@@ -2109,7 +2154,13 @@
             const glucoseRaw = document.getElementById('calc-glucose').value.trim();
             const glucose = glucoseRaw ? parseFloat(glucoseRaw) : null;
 
-            // Clinical Unit & Plausibility Guardrails
+            // Input & Clinical Plausibility Guardrails
+            const phoneDigits = phone.replace(/\D/g, '');
+            if (!name || !email || phoneDigits.length < 10) {
+                errorBox.textContent = "Please enter your full name, a valid email address, and a valid 10-to-14-digit phone/WhatsApp number.";
+                errorBox.classList.remove('hidden');
+                return;
+            }
             if (heightCm < 50 || heightCm > 260) {
                 errorBox.textContent = "Please enter height in centimeters (e.g., 172 cm rather than 1.72 m).";
                 errorBox.classList.remove('hidden');
@@ -2126,23 +2177,24 @@
             btn.disabled = true;
             btnText.textContent = "Processing...";
 
-            // BMI Stratification
+            // BMI Stratification (classified on displayed rounded value to prevent boundary mismatch)
             const bmiNum = weight / Math.pow(heightCm / 100, 2);
-            const bmi = bmiNum.toFixed(1);
+            const bmiRounded = Number(bmiNum.toFixed(1));
+            const bmi = bmiRounded.toFixed(1);
             let bmiStatus = "Normal Weight";
             let bmiBadge = "pill-success";
-            if (bmiNum < 18.5) {
+            if (bmiRounded < 18.5) {
                 bmiStatus = "Underweight";
                 bmiBadge = "pill-warn";
-            } else if (bmiNum >= 25 && bmiNum < 30) {
+            } else if (bmiRounded >= 25 && bmiRounded < 30) {
                 bmiStatus = "Overweight";
                 bmiBadge = "pill-warn";
-            } else if (bmiNum >= 30) {
+            } else if (bmiRounded >= 30) {
                 bmiStatus = "Obesity Range";
                 bmiBadge = "pill-danger";
             }
 
-            // Blood Pressure Stratification
+            // Blood Pressure Stratification (Hypotension evaluated before Elevated)
             let bpStatus = "Normal";
             let bpBadge = "pill-success";
             let urgentReasons = [];
@@ -2151,6 +2203,10 @@
                 bpStatus = "Hypertensive Crisis";
                 bpBadge = "pill-danger";
                 urgentReasons.push("Blood pressure is in the Hypertensive Crisis range (>=180/120 mmHg). Seek urgent medical evaluation or call 112 immediately.");
+            } else if (sys < 90 || dia < 60) {
+                bpStatus = "Hypotension";
+                bpBadge = "pill-danger";
+                urgentReasons.push("Blood pressure is below normal (<90/60 mmHg). Evaluate promptly if experiencing dizziness, weakness, or fainting.");
             } else if (sys >= 140 || dia >= 90) {
                 bpStatus = "Hypertension Stage 2";
                 bpBadge = "pill-danger";
@@ -2160,10 +2216,6 @@
             } else if (sys >= 120 && sys <= 129 && dia < 80) {
                 bpStatus = "Elevated";
                 bpBadge = "pill-warn";
-            } else if (sys < 90 || dia < 60) {
-                bpStatus = "Hypotension";
-                bpBadge = "pill-danger";
-                urgentReasons.push("Blood pressure is below normal (<90/60 mmHg). Evaluate promptly if experiencing dizziness, weakness, or fainting.");
             }
 
             // Resting Pulse Stratification
@@ -2177,7 +2229,7 @@
                 pulseBadge = "pill-warn";
             }
 
-            // Optional Blood Glucose Stratification
+            // Optional Random Blood Glucose Stratification
             let glucoseSummary = "Not provided";
             let glucoseStatus = "";
             let glucoseBadge = "pill-teal";
@@ -2187,10 +2239,10 @@
                     glucoseBadge = "pill-danger";
                     urgentReasons.push("Blood glucose is low (<70 mg/dL). Follow hypoglycemia protocol and seek medical attention.");
                 } else if (glucose < 140) {
-                    glucoseStatus = "Normal Range";
+                    glucoseStatus = "Normal Range (Random ref.)";
                     glucoseBadge = "pill-success";
                 } else if (glucose < 200) {
-                    glucoseStatus = "Elevated / Impaired";
+                    glucoseStatus = "Elevated / Impaired (Random ref.)";
                     glucoseBadge = "pill-warn";
                 } else {
                     glucoseStatus = "Hyperglycemia (>=200 mg/dL)";
@@ -2223,7 +2275,7 @@
             content.appendChild(createResultRow('Blood Pressure', `${sys}/${dia} mmHg`, bpStatus, bpBadge));
             content.appendChild(createResultRow('Resting Pulse', `${pulse} bpm`, pulseStatus, pulseBadge));
             if (glucose !== null && !Number.isNaN(glucose)) {
-                content.appendChild(createResultRow('Blood Glucose', glucoseSummary, glucoseStatus, glucoseBadge));
+                content.appendChild(createResultRow('Random Glucose', glucoseSummary, glucoseStatus, glucoseBadge));
             }
             if (symptoms) {
                 content.appendChild(createResultRow('Reported Notes', symptoms, '', ''));
@@ -2275,9 +2327,9 @@
                         glucose: glucose !== null && !Number.isNaN(glucose) ? `${glucose} mg/dL (${glucoseStatus})` : ""
                     })
                 });
-                syncNote.textContent = "Summary recorded and dispatched to your contact details.";
+                syncNote.textContent = "Summary transmitted to Sano Meditech clinical desk.";
             } catch (_) {
-                syncNote.textContent = "Calculated locally. Reconnect to dispatch summary.";
+                syncNote.textContent = "Calculated locally. Reconnect to transmit summary.";
             } finally {
                 btn.disabled = false;
                 btnText.textContent = "Calculate & Log Vitals";
@@ -2290,8 +2342,6 @@
             const btn = document.getElementById('contact-btn');
             const btnText = document.getElementById('contact-btn-text');
             const feedback = document.getElementById('contact-feedback');
-            btn.disabled = true;
-            btnText.textContent = "Sending...";
 
             const name = document.getElementById('contact-name').value.trim();
             const email = document.getElementById('contact-email').value.trim();
@@ -2299,6 +2349,16 @@
             const organization = document.getElementById('contact-org').value.trim();
             const inquiryType = document.getElementById('contact-type').value;
             const rawMessage = document.getElementById('contact-message').value.trim();
+
+            if (!name || !email || !rawMessage) {
+                feedback.textContent = "Please complete your name, email address, and message.";
+                feedback.style.color = "var(--danger-text)";
+                feedback.classList.remove('hidden');
+                return;
+            }
+
+            btn.disabled = true;
+            btnText.textContent = "Sending...";
 
             const structuredMessage = `[${inquiryType}]${organization ? ` Org: ${organization} |` : ''}${phone ? ` Phone: ${phone} |` : ''} ${rawMessage}`;
 
