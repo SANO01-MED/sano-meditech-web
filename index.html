@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="SkIWce3FxeQoqV6IPMHTQnE669mgplDXR-uIURGBd9k" />
     <meta name="google-site-verification" content="eYVr022OF02_zbNRqCPYG8-eTCIy4S0F36uyGWSz7tg" />
-    <meta name="description" content="Sano Meditech Solutions — Clinical data analytics, preventative vitals stratification, and verified life-support certification across Nigeria.">
+    <meta name="description" content="Sano Meditech Solutions — Clinical data analytics, medical outreach technical & data management, preventative vitals stratification, and verified life-support certification across Nigeria.">
     <meta name="author" content="Sano Meditech Solutions">
     <link rel="canonical" href="https://sanomeditechsolutions.com.ng/">
     <link rel="icon" type="image/png" href="logo.png">
@@ -14,7 +14,7 @@
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Sano Meditech Solutions | Clinical Data Analytics &amp; Digital Health">
-    <meta property="og:description" content="Structured vitals stratification, preventative health protocols, and verified basic life support credentials.">
+    <meta property="og:description" content="Medical outreach technical & data management, structured vitals stratification, cardiometabolic programs, and verified basic life support credentials.">
     <meta property="og:url" content="https://sanomeditechsolutions.com.ng/">
     <meta property="og:image" content="https://sanomeditechsolutions.com.ng/logo.png">
 
@@ -23,13 +23,16 @@
       "@context": "https://schema.org",
       "@type": "MedicalBusiness",
       "name": "Sano Meditech Solutions",
+      "legalName": "Sano Meditech Ventures",
+      "identifier": "RC 9753717",
       "url": "https://sanomeditechsolutions.com.ng",
       "logo": "https://sanomeditechsolutions.com.ng/logo.png",
       "telephone": "+2349157713591",
       "email": "sanomeditechsolutions@gmail.com",
       "address": {
         "@type": "PostalAddress",
-        "addressRegion": "Oyo State",
+        "addressLocality": "",
+        "addressRegion": "",
         "addressCountry": "NG"
       },
       "sameAs": ["https://x.com/AnuMeditech"]
@@ -64,9 +67,14 @@
             --primary-hover: #1e293b;
             --success-bg: #dcfce7;
             --success-text: #15803d;
-            --danger-text: #dc2626;
+            --warn-bg: #fef3c7;
+            --warn-text: #b45309;
+            --danger-bg: #fee2e2;
+            --danger-text: #b91c1c;
+            --whatsapp: #16a34a;
+            --whatsapp-hover: #15803d;
             --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
-            --shadow-md: 0 8px 24px -6px rgba(15, 23, 42, 0.08);
+            --shadow-md: 0 10px 28px -6px rgba(15, 23, 42, 0.08);
         }
 
         html.dark {
@@ -84,11 +92,16 @@
             --primary: #f8fafc;
             --primary-text: #0f172a;
             --primary-hover: #e2e8f0;
-            --success-bg: rgba(22, 163, 74, 0.2);
+            --success-bg: rgba(22, 163, 74, 0.22);
             --success-text: #4ade80;
+            --warn-bg: rgba(217, 119, 6, 0.22);
+            --warn-text: #fbbf24;
+            --danger-bg: rgba(220, 38, 38, 0.24);
             --danger-text: #f87171;
+            --whatsapp: #22c55e;
+            --whatsapp-hover: #16a34a;
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
-            --shadow-md: 0 10px 28px -6px rgba(0, 0, 0, 0.45);
+            --shadow-md: 0 12px 30px -6px rgba(0, 0, 0, 0.45);
         }
 
         *, *::before, *::after {
@@ -124,7 +137,7 @@
 
         .container-narrow {
             width: 100%;
-            max-width: 760px;
+            max-width: 780px;
             margin: 0 auto;
             padding: 0 1.25rem;
         }
@@ -203,11 +216,11 @@
         .nav-links {
             display: none;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1.35rem;
         }
 
         .nav-links a {
-            font-size: 0.875rem;
+            font-size: 0.86rem;
             font-weight: 500;
             color: var(--text-secondary);
             text-decoration: none;
@@ -221,7 +234,7 @@
         .nav-actions {
             display: none;
             align-items: center;
-            gap: 0.65rem;
+            gap: 0.6rem;
         }
 
         .mobile-controls {
@@ -230,7 +243,7 @@
             gap: 0.5rem;
         }
 
-        @media (min-width: 920px) {
+        @media (min-width: 980px) {
             .nav-links,
             .nav-actions {
                 display: flex;
@@ -292,7 +305,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.4rem;
+            gap: 0.45rem;
             padding: 0.65rem 1.15rem;
             font-family: inherit;
             font-size: 0.875rem;
@@ -352,10 +365,19 @@
             background: var(--accent-hover);
         }
 
+        .btn-whatsapp {
+            background: var(--whatsapp);
+            color: #ffffff;
+        }
+
+        .btn-whatsapp:hover:not(:disabled) {
+            background: var(--whatsapp-hover);
+        }
+
         .pill {
             display: inline-flex;
             align-items: center;
-            padding: 0.2rem 0.6rem;
+            padding: 0.22rem 0.62rem;
             border-radius: 9999px;
             font-size: 0.72rem;
             font-weight: 600;
@@ -372,10 +394,23 @@
             color: var(--success-text);
         }
 
-        /* Hero Section */
+        .pill-warn {
+            background: var(--warn-bg);
+            color: var(--warn-text);
+        }
+
+        .pill-danger {
+            background: var(--danger-bg);
+            color: var(--danger-text);
+        }
+
+        /* Hero & Interactive Showcase Slideshow */
         .hero {
-            padding: 3.5rem 0 4rem;
+            padding: 3.25rem 0 3.75rem;
             border-bottom: 1px solid var(--border-color);
+            background:
+                radial-gradient(circle at 85% 15%, var(--accent-soft), transparent 42%),
+                var(--bg-page);
         }
 
         .hero-grid {
@@ -385,12 +420,12 @@
             align-items: center;
         }
 
-        @media (min-width: 900px) {
+        @media (min-width: 920px) {
             .hero {
-                padding: 4.75rem 0 5rem;
+                padding: 4.5rem 0 4.75rem;
             }
             .hero-grid {
-                grid-template-columns: 1.15fr 0.85fr;
+                grid-template-columns: 1.08fr 0.92fr;
                 gap: 3rem;
             }
         }
@@ -415,7 +450,7 @@
         }
 
         .hero-subtitle {
-            font-size: 1.025rem;
+            font-size: 1.02rem;
             line-height: 1.65;
             color: var(--text-secondary);
             margin: 0 0 1.75rem;
@@ -428,27 +463,36 @@
             gap: 0.75rem;
         }
 
-        /* Product Preview Cards */
-        .ui-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .ui-card {
+        /* Slideshow Container */
+        .slideshow-shell {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 0.85rem;
-            padding: 1.25rem;
+            border-radius: 1rem;
+            padding: 1.35rem;
             box-shadow: var(--shadow-md);
+            position: relative;
         }
 
-        .ui-card-header {
+        .slide-panel {
+            display: none;
+            animation: slideFade 0.28s ease;
+        }
+
+        .slide-panel.active {
+            display: block;
+        }
+
+        @keyframes slideFade {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-top-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 0.75rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.95rem;
         }
 
         .ui-card-label {
@@ -459,66 +503,122 @@
             color: var(--text-muted);
         }
 
-        .metric-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.65rem;
-        }
-
-        @media (max-width: 420px) {
-            .metric-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .metric-box {
+        .graphic-frame {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: 0.6rem;
-            padding: 0.75rem;
+            border-radius: 0.75rem;
+            padding: 0.95rem;
+            margin-bottom: 1rem;
         }
 
-        .metric-name {
+        .graphic-frame svg {
+            width: 100%;
+            height: auto;
             display: block;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-bottom: 0.25rem;
         }
 
-        .metric-val {
-            display: block;
+        .slide-title {
             font-size: 1.05rem;
             font-weight: 700;
+            margin: 0 0 0.35rem;
             color: var(--text-primary);
         }
 
-        .metric-note {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-top: 0.15rem;
+        .slide-desc {
+            font-size: 0.875rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
+            margin: 0 0 1rem;
         }
 
-        .cred-preview {
+        .slide-footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid var(--border-color);
         }
 
-        .cred-code {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 0.9rem;
+        .slide-dots {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .slide-dot {
+            width: 0.55rem;
+            height: 0.55rem;
+            border-radius: 9999px;
+            border: none;
+            padding: 0;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .slide-dot.active {
+            width: 1.4rem;
+            background: var(--accent);
+        }
+
+        .slide-nav-btns {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Institutional Credibility Bar */
+        .trust-strip {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 0;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 820px) {
+            .trust-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+        }
+
+        .trust-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.5rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .trust-title {
+            display: block;
+            font-size: 0.82rem;
             font-weight: 700;
             color: var(--text-primary);
+            line-height: 1.25;
         }
 
-        .cred-meta {
-            font-size: 0.8rem;
+        .trust-meta {
+            display: block;
+            font-size: 0.75rem;
             color: var(--text-secondary);
-            margin-top: 0.15rem;
+            margin-top: 0.12rem;
         }
 
         /* Sections & Grids */
@@ -541,7 +641,7 @@
 
         @media (min-width: 820px) {
             .split-grid {
-                grid-template-columns: 0.8fr 1.2fr;
+                grid-template-columns: 0.85fr 1.15fr;
                 gap: 2.75rem;
             }
         }
@@ -559,7 +659,20 @@
             font-size: 0.975rem;
             color: var(--text-secondary);
             margin: 0 0 2rem;
-            max-width: 62ch;
+            max-width: 64ch;
+        }
+
+        .section-header-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header-row .section-lead {
+            margin-bottom: 0;
         }
 
         .workflow-cards {
@@ -575,31 +688,51 @@
             }
         }
 
-        .grid-4 {
+        /* Capabilities Slideshow / Grid */
+        .cap-track {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.15rem;
         }
 
-        @media (min-width: 600px) {
-            .grid-4 {
+        @media (min-width: 640px) {
+            .cap-track {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (min-width: 960px) {
-            .grid-4 {
+            .cap-track {
                 grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .cap-card {
+            position: relative;
+        }
+
+        .cap-card.is-highlighted {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        @media (max-width: 639px) {
+            .cap-card {
+                display: none;
+            }
+            .cap-card.is-highlighted {
+                display: block;
+                animation: slideFade 0.25s ease;
             }
         }
 
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.25rem;
+            gap: 1.35rem;
         }
 
-        @media (min-width: 720px) {
+        @media (min-width: 760px) {
             .grid-2 {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -611,7 +744,7 @@
             border-radius: 0.85rem;
             padding: 1.4rem;
             box-shadow: var(--shadow-sm);
-            transition: border-color 0.15s ease, transform 0.15s ease;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
 
         .card:hover {
@@ -622,17 +755,29 @@
             padding: 1.15rem;
         }
 
+        .cap-icon-wrap {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.65rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.85rem;
+        }
+
         .card-index {
             display: inline-block;
             font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.06em;
             color: var(--accent);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.45rem;
         }
 
         .card-title {
-            font-size: 1.05rem;
+            font-size: 1.06rem;
             font-weight: 700;
             margin: 0 0 0.5rem;
             color: var(--text-primary);
@@ -645,11 +790,59 @@
             margin: 0;
         }
 
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 1.35rem;
+            display: grid;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .feature-check {
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .program-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
         .pub-card {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             gap: 1.25rem;
+        }
+
+        .pub-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .pub-cover-badge {
+            width: 48px;
+            height: 60px;
+            border-radius: 0.5rem;
+            background: var(--accent-soft);
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .pub-link {
@@ -716,9 +909,30 @@
             box-shadow: 0 0 0 3px var(--accent-soft);
         }
 
+        .inline-alert {
+            padding: 0.75rem 0.95rem;
+            border-radius: 0.55rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: var(--danger-bg);
+            color: var(--danger-text);
+            border: 1px solid currentColor;
+        }
+
+        .crisis-banner {
+            padding: 0.85rem 1rem;
+            border-radius: 0.6rem;
+            background: var(--danger-bg);
+            color: var(--danger-text);
+            border: 1px solid currentColor;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
         .result-slip {
             margin-top: 1.5rem;
-            padding: 1.25rem;
+            padding: 1.35rem;
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
             border-radius: 0.75rem;
@@ -728,9 +942,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
+            flex-wrap: wrap;
+            gap: 0.85rem;
             padding-bottom: 0.85rem;
-            margin-bottom: 0.85rem;
+            margin-bottom: 0.95rem;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -741,15 +956,45 @@
             color: var(--text-primary);
         }
 
+        .slip-meta-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            color: var(--text-muted);
+            margin-bottom: 0.95rem;
+        }
+
         .result-list {
             display: grid;
-            gap: 0.5rem;
+            gap: 0.6rem;
             font-size: 0.9rem;
             color: var(--text-secondary);
         }
 
-        .result-list strong {
+        .result-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.55rem 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+        }
+
+        .result-row strong {
             color: var(--text-primary);
+        }
+
+        .slip-disclaimer {
+            margin-top: 0.9rem;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            line-height: 1.5;
         }
 
         .result-footer-bar {
@@ -763,6 +1008,19 @@
             border-top: 1px solid var(--border-color);
             font-size: 0.8125rem;
             color: var(--text-muted);
+        }
+
+        .slip-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+        }
+
+        .contact-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
         }
 
         /* Footer */
@@ -782,7 +1040,7 @@
 
         @media (min-width: 720px) {
             .footer-grid {
-                grid-template-columns: 1.3fr 1fr 1fr;
+                grid-template-columns: 1.35fr 1fr 1fr;
             }
             .footer-right {
                 text-align: right;
@@ -890,38 +1148,44 @@
             color: var(--text-primary);
         }
 
-        /* Isolated Print Layout for Triage Slip */
+        /* Strict Isolated Print Layout — Prints ONLY #printable-triage-slip */
         @media print {
+            @page {
+                margin: 14mm;
+            }
+
+            body * {
+                visibility: hidden !important;
+            }
+
             .no-print,
-            .site-nav,
-            .hero,
-            #about,
-            #capabilities,
-            #publications,
-            #contact,
-            .site-footer,
-            #triage-form,
-            #triage .eyebrow,
-            #triage .section-heading,
-            #triage .section-lead {
+            .no-print * {
                 display: none !important;
             }
 
-            body,
-            #triage,
-            .form-card,
-            .result-slip {
-                background: #ffffff !important;
-                color: #000000 !important;
-                border: none !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
+            #printable-triage-slip,
+            #printable-triage-slip * {
+                visibility: visible !important;
             }
 
-            .result-slip {
-                border: 1px solid #cbd5e1 !important;
+            #printable-triage-slip {
+                position: fixed !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
                 padding: 1.25rem !important;
+                background: #ffffff !important;
+                color: #0f172a !important;
+                border: 1px solid #cbd5e1 !important;
+                border-radius: 8px !important;
+                box-shadow: none !important;
+            }
+
+            #printable-triage-slip .result-row {
+                background: #f8fafc !important;
+                border-color: #cbd5e1 !important;
+                color: #0f172a !important;
             }
         }
     </style>
@@ -943,6 +1207,7 @@
             <div class="nav-links">
                 <a href="#about">Overview</a>
                 <a href="#capabilities">Capabilities</a>
+                <a href="#programs">Programs &amp; Outreach</a>
                 <a href="#publications">Publications</a>
                 <a href="#triage">Vitals Triage</a>
                 <a href="cpr.html">CPR Verification</a>
@@ -981,6 +1246,7 @@
         <div id="mobile-menu" class="mobile-menu hidden">
             <a href="#about" class="mobile-link">Overview</a>
             <a href="#capabilities" class="mobile-link">Capabilities</a>
+            <a href="#programs" class="mobile-link">Programs &amp; Outreach</a>
             <a href="#publications" class="mobile-link">Publications</a>
             <a href="#triage" class="mobile-link">Vitals Triage</a>
             <a href="cpr.html">CPR Verification</a>
@@ -991,63 +1257,198 @@
         </div>
     </nav>
 
-    <!-- Focused Mobile-First Hero -->
+    <!-- Focused Mobile-First Hero with Interactive Visual Slideshow -->
     <header class="hero">
         <div class="container hero-grid">
             <div>
                 <span class="eyebrow">Health Informatics &amp; Clinical Analytics</span>
                 <h1 class="hero-title">Empirical clinical data systems for community and institutional care.</h1>
                 <p class="hero-subtitle">
-                    Sano Meditech Solutions delivers automated vitals stratification, longitudinal client portals, and verified basic life support credentials across Nigeria.
+                    Sano Meditech Solutions serves as a technical and data partner for medical outreaches while delivering longitudinal cardiometabolic client portals and verified basic life support credentials across Nigeria.
                 </p>
                 <div class="hero-cta-group">
                     <a href="portal.html" class="btn btn-primary">Open Client Portal</a>
                     <a href="cpr.html" class="btn btn-secondary">Verify a Certificate</a>
+                    <a href="#triage" class="btn btn-teal">Run Vitals Triage</a>
                 </div>
             </div>
 
-            <!-- HTML/CSS Product UI Preview Cards -->
-            <div class="ui-stack" aria-label="Platform capabilities preview">
-                <div class="ui-card">
-                    <div class="ui-card-header">
-                        <span class="ui-card-label">Clinical Vitals Stratification</span>
-                        <span class="pill pill-teal">Instant Summary</span>
+            <!-- Interactive 3-Slide Visual Showcase -->
+            <div id="hero-slideshow" class="slideshow-shell" aria-roledescription="carousel" aria-label="Clinical systems showcase">
+                <!-- Slide 1: Outreach Technical & Data Partner -->
+                <div class="slide-panel active" data-slide="0">
+                    <div class="slide-top-bar">
+                        <span class="ui-card-label">01 / 03 &bull; Outreach Infrastructure</span>
+                        <span class="pill pill-teal">Technical &amp; Data Partner</span>
                     </div>
-                    <div class="metric-row">
-                        <div class="metric-box">
-                            <span class="metric-name">Blood Pressure</span>
-                            <span class="metric-val">118/76</span>
-                            <span class="metric-note">Normal</span>
-                        </div>
-                        <div class="metric-box">
-                            <span class="metric-name">Body Mass</span>
-                            <span class="metric-val">22.4</span>
-                            <span class="metric-note">Healthy BMI</span>
-                        </div>
-                        <div class="metric-box">
-                            <span class="metric-name">Resting Pulse</span>
-                            <span class="metric-val">72 bpm</span>
-                            <span class="metric-note">Sinus Range</span>
-                        </div>
+                    <div class="graphic-frame">
+                        <svg viewBox="0 0 420 148" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Outreach data capture to clinical stratification pipeline diagram">
+                            <rect x="8" y="24" width="114" height="100" rx="10" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5"/>
+                            <circle cx="32" cy="48" r="10" fill="var(--accent-soft)"/>
+                            <path d="M32 43V53M27 48H37" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+                            <rect x="22" y="68" width="84" height="8" rx="4" fill="var(--text-primary)" opacity="0.85"/>
+                            <rect x="22" y="82" width="66" height="6" rx="3" fill="var(--text-muted)" opacity="0.55"/>
+                            <rect x="22" y="96" width="76" height="14" rx="4" fill="var(--accent-soft)"/>
+                            <text x="30" y="106" fill="var(--accent)" font-size="8" font-weight="700" font-family="Inter, sans-serif">FIELD CAPTURE</text>
+
+                            <path d="M128 74H148" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M143 69L149 74L143 79" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+                            <rect x="153" y="24" width="114" height="100" rx="10" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.5"/>
+                            <path d="M170 54H182L188 41L196 63L203 48L209 54H222" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <rect x="167" y="72" width="86" height="8" rx="4" fill="var(--text-primary)" opacity="0.85"/>
+                            <rect x="167" y="86" width="72" height="6" rx="3" fill="var(--text-muted)" opacity="0.55"/>
+                            <rect x="167" y="98" width="84" height="14" rx="4" fill="var(--accent-soft)"/>
+                            <text x="174" y="108" fill="var(--accent)" font-size="8" font-weight="700" font-family="Inter, sans-serif">RISK STRATIFY</text>
+
+                            <path d="M273 74H293" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M288 69L294 74L288 79" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+                            <rect x="298" y="24" width="114" height="100" rx="10" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5"/>
+                            <rect x="316" y="54" width="12" height="24" rx="3" fill="var(--accent)" opacity="0.45"/>
+                            <rect x="334" y="44" width="12" height="34" rx="3" fill="var(--accent)" opacity="0.75"/>
+                            <rect x="352" y="36" width="12" height="42" rx="3" fill="var(--accent)"/>
+                            <rect x="370" y="48" width="12" height="30" rx="3" fill="var(--accent)" opacity="0.6"/>
+                            <rect x="312" y="86" width="84" height="6" rx="3" fill="var(--text-muted)" opacity="0.55"/>
+                            <rect x="312" y="98" width="86" height="14" rx="4" fill="var(--success-bg)"/>
+                            <text x="320" y="108" fill="var(--success-text)" font-size="8" font-weight="700" font-family="Inter, sans-serif">COHORT REPORT</text>
+                        </svg>
                     </div>
+                    <h2 class="slide-title">Technical &amp; Data Partner for Medical Outreaches</h2>
+                    <p class="slide-desc">End-to-end digital screening capture, cohort dataset cleaning, risk stratification, and empirical impact reporting for associations and institutions.</p>
                 </div>
 
-                <div class="ui-card">
-                    <div class="ui-card-header">
-                        <span class="ui-card-label">Credential Registry</span>
-                        <span class="pill pill-success">Verified</span>
+                <!-- Slide 2: 4-Week & 12-Week Cardiometabolic Programs -->
+                <div class="slide-panel" data-slide="1">
+                    <div class="slide-top-bar">
+                        <span class="ui-card-label">02 / 03 &bull; Structured Care Tracks</span>
+                        <span class="pill pill-teal">4-Week &amp; 12-Week</span>
                     </div>
-                    <div class="cred-preview">
-                        <div>
-                            <div class="cred-code">SMS-CPR-26-G8KJZ6</div>
-                            <div class="cred-meta">Basic Life Support &amp; CPR Certification</div>
-                        </div>
-                        <a href="cpr.html" class="btn btn-sm btn-secondary">Verify &rarr;</a>
+                    <div class="graphic-frame">
+                        <svg viewBox="0 0 420 148" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Longitudinal cardiometabolic and weight progression chart">
+                            <line x1="36" y1="26" x2="36" y2="118" stroke="var(--border-color)" stroke-width="1.5"/>
+                            <line x1="36" y1="118" x2="394" y2="118" stroke="var(--border-color)" stroke-width="1.5"/>
+                            <line x1="36" y1="54" x2="394" y2="54" stroke="var(--border-color)" stroke-width="1" stroke-dasharray="4 4"/>
+                            <line x1="36" y1="86" x2="394" y2="86" stroke="var(--border-color)" stroke-width="1" stroke-dasharray="4 4"/>
+
+                            <path d="M54 44C112 48 164 68 218 76C272 84 326 94 378 98" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="54" cy="44" r="5" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2.5"/>
+                            <circle cx="162" cy="64" r="5" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2.5"/>
+                            <circle cx="270" cy="84" r="5" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2.5"/>
+                            <circle cx="378" cy="98" r="5.5" fill="var(--accent)"/>
+
+                            <rect x="44" y="18" width="66" height="18" rx="4" fill="var(--bg-card)" stroke="var(--border-color)"/>
+                            <text x="53" y="30" fill="var(--text-primary)" font-size="8.5" font-weight="700" font-family="Inter, sans-serif">WK 01 BASE</text>
+
+                            <rect x="186" y="42" width="68" height="18" rx="4" fill="var(--bg-card)" stroke="var(--border-color)"/>
+                            <text x="195" y="54" fill="var(--accent)" font-size="8.5" font-weight="700" font-family="Inter, sans-serif">WK 04 CHECK</text>
+
+                            <rect x="316" y="68" width="72" height="18" rx="4" fill="var(--success-bg)"/>
+                            <text x="324" y="80" fill="var(--success-text)" font-size="8.5" font-weight="700" font-family="Inter, sans-serif">WK 12 GOAL</text>
+
+                            <text x="46" y="133" fill="var(--text-muted)" font-size="8.5" font-weight="600" font-family="Inter, sans-serif">Baseline</text>
+                            <text x="150" y="133" fill="var(--text-muted)" font-size="8.5" font-weight="600" font-family="Inter, sans-serif">Week 4</text>
+                            <text x="256" y="133" fill="var(--text-muted)" font-size="8.5" font-weight="600" font-family="Inter, sans-serif">Week 8</text>
+                            <text x="356" y="133" fill="var(--text-muted)" font-size="8.5" font-weight="600" font-family="Inter, sans-serif">Week 12</text>
+                        </svg>
+                    </div>
+                    <h2 class="slide-title">4-Week &amp; 12-Week Cardiometabolic &amp; Weight Programs</h2>
+                    <p class="slide-desc">Guided anthropometric and blood pressure monitoring, structured lifestyle protocols, and weekly clinical follow-up inside your Client Portal.</p>
+                </div>
+
+                <!-- Slide 3: Verified BLS & CPR Registry -->
+                <div class="slide-panel" data-slide="2">
+                    <div class="slide-top-bar">
+                        <span class="ui-card-label">03 / 03 &bull; Credential Verification</span>
+                        <span class="pill pill-success">Public Registry</span>
+                    </div>
+                    <div class="graphic-frame">
+                        <svg viewBox="0 0 420 148" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Basic Life Support and CPR digital credential verification diagram">
+                            <rect x="18" y="18" width="384" height="112" rx="12" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5"/>
+                            <path d="M58 44L82 53V73C82 88.5 71.8 102.6 58 107C44.2 102.6 34 88.5 34 73V53L58 44Z" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+                            <path d="M49 74L55.5 80.5L68 67" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+                            <text x="102" y="48" fill="var(--text-muted)" font-size="8.5" font-weight="700" letter-spacing="0.06em" font-family="Inter, sans-serif">CREDENTIAL VERIFICATION PORTAL</text>
+                            <text x="102" y="68" fill="var(--text-primary)" font-size="13" font-weight="700" font-family="Inter, sans-serif">Basic Life Support &amp; CPR Registry</text>
+                            <text x="102" y="86" fill="var(--text-secondary)" font-size="9.5" font-family="Inter, sans-serif">Instant validation by Certificate ID or Participant Name</text>
+
+                            <rect x="102" y="96" width="146" height="20" rx="5" fill="var(--bg-surface)" stroke="var(--border-color)"/>
+                            <text x="112" y="109" fill="var(--text-primary)" font-size="9" font-weight="700" font-family="monospace">SMS-CPR-26-XXXXXX</text>
+
+                            <rect x="258" y="96" width="122" height="20" rx="5" fill="var(--success-bg)"/>
+                            <text x="276" y="109" fill="var(--success-text)" font-size="8.5" font-weight="700" font-family="Inter, sans-serif">2025 ILCOR ALIGNED</text>
+                        </svg>
+                    </div>
+                    <h2 class="slide-title">Verifiable BLS &amp; CPR Certification</h2>
+                    <p class="slide-desc">Every trained responder receives a unique credential code verifiable online by hospitals, academic boards, and event organizers.</p>
+                </div>
+
+                <!-- Slideshow Controls -->
+                <div class="slide-footer">
+                    <div class="slide-dots" role="tablist" aria-label="Choose slide">
+                        <button type="button" class="slide-dot hero-dot active" data-index="0" aria-label="Slide 1"></button>
+                        <button type="button" class="slide-dot hero-dot" data-index="1" aria-label="Slide 2"></button>
+                        <button type="button" class="slide-dot hero-dot" data-index="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="slide-nav-btns">
+                        <button type="button" id="hero-prev" class="icon-btn" aria-label="Previous slide">&larr;</button>
+                        <button type="button" id="hero-next" class="icon-btn" aria-label="Next slide">&rarr;</button>
                     </div>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- Institutional Credibility Strip -->
+    <section class="trust-strip" aria-label="Institutional standards and credentials">
+        <div class="container trust-grid">
+            <div class="trust-item">
+                <span class="trust-icon" aria-hidden="true">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                </span>
+                <div>
+                    <span class="trust-title">CAC Registered Entity</span>
+                    <span class="trust-meta">Sano Meditech Ventures (BN 9753717)</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon" aria-hidden="true">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                </span>
+                <div>
+                    <span class="trust-title">2025 ILCOR / AHA Aligned</span>
+                    <span class="trust-meta">Evidence-based BLS &amp; triage protocols</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon" aria-hidden="true">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </span>
+                <div>
+                    <span class="trust-title">NDPR Data Governance</span>
+                    <span class="trust-meta">Encrypted HTTPS clinical records</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon" aria-hidden="true">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </span>
+                <div>
+                    <span class="trust-title">Ogbomosho &amp; Nationwide</span>
+                    <span class="trust-meta">Campus, community &amp; remote care</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Institutional Overview -->
     <section id="about" class="section">
@@ -1055,20 +1456,39 @@
             <div>
                 <span class="eyebrow">Institutional Profile</span>
                 <h2 class="section-heading">Bridging medical science and structured clinical care.</h2>
+                <div class="graphic-frame" style="margin-top: 1.35rem;">
+                    <svg viewBox="0 0 320 124" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Clinical workflow architecture graphic">
+                        <rect x="10" y="14" width="300" height="28" rx="6" fill="var(--bg-card)" stroke="var(--border-color)"/>
+                        <circle cx="26" cy="28" r="5" fill="var(--accent)"/>
+                        <text x="40" y="31" fill="var(--text-primary)" font-size="9.5" font-weight="700" font-family="Inter, sans-serif">01. Standardized Vitals &amp; Field Data Capture</text>
+
+                        <line x1="26" y1="42" x2="26" y2="50" stroke="var(--accent)" stroke-width="1.5"/>
+
+                        <rect x="10" y="50" width="300" height="28" rx="6" fill="var(--bg-card)" stroke="var(--border-color)"/>
+                        <circle cx="26" cy="64" r="5" fill="var(--accent)"/>
+                        <text x="40" y="67" fill="var(--text-primary)" font-size="9.5" font-weight="700" font-family="Inter, sans-serif">02. Automated Risk Stratification &amp; Cleaning</text>
+
+                        <line x1="26" y1="78" x2="26" y2="86" stroke="var(--accent)" stroke-width="1.5"/>
+
+                        <rect x="10" y="86" width="300" height="28" rx="6" fill="var(--bg-card)" stroke="var(--accent)"/>
+                        <circle cx="26" cy="100" r="5" fill="var(--accent)"/>
+                        <text x="40" y="103" fill="var(--text-primary)" font-size="9.5" font-weight="700" font-family="Inter, sans-serif">03. Longitudinal Follow-Up &amp; Cohort Analytics</text>
+                    </svg>
+                </div>
             </div>
             <div>
                 <p class="card-text" style="font-size: 0.975rem; margin-bottom: 1rem;">
-                    Sano Meditech Solutions designs practical digital clinical workflows that translate raw screening metrics into actionable preventive care and documented follow-up.
+                    Sano Meditech Solutions designs practical digital clinical workflows that translate raw screening metrics into actionable preventive care, empirical outreach analytics, and documented follow-up.
                 </p>
                 <p class="card-text" style="font-size: 0.975rem;">
-                    From collegiate basic life support training and community cardiovascular screenings to longitudinal client health portals, every tool is engineered for clinical clarity and dependable mobile access.
+                    From partnering with medical associations and NGOs on outreach data management to guiding individuals through structured 4-week and 12-week cardiometabolic programs, every tool is engineered for clinical accuracy and dependable mobile access.
                 </p>
 
                 <div class="workflow-cards">
                     <div class="card card-compact">
                         <span class="card-index">STAGE 01</span>
                         <h3 class="card-title">Preventative Screening</h3>
-                        <p class="card-text">Standardized anthropometric, blood pressure, and pulse classification with immediate patient feedback.</p>
+                        <p class="card-text">Standardized anthropometric, blood pressure, glucose, and pulse classification with immediate patient feedback.</p>
                     </div>
                     <div class="card card-compact">
                         <span class="card-index">STAGE 02</span>
@@ -1080,40 +1500,133 @@
         </div>
     </section>
 
-    <!-- Operational Capabilities -->
+    <!-- Operational Capabilities (Interactive Slideshow on Mobile / Highlight Carousel on Desktop) -->
     <section id="capabilities" class="section section-surface">
         <div class="container">
-            <span class="eyebrow">Core Divisions</span>
-            <h2 class="section-heading">Operational Capabilities</h2>
-            <p class="section-lead">Focused clinical tools and analytical infrastructure supporting institutions, outreach teams, and individual clients.</p>
+            <div class="section-header-row">
+                <div>
+                    <span class="eyebrow">Core Divisions</span>
+                    <h2 class="section-heading">Operational Capabilities</h2>
+                    <p class="section-lead">Focused clinical tools and analytical infrastructure supporting institutions, outreach teams, and individual clients.</p>
+                </div>
+                <div class="slide-nav-btns" aria-label="Capabilities slideshow controls">
+                    <button type="button" id="cap-prev" class="icon-btn" aria-label="Previous capability">&larr;</button>
+                    <button type="button" id="cap-next" class="icon-btn" aria-label="Next capability">&rarr;</button>
+                </div>
+            </div>
 
-            <div class="grid-4">
-                <div class="card">
+            <div id="cap-track" class="cap-track">
+                <div class="card cap-card is-highlighted" data-cap="0">
+                    <span class="cap-icon-wrap" aria-hidden="true">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </span>
                     <span class="card-index">01</span>
                     <h3 class="card-title">Health Informatics</h3>
                     <p class="card-text">Structured patient records, standardized vitals capture, and automated clinical risk stratification.</p>
                 </div>
-                <div class="card">
+
+                <div class="card cap-card" data-cap="1">
+                    <span class="cap-icon-wrap" aria-hidden="true">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                    </span>
                     <span class="card-index">02</span>
                     <h3 class="card-title">Clinical Research</h3>
                     <p class="card-text">Cohort dataset cleaning, pre- and post-intervention evaluation, and empirical public health reporting.</p>
                 </div>
-                <div class="card">
+
+                <div class="card cap-card" data-cap="2">
+                    <span class="cap-icon-wrap" aria-hidden="true">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </span>
                     <span class="card-index">03</span>
                     <h3 class="card-title">Outreach Deployment</h3>
-                    <p class="card-text">Community screening execution, certified CPR readiness training, and institutional health partnerships.</p>
+                    <p class="card-text">Technical and data management for medical outreaches, certified CPR readiness training, and institutional partnerships.</p>
                 </div>
-                <div class="card">
+
+                <div class="card cap-card" data-cap="3">
+                    <span class="cap-icon-wrap" aria-hidden="true">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </span>
                     <span class="card-index">04</span>
                     <h3 class="card-title">Client Portals</h3>
                     <p class="card-text">Dedicated longitudinal tracking for blood pressure, blood glucose, weight, and clinical follow-up notes.</p>
+                </div>
+            </div>
+
+            <div class="slide-dots" style="margin-top: 1.15rem; justify-content: center;" role="tablist" aria-label="Capability slide indicators">
+                <button type="button" class="slide-dot cap-dot active" data-cap-index="0" aria-label="Capability 1"></button>
+                <button type="button" class="slide-dot cap-dot" data-cap-index="1" aria-label="Capability 2"></button>
+                <button type="button" class="slide-dot cap-dot" data-cap-index="2" aria-label="Capability 3"></button>
+                <button type="button" class="slide-dot cap-dot" data-cap-index="3" aria-label="Capability 4"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Structured Programs & Outreach Partnerships -->
+    <section id="programs" class="section">
+        <div class="container">
+            <span class="eyebrow">Care &amp; Institutional Tracks</span>
+            <h2 class="section-heading">Clinical Programs &amp; Outreach Partnerships</h2>
+            <p class="section-lead">Direct enrollment for structured cardiometabolic care and technical data infrastructure for community medical outreaches.</p>
+
+            <div class="grid-2">
+                <!-- Track A: 4-Week & 12-Week Weight & Cardiometabolic Programs -->
+                <div class="card program-card">
+                    <div>
+                        <div class="slide-top-bar">
+                            <span class="ui-card-label">Individual &amp; Executive Care</span>
+                            <span class="pill pill-teal">4-Week &amp; 12-Week Tracks</span>
+                        </div>
+                        <h3 class="card-title" style="font-size: 1.18rem;">Structured Weight &amp; Cardiometabolic Programs</h3>
+                        <p class="card-text">Evidence-informed metabolic and blood pressure management tailored to busy professionals, students, and clients seeking measurable progress.</p>
+                        <ul class="feature-list">
+                            <li><span class="feature-check">&#10003;</span><span>Comprehensive baseline BMI, blood pressure, and metabolic risk stratification</span></li>
+                            <li><span class="feature-check">&#10003;</span><span>Personalized nutrition, hydration, and sustainable activity roadmap</span></li>
+                            <li><span class="feature-check">&#10003;</span><span>Weekly longitudinal vitals tracking via your Sano Meditech Client Portal</span></li>
+                            <li><span class="feature-check">&#10003;</span><span>Direct clinical check-ins and post-program maintenance review</span></li>
+                        </ul>
+                    </div>
+                    <div class="contact-actions">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="selectInquiryType('4-Week / 12-Week Weight & Cardiometabolic Program')">Enroll in Program &rarr;</button>
+                        <a href="portal.html" class="btn btn-secondary btn-sm">Client Portal</a>
+                    </div>
+                </div>
+
+                <!-- Track B: Technical & Data Partner for Medical Outreaches -->
+                <div class="card program-card">
+                    <div>
+                        <div class="slide-top-bar">
+                            <span class="ui-card-label">Associations, NGOs &amp; Institutions</span>
+                            <span class="pill pill-success">Outreach Data Partner</span>
+                        </div>
+                        <h3 class="card-title" style="font-size: 1.18rem;">Technical &amp; Data Partner for Medical Outreaches</h3>
+                        <p class="card-text">We equip student medical associations, NGOs, and corporate CSR teams with structured digital screening tools and clean post-outreach analytics.</p>
+                        <ul class="feature-list">
+                            <li><span class="feature-check">&#10003;</span><span>Custom digital screening forms, QR intake workflows, and offline-ready capture</span></li>
+                            <li><span class="feature-check">&#10003;</span><span>Automated hypertension, BMI, and blood glucose triage classification on-site</span></li>
+                            <li><span class="feature-check">&#10003;</span><span>Cleaned cohort spreadsheets and executive impact summaries for sponsors/grants</span></li>
+                            <li><span class="feature-check">&#10003;</span><span>Optional BLS/CPR responder training and verifiable digital certificate dispatch</span></li>
+                        </ul>
+                    </div>
+                    <div class="contact-actions">
+                        <button type="button" class="btn btn-teal btn-sm" onclick="selectInquiryType('Medical Outreach Data & Tech Partnership')">Partner for Outreach &rarr;</button>
+                        <a href="https://wa.me/2349157713591?text=Hello%20Sano%20Meditech%20Solutions%2C%20we%20would%20like%20to%20discuss%20a%20technical%20and%20data%20partnership%20for%20an%20upcoming%20medical%20outreach." target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">WhatsApp Desk</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Publications -->
-    <section id="publications" class="section">
+    <section id="publications" class="section section-surface">
         <div class="container">
             <span class="eyebrow">Patient Education</span>
             <h2 class="section-heading">Published Preventative Protocols</h2>
@@ -1122,8 +1635,17 @@
             <div class="grid-2">
                 <div class="card pub-card">
                     <div>
-                        <span class="ui-card-label">Flagship Guide</span>
-                        <h3 class="card-title" style="font-size: 1.2rem;">Good Health By Yourself</h3>
+                        <div class="pub-header">
+                            <div class="pub-cover-badge" aria-hidden="true">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="ui-card-label">Flagship Guide</span>
+                                <h3 class="card-title" style="font-size: 1.2rem; margin-top: 0.2rem;">Good Health By Yourself</h3>
+                            </div>
+                        </div>
                         <p class="card-text">A practical guide to managing chronic lifestyle disorders, cardiovascular risk factors, and daily metabolic routines.</p>
                     </div>
                     <a href="https://drive.google.com/file/d/1VHiGD6KFjEsUVHZQTOG9BIwT1KokNZcC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="pub-link">Access Document &rarr;</a>
@@ -1131,8 +1653,17 @@
 
                 <div class="card pub-card">
                     <div>
-                        <span class="ui-card-label">Wellness Manual</span>
-                        <h3 class="card-title" style="font-size: 1.2rem;">Ignite Your Vitality</h3>
+                        <div class="pub-header">
+                            <div class="pub-cover-badge" aria-hidden="true">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="ui-card-label">Wellness Manual</span>
+                                <h3 class="card-title" style="font-size: 1.2rem; margin-top: 0.2rem;">Ignite Your Vitality</h3>
+                            </div>
+                        </div>
                         <p class="card-text">Structured physiological protocols for sustainable energy, sleep hygiene, and preventative self-monitoring.</p>
                     </div>
                     <a href="https://bit.ly/4k4CAco" target="_blank" rel="noopener noreferrer" class="pub-link">Access Document &rarr;</a>
@@ -1142,11 +1673,11 @@
     </section>
 
     <!-- Automated Clinical Triage -->
-    <section id="triage" class="section section-surface">
+    <section id="triage" class="section">
         <div class="container-narrow">
             <span class="eyebrow">Vitals Stratification</span>
             <h2 class="section-heading">Automated Clinical Triage</h2>
-            <p class="section-lead">Compute BMI, blood pressure staging, and resting pulse classification, and receive an instant clinical summary.</p>
+            <p class="section-lead">Compute BMI, blood pressure staging, resting pulse, and optional blood glucose classification, and generate an isolated printable clinical slip.</p>
 
             <div class="form-card">
                 <form id="triage-form" class="form-grid">
@@ -1155,48 +1686,66 @@
                         <input type="text" id="calc-name" required class="form-control">
                     </div>
                     <div>
-                        <label for="calc-phone" class="field-label">Phone Number</label>
+                        <label for="calc-phone" class="field-label">Phone / WhatsApp Number</label>
                         <input type="tel" id="calc-phone" required placeholder="e.g., 08012345678" class="form-control">
                     </div>
                     <div class="col-span-2">
                         <label for="calc-email" class="field-label">Email Address</label>
                         <input type="email" id="calc-email" required class="form-control">
                     </div>
+                    <div>
+                        <label for="calc-age" class="field-label">Age (Years)</label>
+                        <input type="number" id="calc-age" required min="1" max="120" class="form-control">
+                    </div>
+                    <div>
+                        <label for="calc-sex" class="field-label">Biological Sex</label>
+                        <select id="calc-sex" required class="form-control">
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                        </select>
+                    </div>
                     <div class="col-span-2">
                         <label for="calc-goal" class="field-label">Primary Focus</label>
                         <select id="calc-goal" class="form-control">
                             <option value="General Preventative Care">General Preventative Care &amp; Baseline</option>
                             <option value="Cardiovascular/Blood Pressure">Cardiovascular / Blood Pressure Management</option>
-                            <option value="Weight Management">Metabolic &amp; Weight Management</option>
+                            <option value="Weight Management">4-Week / 12-Week Weight &amp; Metabolic Management</option>
                             <option value="Academic/Work Stress">High Stress / Burnout Management</option>
                             <option value="Acute Symptoms">Experiencing Acute Symptoms</option>
                         </select>
                     </div>
-                    <div class="col-span-2">
-                        <label for="calc-symptoms" class="field-label">Notes or Symptoms (Optional)</label>
-                        <textarea id="calc-symptoms" rows="2" class="form-control"></textarea>
-                    </div>
                     <div>
                         <label for="calc-weight" class="field-label">Weight (kg)</label>
-                        <input type="number" id="calc-weight" required min="1" max="400" step="0.1" class="form-control">
+                        <input type="number" id="calc-weight" required min="1" max="400" step="0.1" placeholder="e.g., 68.5" class="form-control">
                     </div>
                     <div>
                         <label for="calc-height" class="field-label">Height (cm)</label>
-                        <input type="number" id="calc-height" required min="50" max="260" class="form-control">
+                        <input type="number" id="calc-height" required min="50" max="260" step="0.1" placeholder="e.g., 172" class="form-control">
                     </div>
                     <div>
                         <label for="calc-sys" class="field-label">Systolic BP (mmHg)</label>
-                        <input type="number" id="calc-sys" required min="50" max="300" class="form-control">
+                        <input type="number" id="calc-sys" required min="50" max="300" placeholder="Top number, e.g., 118" class="form-control">
                     </div>
                     <div>
                         <label for="calc-dia" class="field-label">Diastolic BP (mmHg)</label>
-                        <input type="number" id="calc-dia" required min="30" max="200" class="form-control">
+                        <input type="number" id="calc-dia" required min="30" max="200" placeholder="Bottom number, e.g., 76" class="form-control">
+                    </div>
+                    <div>
+                        <label for="calc-pulse" class="field-label">Resting Pulse (bpm)</label>
+                        <input type="number" id="calc-pulse" required min="30" max="250" placeholder="e.g., 72" class="form-control">
+                    </div>
+                    <div>
+                        <label for="calc-glucose" class="field-label">Blood Glucose (mg/dL) — Optional</label>
+                        <input type="number" id="calc-glucose" min="20" max="700" placeholder="e.g., 95" class="form-control">
                     </div>
                     <div class="col-span-2">
-                        <label for="calc-pulse" class="field-label">Resting Pulse (bpm)</label>
-                        <input type="number" id="calc-pulse" required min="30" max="250" class="form-control">
+                        <label for="calc-symptoms" class="field-label">Notes or Symptoms (Optional)</label>
+                        <textarea id="calc-symptoms" rows="2" placeholder="Any current symptoms, medications, or fasting status..." class="form-control"></textarea>
                     </div>
-                    <div class="col-span-2" style="padding-top: 0.4rem;">
+
+                    <div id="triage-error" class="col-span-2 inline-alert hidden" role="alert"></div>
+
+                    <div class="col-span-2" style="padding-top: 0.3rem;">
                         <button type="submit" id="submit-btn" class="btn btn-primary btn-full">
                             <span id="btn-text">Calculate &amp; Log Vitals</span>
                         </button>
@@ -1209,16 +1758,31 @@
                         <div style="display: flex; align-items: center; gap: 0.65rem;">
                             <img src="logo.png" alt="Sano Meditech Solutions Logo" class="footer-logo" onerror="this.style.display='none';">
                             <div>
-                                <span class="ui-card-label" style="display:block; margin-bottom: 2px;">Sano Meditech Solutions</span>
-                                <h3 id="result-header" class="result-slip-title">Clinical Vitals Summary</h3>
+                                <span class="ui-card-label" style="display:block; margin-bottom: 2px;">Sano Meditech Solutions (BN 9753717)</span>
+                                <h3 id="result-header" class="result-slip-title">Clinical Vitals Triage Summary</h3>
                             </div>
                         </div>
-                        <button type="button" onclick="window.print()" class="btn btn-sm btn-secondary no-print">Print Summary</button>
+                        <div class="slip-actions no-print">
+                            <a id="whatsapp-slip-btn" href="https://wa.me/2349157713591" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-whatsapp">Send via WhatsApp</a>
+                            <button type="button" onclick="window.print()" class="btn btn-sm btn-secondary">Print Slip Only</button>
+                        </div>
                     </div>
+
+                    <div class="slip-meta-bar">
+                        <span id="slip-ref">REF: SMS-TRI-26-000000</span>
+                        <span id="slip-timestamp">DATE: —</span>
+                    </div>
+
+                    <div id="crisis-alert-box" class="crisis-banner hidden" role="alert"></div>
                     <div id="result-content" class="result-list"></div>
+
+                    <p class="slip-disclaimer">
+                        Clinical Note: Automated screening stratification supports preventative awareness and does not replace formal physician diagnosis. For chest pain, severe shortness of breath, neurological deficit, or hypertensive crisis, seek immediate emergency medical care or call 112.
+                    </p>
+
                     <div class="result-footer-bar">
                         <span id="sync-note">Recording summary...</span>
-                        <a href="portal.html" class="pub-link no-print">Open Client Portal &rarr;</a>
+                        <a href="portal.html" class="pub-link no-print">Track in Client Portal &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -1226,11 +1790,11 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section">
+    <section id="contact" class="section section-surface">
         <div class="container-narrow">
             <span class="eyebrow">Direct Desk</span>
             <h2 class="section-heading">Partnerships &amp; Inquiries</h2>
-            <p class="section-lead">Connect with our team regarding institutional health screenings, CPR certification workshops, or client programs.</p>
+            <p class="section-lead">Connect with our team regarding medical outreach data partnerships, 4-week/12-week cardiometabolic programs, or BLS/CPR certification workshops.</p>
 
             <form id="contact-form" class="form-card form-grid">
                 <div>
@@ -1241,21 +1805,44 @@
                     <label for="contact-email" class="field-label">Email Address</label>
                     <input type="email" id="contact-email" required class="form-control">
                 </div>
+                <div>
+                    <label for="contact-phone" class="field-label">Phone / WhatsApp Number</label>
+                    <input type="tel" id="contact-phone" placeholder="e.g., 08012345678" class="form-control">
+                </div>
+                <div>
+                    <label for="contact-org" class="field-label">Organization / Institution (Optional)</label>
+                    <input type="text" id="contact-org" placeholder="e.g., Association, Clinic, or Individual" class="form-control">
+                </div>
+                <div class="col-span-2">
+                    <label for="contact-type" class="field-label">Inquiry Category</label>
+                    <select id="contact-type" class="form-control">
+                        <option value="Medical Outreach Data & Tech Partnership">Medical Outreach Data &amp; Tech Partnership</option>
+                        <option value="4-Week / 12-Week Weight & Cardiometabolic Program">4-Week / 12-Week Weight &amp; Cardiometabolic Program</option>
+                        <option value="BLS / CPR Training Workshop">BLS / CPR Training Workshop</option>
+                        <option value="Clinical Data Analytics & Research">Clinical Data Analytics &amp; Research</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                    </select>
+                </div>
                 <div class="col-span-2">
                     <label for="contact-message" class="field-label">Message</label>
                     <textarea id="contact-message" rows="4" required class="form-control"></textarea>
                 </div>
                 <div class="col-span-2">
-                    <button type="submit" id="contact-btn" class="btn btn-primary">
-                        <span id="contact-btn-text">Send Inquiry</span>
-                    </button>
+                    <div class="contact-actions">
+                        <button type="submit" id="contact-btn" class="btn btn-primary">
+                            <span id="contact-btn-text">Send Inquiry</span>
+                        </button>
+                        <a href="https://wa.me/2349157713591?text=Hello%20Sano%20Meditech%20Solutions%2C%20I%20would%20like%20to%20make%20an%20inquiry." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                            Chat on WhatsApp
+                        </a>
+                    </div>
                     <div id="contact-feedback" class="hidden" style="margin-top: 0.75rem; font-size: 0.875rem; font-weight: 600;"></div>
                 </div>
             </form>
         </div>
     </section>
 
-    <!-- Minimal Footer -->
+    <!-- Institutional Footer -->
     <footer class="site-footer">
         <div class="container footer-grid">
             <div>
@@ -1263,21 +1850,25 @@
                     <img src="logo.png" alt="Sano Meditech Solutions Logo" class="footer-logo" onerror="this.style.display='none';">
                     <p style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem; margin: 0;">Sano Meditech Solutions</p>
                 </div>
+                <p style="margin: 0 0 0.35rem;">Sano Meditech Ventures (Reg. No. 9753717) &bull; Ogbomosho, Oyo State, Nigeria</p>
                 <p style="margin: 0;">&copy; 2026 Sano Meditech Solutions. All rights reserved.</p>
             </div>
             <div>
-                <p class="footer-heading">Compliance</p>
+                <p class="footer-heading">Platform &amp; Compliance</p>
                 <ul class="footer-list">
+                    <li><a href="portal.html">Client Portal</a></li>
+                    <li><a href="cpr.html">CPR Credential Verification</a></li>
                     <li><button type="button" onclick="openLegalModal('terms')" class="footer-link-btn">Terms of Service</button></li>
                     <li><button type="button" onclick="openLegalModal('privacy')" class="footer-link-btn">Data Privacy Policy</button></li>
                     <li><button type="button" onclick="openLegalModal('ndpr')" class="footer-link-btn">NDPR &amp; Clinical Disclaimer</button></li>
                 </ul>
             </div>
             <div class="footer-right">
-                <p class="footer-heading">Contact</p>
+                <p class="footer-heading">Contact Desk</p>
                 <ul class="footer-list">
                     <li><a href="mailto:sanomeditechsolutions@gmail.com">sanomeditechsolutions@gmail.com</a></li>
                     <li><a href="tel:+2349157713591">+234 915 771 3591</a></li>
+                    <li><a href="https://wa.me/2349157713591" target="_blank" rel="noopener noreferrer">WhatsApp Clinical Desk</a></li>
                     <li><a href="https://x.com/AnuMeditech" target="_blank" rel="noopener noreferrer">X: @AnuMeditech</a></li>
                 </ul>
             </div>
@@ -1328,9 +1919,119 @@
         document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
         document.getElementById('mobile-theme-toggle')?.addEventListener('click', toggleTheme);
 
+        // Hero Slideshow Logic (Auto-play + Controls + Touch Swipe)
+        (function initHeroSlideshow() {
+            const container = document.getElementById('hero-slideshow');
+            const slides = Array.from(document.querySelectorAll('#hero-slideshow .slide-panel'));
+            const dots = Array.from(document.querySelectorAll('.hero-dot'));
+            if (!container || slides.length === 0) return;
+
+            let current = 0;
+            let timer = null;
+            let touchStartX = 0;
+
+            function showSlide(index) {
+                current = (index + slides.length) % slides.length;
+                slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+                dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+            }
+
+            function startAuto() {
+                stopAuto();
+                timer = setInterval(() => showSlide(current + 1), 6500);
+            }
+
+            function stopAuto() {
+                if (timer) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
+
+            document.getElementById('hero-prev')?.addEventListener('click', () => {
+                showSlide(current - 1);
+                startAuto();
+            });
+            document.getElementById('hero-next')?.addEventListener('click', () => {
+                showSlide(current + 1);
+                startAuto();
+            });
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const idx = parseInt(dot.dataset.index || '0', 10);
+                    showSlide(idx);
+                    startAuto();
+                });
+            });
+
+            container.addEventListener('mouseenter', stopAuto);
+            container.addEventListener('mouseleave', startAuto);
+            container.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].clientX;
+                stopAuto();
+            }, { passive: true });
+            container.addEventListener('touchend', (e) => {
+                const deltaX = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(deltaX) > 40) {
+                    showSlide(deltaX < 0 ? current + 1 : current - 1);
+                }
+                startAuto();
+            }, { passive: true });
+
+            startAuto();
+        })();
+
+        // Capabilities Slideshow / Carousel Logic
+        (function initCapabilitiesCarousel() {
+            const cards = Array.from(document.querySelectorAll('.cap-card'));
+            const dots = Array.from(document.querySelectorAll('.cap-dot'));
+            const track = document.getElementById('cap-track');
+            if (!cards.length) return;
+
+            let activeCap = 0;
+            let touchStartX = 0;
+
+            function setCap(index) {
+                activeCap = (index + cards.length) % cards.length;
+                cards.forEach((c, i) => c.classList.toggle('is-highlighted', i === activeCap));
+                dots.forEach((d, i) => d.classList.toggle('active', i === activeCap));
+            }
+
+            document.getElementById('cap-prev')?.addEventListener('click', () => setCap(activeCap - 1));
+            document.getElementById('cap-next')?.addEventListener('click', () => setCap(activeCap + 1));
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    setCap(parseInt(dot.dataset.capIndex || '0', 10));
+                });
+            });
+
+            track?.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].clientX;
+            }, { passive: true });
+            track?.addEventListener('touchend', (e) => {
+                const deltaX = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(deltaX) > 40) {
+                    setCap(deltaX < 0 ? activeCap + 1 : activeCap - 1);
+                }
+            }, { passive: true });
+        })();
+
+        // Pre-select Inquiry Category from Program Cards
+        function selectInquiryType(category) {
+            const select = document.getElementById('contact-type');
+            if (select) {
+                select.value = category;
+            }
+            const contactSection = document.getElementById('contact');
+            contactSection?.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                document.getElementById('contact-name')?.focus();
+            }, 350);
+        }
+
         // Compliance Modal
         const legalTexts = {
-            terms: "Sano Meditech Solutions provides preventative wellness education, vitals stratification tools, and basic life support training verification. Automated platform summaries support preventative awareness and do not replace formal medical diagnosis or emergency clinical care.",
+            terms: "Sano Meditech Solutions (Sano Meditech Ventures, BN 9753717) provides preventative wellness education, vitals stratification tools, outreach data management, and basic life support training verification. Automated platform summaries support preventative awareness and do not replace formal medical diagnosis or emergency clinical care.",
             privacy: "Submitted vitals and contact details are transmitted over encrypted HTTPS channels solely for clinical risk stratification, participant reporting, and authorized follow-up communication.",
             ndpr: "In alignment with the Nigeria Data Protection Regulation (NDPR), personal records are minimized, safeguarded in transit, and never sold or shared with third-party advertisers."
         };
@@ -1353,18 +2054,51 @@
         document.getElementById('legal-modal')?.addEventListener('click', (e) => {
             if (e.target.id === 'legal-modal') closeLegalModal();
         });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLegalModal();
+        });
+
+        // Helper to build safe triage result rows without innerHTML injection
+        function createResultRow(label, valueText, badgeText, badgeClass) {
+            const row = document.createElement('div');
+            row.className = 'result-row';
+
+            const left = document.createElement('div');
+            const strong = document.createElement('strong');
+            strong.textContent = label + ': ';
+            left.appendChild(strong);
+            left.appendChild(document.createTextNode(valueText));
+            row.appendChild(left);
+
+            if (badgeText) {
+                const pill = document.createElement('span');
+                pill.className = 'pill ' + badgeClass;
+                pill.textContent = badgeText;
+                row.appendChild(pill);
+            }
+            return row;
+        }
+
+        function generateSlipId() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return 'SMS-TRI-26-' + code;
+        }
 
         // Automated Clinical Triage Submission
         document.getElementById('triage-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            const btnText = document.getElementById('btn-text');
-            btn.disabled = true;
-            btnText.textContent = "Processing...";
+            const errorBox = document.getElementById('triage-error');
+            errorBox.classList.add('hidden');
 
             const name = document.getElementById('calc-name').value.trim();
             const phone = document.getElementById('calc-phone').value.trim();
             const email = document.getElementById('calc-email').value.trim();
+            const age = parseInt(document.getElementById('calc-age').value, 10);
+            const sex = document.getElementById('calc-sex').value;
             const goal = document.getElementById('calc-goal').value;
             const symptoms = document.getElementById('calc-symptoms').value.trim();
             const weight = parseFloat(document.getElementById('calc-weight').value);
@@ -1372,37 +2106,150 @@
             const sys = parseInt(document.getElementById('calc-sys').value, 10);
             const dia = parseInt(document.getElementById('calc-dia').value, 10);
             const pulse = parseInt(document.getElementById('calc-pulse').value, 10);
+            const glucoseRaw = document.getElementById('calc-glucose').value.trim();
+            const glucose = glucoseRaw ? parseFloat(glucoseRaw) : null;
 
-            const bmi = (weight / Math.pow(heightCm / 100, 2)).toFixed(1);
+            // Clinical Unit & Plausibility Guardrails
+            if (heightCm < 50 || heightCm > 260) {
+                errorBox.textContent = "Please enter height in centimeters (e.g., 172 cm rather than 1.72 m).";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+            if (sys <= dia) {
+                errorBox.textContent = "Systolic blood pressure (top number) must be higher than diastolic blood pressure (bottom number).";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            const btn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            btn.disabled = true;
+            btnText.textContent = "Processing...";
+
+            // BMI Stratification
+            const bmiNum = weight / Math.pow(heightCm / 100, 2);
+            const bmi = bmiNum.toFixed(1);
             let bmiStatus = "Normal Weight";
-            if (bmi < 18.5) bmiStatus = "Underweight";
-            else if (bmi >= 25 && bmi < 30) bmiStatus = "Overweight";
-            else if (bmi >= 30) bmiStatus = "Obese";
+            let bmiBadge = "pill-success";
+            if (bmiNum < 18.5) {
+                bmiStatus = "Underweight";
+                bmiBadge = "pill-warn";
+            } else if (bmiNum >= 25 && bmiNum < 30) {
+                bmiStatus = "Overweight";
+                bmiBadge = "pill-warn";
+            } else if (bmiNum >= 30) {
+                bmiStatus = "Obesity Range";
+                bmiBadge = "pill-danger";
+            }
 
+            // Blood Pressure Stratification
             let bpStatus = "Normal";
-            if (sys >= 180 || dia >= 120) bpStatus = "Hypertensive Crisis — Seek Urgent Care";
-            else if (sys >= 140 || dia >= 90) bpStatus = "Hypertension Stage 2";
-            else if ((sys >= 130 && sys <= 139) || (dia >= 80 && dia <= 89)) bpStatus = "Hypertension Stage 1";
-            else if (sys >= 120 && sys <= 129 && dia < 80) bpStatus = "Elevated";
-            else if (sys < 90 || dia < 60) bpStatus = "Hypotension";
+            let bpBadge = "pill-success";
+            let urgentReasons = [];
 
-            let pulseStatus = "Normal";
-            if (pulse < 60) pulseStatus = "Bradycardia (<60 bpm)";
-            else if (pulse > 100) pulseStatus = "Tachycardia (>100 bpm)";
+            if (sys >= 180 || dia >= 120) {
+                bpStatus = "Hypertensive Crisis";
+                bpBadge = "pill-danger";
+                urgentReasons.push("Blood pressure is in the Hypertensive Crisis range (>=180/120 mmHg). Seek urgent medical evaluation or call 112 immediately.");
+            } else if (sys >= 140 || dia >= 90) {
+                bpStatus = "Hypertension Stage 2";
+                bpBadge = "pill-danger";
+            } else if ((sys >= 130 && sys <= 139) || (dia >= 80 && dia <= 89)) {
+                bpStatus = "Hypertension Stage 1";
+                bpBadge = "pill-warn";
+            } else if (sys >= 120 && sys <= 129 && dia < 80) {
+                bpStatus = "Elevated";
+                bpBadge = "pill-warn";
+            } else if (sys < 90 || dia < 60) {
+                bpStatus = "Hypotension";
+                bpBadge = "pill-danger";
+                urgentReasons.push("Blood pressure is below normal (<90/60 mmHg). Evaluate promptly if experiencing dizziness, weakness, or fainting.");
+            }
+
+            // Resting Pulse Stratification
+            let pulseStatus = "Normal Sinus Range";
+            let pulseBadge = "pill-success";
+            if (pulse < 60) {
+                pulseStatus = "Bradycardia (<60 bpm)";
+                pulseBadge = "pill-warn";
+            } else if (pulse > 100) {
+                pulseStatus = "Tachycardia (>100 bpm)";
+                pulseBadge = "pill-warn";
+            }
+
+            // Optional Blood Glucose Stratification
+            let glucoseSummary = "Not provided";
+            let glucoseStatus = "";
+            let glucoseBadge = "pill-teal";
+            if (glucose !== null && !Number.isNaN(glucose)) {
+                if (glucose < 70) {
+                    glucoseStatus = "Hypoglycemia (<70 mg/dL)";
+                    glucoseBadge = "pill-danger";
+                    urgentReasons.push("Blood glucose is low (<70 mg/dL). Follow hypoglycemia protocol and seek medical attention.");
+                } else if (glucose < 140) {
+                    glucoseStatus = "Normal Range";
+                    glucoseBadge = "pill-success";
+                } else if (glucose < 200) {
+                    glucoseStatus = "Elevated / Impaired";
+                    glucoseBadge = "pill-warn";
+                } else {
+                    glucoseStatus = "Hyperglycemia (>=200 mg/dL)";
+                    glucoseBadge = "pill-danger";
+                }
+                glucoseSummary = `${glucose} mg/dL`;
+            }
+
+            const slipId = generateSlipId();
+            const timestampStr = new Date().toLocaleString('en-NG', {
+                dateStyle: 'medium',
+                timeStyle: 'short'
+            });
+
+            document.getElementById('slip-ref').textContent = `REF: ${slipId}`;
+            document.getElementById('slip-timestamp').textContent = `DATE: ${timestampStr}`;
+
+            const crisisBox = document.getElementById('crisis-alert-box');
+            if (urgentReasons.length > 0) {
+                crisisBox.textContent = "URGENT CLINICAL ESCALATION: " + urgentReasons.join(" ");
+                crisisBox.classList.remove('hidden');
+            } else {
+                crisisBox.classList.add('hidden');
+            }
+
+            const content = document.getElementById('result-content');
+            content.innerHTML = '';
+            content.appendChild(createResultRow('Participant', `${name} (${age} yrs, ${sex})`, goal, 'pill-teal'));
+            content.appendChild(createResultRow('Body Mass Index', `${bmi} kg/m² (${weight} kg, ${heightCm} cm)`, bmiStatus, bmiBadge));
+            content.appendChild(createResultRow('Blood Pressure', `${sys}/${dia} mmHg`, bpStatus, bpBadge));
+            content.appendChild(createResultRow('Resting Pulse', `${pulse} bpm`, pulseStatus, pulseBadge));
+            if (glucose !== null && !Number.isNaN(glucose)) {
+                content.appendChild(createResultRow('Blood Glucose', glucoseSummary, glucoseStatus, glucoseBadge));
+            }
+            if (symptoms) {
+                content.appendChild(createResultRow('Reported Notes', symptoms, '', ''));
+            }
+
+            const waLines = [
+                `Hello Sano Meditech Solutions, here is my Clinical Triage Summary:`,
+                `Ref: ${slipId}`,
+                `Name: ${name} (${age} yrs, ${sex})`,
+                `Focus: ${goal}`,
+                `BMI: ${bmi} kg/m2 (${bmiStatus})`,
+                `BP: ${sys}/${dia} mmHg (${bpStatus})`,
+                `Pulse: ${pulse} bpm (${pulseStatus})`,
+                glucose !== null && !Number.isNaN(glucose) ? `Glucose: ${glucose} mg/dL (${glucoseStatus})` : null
+            ].filter(Boolean).join('\n');
+
+            const waBtn = document.getElementById('whatsapp-slip-btn');
+            if (waBtn) {
+                waBtn.href = `https://wa.me/2349157713591?text=${encodeURIComponent(waLines)}`;
+            }
 
             const slip = document.getElementById('printable-triage-slip');
-            const content = document.getElementById('result-content');
             const syncNote = document.getElementById('sync-note');
-
-            content.innerHTML = `
-                <div><strong>Participant:</strong> ${name}</div>
-                <div><strong>Primary Focus:</strong> ${goal}</div>
-                <div><strong>Body Mass Index:</strong> ${bmi} kg/m&sup2; (${bmiStatus})</div>
-                <div><strong>Blood Pressure:</strong> ${sys}/${dia} mmHg (${bpStatus})</div>
-                <div><strong>Resting Pulse:</strong> ${pulse} bpm (${pulseStatus})</div>
-            `;
             syncNote.textContent = "Recording summary...";
             slip.classList.remove('hidden');
+            slip.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
             try {
                 if (!navigator.onLine) throw new Error("Offline");
@@ -1412,16 +2259,20 @@
                     headers: { 'Content-Type': 'text/plain' },
                     body: JSON.stringify({
                         formType: "triage",
+                        slipId,
                         fullName: name,
                         email,
                         phone,
+                        age,
+                        sex,
                         services: goal,
                         symptoms,
                         weight,
                         height: heightCm,
                         bmi: `${bmi} (${bmiStatus})`,
                         bp: `${sys}/${dia} (${bpStatus})`,
-                        pulse: `${pulse} (${pulseStatus})`
+                        pulse: `${pulse} (${pulseStatus})`,
+                        glucose: glucose !== null && !Number.isNaN(glucose) ? `${glucose} mg/dL (${glucoseStatus})` : ""
                     })
                 });
                 syncNote.textContent = "Summary recorded and dispatched to your contact details.";
@@ -1442,6 +2293,15 @@
             btn.disabled = true;
             btnText.textContent = "Sending...";
 
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const phone = document.getElementById('contact-phone').value.trim();
+            const organization = document.getElementById('contact-org').value.trim();
+            const inquiryType = document.getElementById('contact-type').value;
+            const rawMessage = document.getElementById('contact-message').value.trim();
+
+            const structuredMessage = `[${inquiryType}]${organization ? ` Org: ${organization} |` : ''}${phone ? ` Phone: ${phone} |` : ''} ${rawMessage}`;
+
             try {
                 if (!navigator.onLine) throw new Error("Offline");
                 await fetch(WEB_APP_URL, {
@@ -1450,17 +2310,20 @@
                     headers: { 'Content-Type': 'text/plain' },
                     body: JSON.stringify({
                         formType: "contact",
-                        name: document.getElementById('contact-name').value.trim(),
-                        email: document.getElementById('contact-email').value.trim(),
-                        message: document.getElementById('contact-message').value.trim()
+                        name,
+                        email,
+                        phone,
+                        organization,
+                        inquiryType,
+                        message: structuredMessage
                     })
                 });
-                feedback.textContent = "Message received. Our team will respond shortly.";
+                feedback.textContent = "Inquiry received. Our desk will respond shortly.";
                 feedback.style.color = "var(--accent)";
                 feedback.classList.remove('hidden');
                 document.getElementById('contact-form').reset();
             } catch (_) {
-                feedback.textContent = "Unable to send right now. Please email sanomeditechsolutions@gmail.com directly.";
+                feedback.textContent = "Unable to send right now. Please use WhatsApp or email sanomeditechsolutions@gmail.com directly.";
                 feedback.style.color = "var(--danger-text)";
                 feedback.classList.remove('hidden');
             } finally {
