@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sano Meditech Client Portal — Manage vitals, health journals, and clinical profile.">
-    <link rel="canonical" href="https://sanomeditech.vercel.app/portal.html">
+    <link rel="canonical" href="https://sanomeditechsolutions.com.ng/portal.html">
     <title>Client Portal | Sano Meditech Solutions</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +14,7 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Segoe UI', 'Arial', 'sans-serif'] },
-                    colors: { brand: '#0284c7', navy: '#0f172a' }
+                    colors: { brand: '#0d9488', brandLight: '#2dd4bf', navy: '#0f172a' }
                 }
             }
         }
@@ -22,6 +22,45 @@
             document.documentElement.classList.add('dark');
         }
     </script>
+    <style>
+        body { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+        .portal-accent { color: #0d9488; }
+        .dark .portal-accent { color: #2dd4bf; }
+        .portal-button { background: #0d9488; color: white; }
+        .portal-button:hover { background: #0f766e; }
+        .dark .portal-button { background: #2dd4bf; color: #0f172a; }
+        .dark .portal-button:hover { background: #5eead4; }
+        .risk-badge { display: inline-flex; align-items: center; border-radius: 9999px; padding: 0.2rem 0.55rem; font-size: 0.68rem; font-weight: 700; }
+        .risk-normal { background: #dcfce7; color: #166534; }
+        .risk-elevated { background: #fef3c7; color: #92400e; }
+        .risk-stage1 { background: #ffedd5; color: #9a3412; }
+        .risk-stage2 { background: #fee2e2; color: #b91c1c; }
+        .risk-crisis { background: #991b1b; color: #fff; }
+        .dark .risk-normal { background: #14532d; color: #bbf7d0; }
+        .dark .risk-elevated { background: #713f12; color: #fef08a; }
+        .dark .risk-stage1 { background: #7c2d12; color: #fed7aa; }
+        .dark .risk-stage2 { background: #7f1d1d; color: #fecaca; }
+        .dark .risk-crisis { background: #ef4444; color: #fff; }
+        @media print {
+            body { background: #fff !important; color: #0f172a !important; display: block !important; }
+            nav, #auth-container, #dash-banner, #dashboard-header, #dashboard-actions, #dashboard-tabs, #sec-journal, #sec-profile, #vitals-form, .no-print, footer { display: none !important; }
+            main { max-width: none !important; padding: 0 !important; }
+            #dashboard-container { display: block !important; background: #fff !important; color: #0f172a !important; border: 0 !important; box-shadow: none !important; overflow: visible !important; }
+            #sec-vitals { display: block !important; padding: 0 !important; }
+            .print-report-header { display: flex !important; }
+            .print-report-header img { width: 48px; height: 48px; object-fit: contain; }
+            .kpi-grid { grid-template-columns: repeat(4, 1fr) !important; }
+            .chart-card, .kpi-card { break-inside: avoid; }
+            .kpi-card, .chart-card { background: #fff !important; color: #0f172a !important; border-color: #cbd5e1 !important; }
+            .kpi-card p, .chart-card h3, .chart-card p, th, td { color: #0f172a !important; }
+            thead { background: #f1f5f9 !important; }
+            table { width: 100%; font-size: 9pt !important; }
+            .overflow-x-auto { overflow: visible !important; }
+            th, td { padding: 6px !important; }
+            .vitals-delete, .journal-delete { display: none !important; }
+        }
+        .print-report-header { display: none; }
+    </style>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -74,9 +113,12 @@
                         <label for="login-password" class="block text-xs font-semibold">Password</label>
                         <button type="button" onclick="resetPassword()" class="text-[11px] font-medium text-brand hover:underline">Reset password</button>
                     </div>
-                    <input type="password" id="login-password" required class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                    <div class="flex">
+                        <input type="password" id="login-password" required class="w-full min-w-0 px-3.5 py-2.5 rounded-l-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                        <button type="button" data-password-toggle="login-password" aria-label="Show password" aria-pressed="false" class="px-3 border border-l-0 border-slate-300 dark:border-slate-700 rounded-r-md text-xs font-semibold text-slate-600 dark:text-slate-300">Show</button>
+                    </div>
                 </div>
-                <button type="submit" id="login-btn" class="w-full bg-slate-900 dark:bg-brand text-white font-semibold py-2.5 rounded-md text-sm hover:opacity-90 transition">Sign In</button>
+                <button type="submit" id="login-btn" class="portal-button w-full font-semibold py-2.5 rounded-md text-sm transition">Sign In</button>
             </form>
 
             <form id="signup-form" class="space-y-4 hidden">
@@ -90,9 +132,12 @@
                 </div>
                 <div>
                     <label for="signup-password" class="block text-xs font-semibold mb-1.5">Password (min. 6 characters)</label>
-                    <input type="password" id="signup-password" required minlength="6" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                    <div class="flex">
+                        <input type="password" id="signup-password" required minlength="6" class="w-full min-w-0 px-3.5 py-2.5 rounded-l-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm outline-none focus:border-brand">
+                        <button type="button" data-password-toggle="signup-password" aria-label="Show password" aria-pressed="false" class="px-3 border border-l-0 border-slate-300 dark:border-slate-700 rounded-r-md text-xs font-semibold text-slate-600 dark:text-slate-300">Show</button>
+                    </div>
                 </div>
-                <button type="submit" id="signup-btn" class="w-full bg-slate-900 dark:bg-brand text-white font-semibold py-2.5 rounded-md text-sm hover:opacity-90 transition">Create Account</button>
+                <button type="submit" id="signup-btn" class="portal-button w-full font-semibold py-2.5 rounded-md text-sm transition">Create Account</button>
             </form>
 
             <div class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-800">
@@ -103,21 +148,23 @@
 
         <!-- DASHBOARD -->
         <div id="dashboard-container" class="hidden bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
-            <div class="p-6 sm:p-8 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div id="dashboard-header" class="p-6 sm:p-8 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-1">Active Session</p>
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white" id="user-display-name">Client</h2>
                     <p class="text-xs text-slate-500" id="user-display-email"></p>
                 </div>
-                <div class="flex gap-2.5">
-                    <button type="button" onclick="window.print()" class="px-4 py-2 text-xs font-semibold border border-slate-300 dark:border-slate-700 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800">Export PDF</button>
+                <div id="dashboard-actions" class="flex flex-wrap gap-2.5">
+                    <button type="button" onclick="downloadVitalsCSV()" class="px-4 py-2 text-xs font-semibold border border-slate-300 dark:border-slate-700 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800">Download CSV</button>
+                    <button type="button" onclick="shareSummary()" class="px-4 py-2 text-xs font-semibold border border-slate-300 dark:border-slate-700 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800">Share Summary via WhatsApp</button>
+                    <button type="button" onclick="window.print()" class="px-4 py-2 text-xs font-semibold border border-slate-300 dark:border-slate-700 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800">Print Report</button>
                     <button type="button" onclick="logoutUser()" class="px-4 py-2 text-xs font-semibold bg-slate-900 dark:bg-slate-800 text-white rounded-md hover:opacity-90">Sign Out</button>
                 </div>
             </div>
 
             <div id="dash-banner" class="hidden px-6 py-2.5 text-xs font-semibold text-center border-b"></div>
 
-            <div class="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 text-sm">
+            <div id="dashboard-tabs" class="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 text-sm overflow-x-auto">
                 <button type="button" id="dtab-vitals" onclick="switchDashTab('vitals')" class="px-6 py-3.5 font-semibold text-brand border-b-2 border-brand">Vitals Log</button>
                 <button type="button" id="dtab-journal" onclick="switchDashTab('journal')" class="px-6 py-3.5 font-semibold text-slate-500 hover:text-slate-800">Health Journal</button>
                 <button type="button" id="dtab-profile" onclick="switchDashTab('profile')" class="px-6 py-3.5 font-semibold text-slate-500 hover:text-slate-800">Clinical Profile</button>
@@ -125,6 +172,35 @@
 
             <!-- Vitals -->
             <div id="sec-vitals" class="p-6 sm:p-8 space-y-8">
+                <div class="print-report-header items-center gap-4 border-b border-slate-300 pb-4">
+                    <img src="logo.png" alt="Sano Meditech Solutions">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-widest portal-accent">Sano Meditech Solutions • Reg No: 9753717</p>
+                        <h1 class="text-xl font-bold">Clinical Vitals Report</h1>
+                        <p id="print-report-meta" class="text-sm"></p>
+                    </div>
+                </div>
+                <section aria-label="Vitals summary" class="kpi-grid grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+                    <article class="kpi-card p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                        <p class="text-xs uppercase tracking-wide text-slate-500">Latest BP</p><p id="kpi-bp" class="mt-2 text-xl font-bold">—</p><div id="kpi-bp-risk" class="mt-2"></div>
+                    </article>
+                    <article class="kpi-card p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                        <p class="text-xs uppercase tracking-wide text-slate-500">Weight &amp; Auto-BMI</p><p id="kpi-weight" class="mt-2 text-xl font-bold">—</p><p id="kpi-bmi" class="mt-1 text-xs text-slate-500">Set height in Clinical Profile for BMI</p>
+                    </article>
+                    <article class="kpi-card p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                        <p class="text-xs uppercase tracking-wide text-slate-500">Latest Glucose</p><p id="kpi-glucose" class="mt-2 text-xl font-bold">—</p><div id="kpi-glucose-risk" class="mt-2"></div>
+                    </article>
+                    <article class="kpi-card p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                        <p class="text-xs uppercase tracking-wide text-slate-500">Weight Change from Baseline</p><p id="kpi-weight-change" class="mt-2 text-xl font-bold">—</p><p class="mt-1 text-xs text-slate-500">Latest compared with earliest record</p>
+                    </article>
+                </section>
+                <section class="chart-card p-5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div><h3 class="font-bold">Weight &amp; Blood Pressure Trends</h3><p class="text-xs text-slate-500">Recorded history • separate kg (left) and mmHg (right) scales</p></div>
+                        <div class="flex gap-4 text-xs"><span><i class="inline-block w-2 h-2 rounded-full bg-teal-600 mr-1"></i>Weight</span><span><i class="inline-block w-2 h-2 rounded-full bg-sky-500 mr-1"></i>Systolic BP</span><span><i class="inline-block w-2 h-2 rounded-full bg-violet-500 mr-1"></i>Diastolic BP</span></div>
+                    </div>
+                    <div id="trend-chart" class="mt-4 overflow-x-auto" aria-live="polite"></div>
+                </section>
                 <form id="vitals-form" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-md bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
                     <div>
                         <label for="v-bp" class="block text-xs font-semibold mb-1.5">Blood Pressure (mmHg)</label>
@@ -135,6 +211,12 @@
                         <input type="number" id="v-hr" placeholder="72" min="30" max="250" required class="w-full px-3 py-2 text-sm rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900">
                     </div>
                     <div>
+                        <label for="v-bg-type" class="block text-xs font-semibold mb-1.5">Glucose Reading Type</label>
+                        <select id="v-bg-type" class="w-full px-3 py-2 text-sm rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900">
+                            <option value="random">Random / Post-Meal</option><option value="fasting">Fasting</option>
+                        </select>
+                    </div>
+                    <div>
                         <label for="v-bg" class="block text-xs font-semibold mb-1.5">Blood Glucose (mg/dL)</label>
                         <input type="number" id="v-bg" placeholder="95" min="20" max="800" class="w-full px-3 py-2 text-sm rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900">
                     </div>
@@ -143,7 +225,7 @@
                         <input type="number" step="0.1" min="1" max="400" id="v-weight" placeholder="70" required class="w-full px-3 py-2 text-sm rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900">
                     </div>
                     <div class="sm:col-span-2 lg:col-span-4 flex justify-end">
-                        <button type="submit" id="vitals-submit-btn" class="px-5 py-2.5 bg-slate-900 dark:bg-brand text-white font-semibold rounded-md text-xs">Save Record</button>
+                        <button type="submit" id="vitals-submit-btn" class="portal-button px-5 py-2.5 font-semibold rounded-md text-xs">Save Record</button>
                     </div>
                 </form>
 
@@ -155,11 +237,12 @@
                                 <th class="p-3.5">Blood Pressure</th>
                                 <th class="p-3.5">Heart Rate</th>
                                 <th class="p-3.5">Glucose</th>
-                                <th class="p-3.5">Weight</th>
+                                <th class="p-3.5">Weight &amp; BMI</th>
+                                <th class="p-3.5 no-print">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="vitals-list" class="divide-y divide-slate-200 dark:divide-slate-800">
-                            <tr><td colspan="5" class="p-5 text-center text-slate-500 text-xs">Loading records...</td></tr>
+                            <tr><td colspan="6" class="p-5 text-center text-slate-500 text-xs">Loading records...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -177,7 +260,7 @@
                         <textarea id="j-content" rows="3" required class="w-full px-3.5 py-2 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm"></textarea>
                     </div>
                     <div class="flex justify-end">
-                        <button type="submit" id="journal-submit-btn" class="px-5 py-2.5 bg-slate-900 dark:bg-brand text-white font-semibold rounded-md text-xs">Add Entry</button>
+                        <button type="submit" id="journal-submit-btn" class="portal-button px-5 py-2.5 font-semibold rounded-md text-xs">Add Entry</button>
                     </div>
                 </form>
                 <div id="journal-entries" class="space-y-4"></div>
@@ -186,6 +269,26 @@
             <!-- Profile -->
             <div id="sec-profile" class="p-6 sm:p-8 hidden">
                 <form id="profile-form" class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="p-height" class="block text-xs font-semibold mb-1.5">Height (cm)</label>
+                        <input type="number" id="p-height" min="50" max="260" step="0.1" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+                    </div>
+                    <div>
+                        <label for="p-age" class="block text-xs font-semibold mb-1.5">Age</label>
+                        <input type="number" id="p-age" min="1" max="120" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+                    </div>
+                    <div>
+                        <label for="p-sex" class="block text-xs font-semibold mb-1.5">Biological Sex</label>
+                        <select id="p-sex" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+                            <option value="">Select</option><option value="Female">Female</option><option value="Male">Male</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="p-track" class="block text-xs font-semibold mb-1.5">Program Track</label>
+                        <select id="p-track" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+                            <option value="General">General</option><option value="4-Week">4-Week</option><option value="12-Week">12-Week</option>
+                        </select>
+                    </div>
                     <div>
                         <label for="p-blood" class="block text-xs font-semibold mb-1.5">Blood Group</label>
                         <select id="p-blood" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
@@ -209,6 +312,10 @@
                         <input type="text" id="p-allergies" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
                     </div>
                     <div>
+                        <label for="p-medications" class="block text-xs font-semibold mb-1.5">Current Medications</label>
+                        <input type="text" id="p-medications" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+                    </div>
+                    <div>
                         <label for="p-emergency" class="block text-xs font-semibold mb-1.5">Emergency Contact Phone</label>
                         <input type="tel" id="p-emergency" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
                     </div>
@@ -217,7 +324,7 @@
                         <textarea id="p-conditions" rows="3" class="w-full px-3.5 py-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm"></textarea>
                     </div>
                     <div class="sm:col-span-2 flex justify-end">
-                        <button type="submit" id="profile-submit-btn" class="px-5 py-2.5 bg-slate-900 dark:bg-brand text-white font-semibold rounded-md text-xs">Save Profile</button>
+                        <button type="submit" id="profile-submit-btn" class="portal-button px-5 py-2.5 font-semibold rounded-md text-xs">Save Profile</button>
                     </div>
                 </form>
             </div>
@@ -225,7 +332,7 @@
     </main>
 
     <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500">
-        &copy; 2026 Sano Meditech Solutions (Reg No: 9753717)
+        &copy; 2026 Sano Meditech Solutions • Reg No: 9753717 • NDPA 2023
     </footer>
 
     <script>
@@ -242,9 +349,12 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
         let currentUser = null;
+        let currentVitals = [];
+        let currentProfile = {};
 
-        // Require explicit sign-in on every fresh page load
-        auth.setPersistence(firebase.auth.Auth.Persistence.NONE).then(() => auth.signOut());
+        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).catch(err => {
+            showAuthFeedback("Could not configure sign-in persistence: " + err.message);
+        });
 
         function escapeHTML(str) {
             return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -255,7 +365,7 @@
             b.textContent = msg;
             b.className = isError
                 ? "px-6 py-2.5 text-xs font-semibold text-center border-b bg-red-50 text-red-700 border-red-200"
-                : "px-6 py-2.5 text-xs font-semibold text-center border-b bg-emerald-50 text-emerald-700 border-emerald-200";
+                : "px-6 py-2.5 text-xs font-semibold text-center border-b bg-teal-50 text-teal-700 border-teal-200";
             b.classList.remove('hidden');
             setTimeout(() => b.classList.add('hidden'), 3500);
         }
@@ -269,14 +379,25 @@
             const authBox = document.getElementById('auth-container');
             const dashBox = document.getElementById('dashboard-container');
             if (user) {
+                if (!currentUser || currentUser.uid !== user.uid) {
+                    currentVitals = [];
+                    currentProfile = {};
+                    document.getElementById('profile-form').reset();
+                    renderVitalsRows();
+                    updateVitalsSummary();
+                }
                 currentUser = user;
                 authBox.classList.add('hidden');
                 dashBox.classList.remove('hidden');
                 document.getElementById('user-display-name').textContent = user.displayName || (user.isAnonymous ? "Guest Session" : "Client");
-                document.getElementById('user-display-email').textContent = user.email || "Temporary Session (Data clears on sign-out)";
-                loadVitals(); loadJournal(); loadProfile();
+                document.getElementById('user-display-email').textContent = user.email || "Temporary guest session";
+                Promise.all([loadVitals(), loadJournal(), loadProfile()]).catch(err => {
+                    showBanner("Could not load client data: " + err.message, true);
+                });
             } else {
                 currentUser = null;
+                currentVitals = [];
+                currentProfile = {};
                 authBox.classList.remove('hidden');
                 dashBox.classList.add('hidden');
             }
@@ -302,6 +423,7 @@
             const btn = document.getElementById('login-btn');
             btn.disabled = true; btn.textContent = "Signing in...";
             try {
+                await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
                 await auth.signInWithEmailAndPassword(document.getElementById('login-email').value.trim(), document.getElementById('login-password').value);
             } catch (err) { showAuthFeedback(err.message); }
             finally { btn.disabled = false; btn.textContent = "Sign In"; }
@@ -313,6 +435,7 @@
             btn.disabled = true; btn.textContent = "Creating account...";
             try {
                 const name = document.getElementById('signup-name').value.trim();
+                await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
                 const cred = await auth.createUserWithEmailAndPassword(document.getElementById('signup-email').value.trim(), document.getElementById('signup-password').value);
                 await cred.user.updateProfile({ displayName: name });
                 document.getElementById('user-display-name').textContent = name;
@@ -332,7 +455,10 @@
         async function loginGuest() {
             const btn = document.getElementById('guest-btn');
             btn.disabled = true; btn.textContent = "Starting session...";
-            try { await auth.signInAnonymously(); }
+            try {
+                await auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+                await auth.signInAnonymously();
+            }
             catch (err) { showAuthFeedback(err.message); }
             finally { btn.disabled = false; btn.textContent = "Continue as Guest (Temporary Session)"; }
         }
@@ -346,6 +472,155 @@
             });
         }
 
+        function escapeAttribute(value) {
+            return escapeHTML(value).replace(/'/g, '&#39;');
+        }
+
+        function badge(risk) {
+            return `<span class="risk-badge ${risk.className}">${escapeHTML(risk.label)}</span>`;
+        }
+
+        function bloodPressureRisk(value) {
+            const match = String(value || '').match(/^(\d{2,3})\/(\d{2,3})$/);
+            if (!match) return { label: 'No reading', className: 'risk-normal' };
+            const systolic = Number(match[1]);
+            const diastolic = Number(match[2]);
+            if (systolic >= 180 || diastolic >= 120) return { label: 'Crisis / Urgent', className: 'risk-crisis' };
+            if (systolic >= 140 || diastolic >= 90) return { label: 'Stage 2', className: 'risk-stage2' };
+            if (systolic >= 130 || diastolic >= 80) return { label: 'Stage 1', className: 'risk-stage1' };
+            if (systolic >= 120 && diastolic < 80) return { label: 'Elevated', className: 'risk-elevated' };
+            return { label: 'Normal', className: 'risk-normal' };
+        }
+
+        function glucoseRisk(value, type) {
+            const glucose = Number(value);
+            if (!Number.isFinite(glucose)) return { label: 'No reading', className: 'risk-normal' };
+            if (glucose < 70) return { label: 'Urgent: low', className: 'risk-crisis' };
+            if (type === 'fasting') {
+                if (glucose < 100) return { label: 'Normal', className: 'risk-normal' };
+                if (glucose < 126) return { label: 'Elevated', className: 'risk-elevated' };
+                return { label: 'Urgent: follow-up', className: 'risk-stage2' };
+            }
+            if (glucose < 140) return { label: 'Normal', className: 'risk-normal' };
+            if (glucose < 200) return { label: 'Elevated', className: 'risk-elevated' };
+            return { label: 'Urgent: follow-up', className: 'risk-stage2' };
+        }
+
+        function timestampDate(timestamp) {
+            if (!timestamp) return null;
+            const date = typeof timestamp.toDate === 'function' ? timestamp.toDate() : new Date(timestamp);
+            return Number.isNaN(date.getTime()) ? null : date;
+        }
+
+        function displayDate(timestamp) {
+            const date = timestampDate(timestamp);
+            return date ? date.toLocaleString() : 'Just now';
+        }
+
+        function renderTrendChart() {
+            const chart = document.getElementById('trend-chart');
+            const entries = currentVitals.slice(0, 14).reverse();
+            if (!entries.length) {
+                chart.innerHTML = '<p class="py-8 text-center text-sm text-slate-500">Log vitals to see your trend.</p>';
+                return;
+            }
+            const width = Math.max(640, entries.length * 72);
+            const height = 220;
+            const pad = { top: 16, right: 24, bottom: 36, left: 36 };
+            const weightValues = [];
+            const pressureValues = [];
+            entries.forEach(entry => {
+                const bp = String(entry.bp || '').match(/^(\d{2,3})\/(\d{2,3})$/);
+                if (Number.isFinite(Number(entry.weight))) weightValues.push(Number(entry.weight));
+                if (bp) pressureValues.push(Number(bp[1]), Number(bp[2]));
+            });
+            if (!weightValues.length && !pressureValues.length) {
+                chart.innerHTML = '<p class="py-8 text-center text-sm text-slate-500">No numeric weight or blood pressure readings to chart yet.</p>';
+                return;
+            }
+            const weightMin = weightValues.length ? Math.min(...weightValues) : 0;
+            const weightMax = weightValues.length ? Math.max(...weightValues) : 1;
+            const pressureMin = pressureValues.length ? Math.min(...pressureValues) : 0;
+            const pressureMax = pressureValues.length ? Math.max(...pressureValues) : 1;
+            const x = index => pad.left + index * (width - pad.left - pad.right) / Math.max(entries.length - 1, 1);
+            const paths = [
+                { key: 'weight', color: '#0d9488' },
+                { key: 'systolic', color: '#0ea5e9' },
+                { key: 'diastolic', color: '#8b5cf6' }
+            ].map(series => {
+                const path = entries.map((entry, index) => {
+                    let value = Number(entry[series.key]);
+                    let min = weightMin;
+                    let max = weightMax;
+                    if (series.key !== 'weight') {
+                        const bp = String(entry.bp || '').match(/^(\d{2,3})\/(\d{2,3})$/);
+                        value = bp ? Number(bp[series.key === 'systolic' ? 1 : 2]) : NaN;
+                        min = pressureMin;
+                        max = pressureMax;
+                    }
+                    const range = Math.max(max - min, 1);
+                    const y = pad.top + (max - value) * (height - pad.top - pad.bottom) / range;
+                    return Number.isFinite(value) ? `${index ? 'L' : 'M'}${x(index).toFixed(1)},${y.toFixed(1)}` : '';
+                }).filter(Boolean).join(' ');
+                return path ? `<path d="${path}" fill="none" stroke="${series.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>` : '';
+            }).join('');
+            const labels = entries.map((entry, index) => {
+                const date = timestampDate(entry.timestamp);
+                const text = date ? date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : 'Now';
+                return `<text x="${x(index).toFixed(1)}" y="${height - 10}" text-anchor="middle" fill="#64748b" font-size="10">${escapeHTML(text)}</text>`;
+            }).join('');
+            const axisLabels = `<text x="2" y="${pad.top + 4}" fill="#64748b" font-size="9">${weightValues.length ? `${weightMax} kg` : ''}</text><text x="2" y="${height - pad.bottom}" fill="#64748b" font-size="9">${weightValues.length ? weightMin : ''}</text><text x="${width - 22}" y="${pad.top + 4}" fill="#64748b" font-size="9">${pressureValues.length ? pressureMax : ''}</text><text x="${width - 22}" y="${height - pad.bottom}" fill="#64748b" font-size="9">${pressureValues.length ? `${pressureMin} mmHg` : ''}</text>`;
+            chart.innerHTML = `<svg role="img" aria-label="Weight and blood pressure trend chart with separate scales" viewBox="0 0 ${width} ${height}" class="w-full min-w-[640px]" xmlns="http://www.w3.org/2000/svg"><line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${height - pad.bottom}" stroke="#cbd5e1"/><line x1="${pad.left}" y1="${height - pad.bottom}" x2="${width - pad.right}" y2="${height - pad.bottom}" stroke="#cbd5e1"/>${axisLabels}${paths}${labels}</svg>`;
+        }
+
+        function updateVitalsSummary() {
+            const latest = currentVitals[0];
+            const height = Number(currentProfile.heightCm);
+            const latestWeight = latest && Number.isFinite(Number(latest.weight)) ? Number(latest.weight) : null;
+            const baseline = [...currentVitals].reverse().find(item => Number.isFinite(Number(item.weight)));
+            document.getElementById('kpi-bp').textContent = latest && latest.bp ? `${latest.bp} mmHg` : '—';
+            document.getElementById('kpi-bp-risk').innerHTML = latest && latest.bp ? badge(bloodPressureRisk(latest.bp)) : '';
+            document.getElementById('kpi-weight').textContent = latestWeight === null ? '—' : `${latestWeight} kg`;
+            document.getElementById('kpi-bmi').textContent = latestWeight !== null && height > 0
+                ? `Auto-BMI: ${(latestWeight / Math.pow(height / 100, 2)).toFixed(1)}`
+                : 'Set height in Clinical Profile for BMI';
+            const bg = latest && latest.bg !== undefined && latest.bg !== 'N/A' ? Number(latest.bg) : NaN;
+            const glucoseType = latest && latest.bgType === 'fasting' ? 'fasting' : 'random';
+            document.getElementById('kpi-glucose').textContent = Number.isFinite(bg)
+                ? `${bg} mg/dL (${glucoseType === 'fasting' ? 'Fasting' : 'Random/Post-Meal'})`
+                : '—';
+            document.getElementById('kpi-glucose-risk').innerHTML = Number.isFinite(bg) ? badge(glucoseRisk(bg, glucoseType)) : '';
+            const weightChange = latestWeight !== null && baseline ? latestWeight - Number(baseline.weight) : null;
+            document.getElementById('kpi-weight-change').textContent = weightChange === null
+                ? '—'
+                : `${weightChange > 0 ? '+' : ''}${weightChange.toFixed(1)} kg`;
+            document.getElementById('print-report-meta').textContent =
+                `${currentUser ? (currentUser.displayName || currentUser.email || 'Client') : 'Client'} • ${new Date().toLocaleDateString()}`;
+            renderTrendChart();
+        }
+
+        function renderVitalsRows() {
+            const list = document.getElementById('vitals-list');
+            if (!currentVitals.length) {
+                list.innerHTML = '<tr><td colspan="6" class="p-5 text-center text-slate-500 text-xs">No records logged yet.</td></tr>';
+                return;
+            }
+            const height = Number(currentProfile.heightCm);
+            list.innerHTML = currentVitals.map(entry => {
+                const bpRisk = bloodPressureRisk(entry.bp);
+                const glucoseType = entry.bgType === 'fasting' ? 'fasting' : 'random';
+                const hasGlucose = entry.bg !== undefined && entry.bg !== 'N/A' && Number.isFinite(Number(entry.bg));
+                const glucose = hasGlucose
+                    ? `${escapeHTML(entry.bg)} mg/dL (${glucoseType === 'fasting' ? 'Fasting' : 'Random/Post-Meal'})<br>${badge(glucoseRisk(entry.bg, glucoseType))}`
+                    : '—';
+                const weight = Number(entry.weight);
+                const bmi = Number.isFinite(weight) && height > 0
+                    ? `<span class="block text-xs text-slate-500">BMI ${(weight / Math.pow(height / 100, 2)).toFixed(1)}</span>`
+                    : '';
+                return `<tr><td class="p-3.5 text-xs text-slate-500">${escapeHTML(displayDate(entry.timestamp))}</td><td class="p-3.5"><span class="font-semibold">${escapeHTML(entry.bp)} mmHg</span><br>${badge(bpRisk)}</td><td class="p-3.5">${escapeHTML(entry.hr)} bpm</td><td class="p-3.5">${glucose}</td><td class="p-3.5">${escapeHTML(entry.weight)} kg${bmi}</td><td class="p-3.5 no-print"><button type="button" class="vitals-delete text-xs font-semibold text-red-600 hover:underline" data-id="${escapeAttribute(entry.id)}">Delete</button></td></tr>`;
+            }).join('');
+        }
+
         document.getElementById('vitals-form').addEventListener('submit', async e => {
             e.preventDefault();
             if (!currentUser) return;
@@ -356,6 +631,7 @@
                     bp: document.getElementById('v-bp').value.trim(),
                     hr: parseInt(document.getElementById('v-hr').value, 10),
                     bg: document.getElementById('v-bg').value ? parseInt(document.getElementById('v-bg').value, 10) : 'N/A',
+                    bgType: document.getElementById('v-bg-type').value,
                     weight: parseFloat(document.getElementById('v-weight').value),
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
@@ -370,15 +646,24 @@
             if (!currentUser) return;
             const list = document.getElementById('vitals-list');
             const snap = await db.collection('users').doc(currentUser.uid).collection('vitals').orderBy('timestamp', 'desc').get();
-            if (snap.empty) { list.innerHTML = `<tr><td colspan="5" class="p-5 text-center text-slate-500 text-xs">No records logged yet.</td></tr>`; return; }
-            let html = '';
-            snap.forEach(doc => {
-                const d = doc.data();
-                const date = d.timestamp ? new Date(d.timestamp.toDate()).toLocaleString() : 'Just now';
-                html += `<tr><td class="p-3.5 text-xs text-slate-500">${escapeHTML(date)}</td><td class="p-3.5 font-semibold text-brand">${escapeHTML(d.bp)} mmHg</td><td class="p-3.5">${escapeHTML(d.hr)} bpm</td><td class="p-3.5">${escapeHTML(d.bg)}</td><td class="p-3.5">${escapeHTML(d.weight)} kg</td></tr>`;
-            });
-            list.innerHTML = html;
+            currentVitals = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            updateVitalsSummary();
+            renderVitalsRows();
         }
+
+        document.getElementById('vitals-list').addEventListener('click', async event => {
+            const button = event.target.closest('.vitals-delete');
+            if (!button || !currentUser || !confirm('Delete this vitals record?')) return;
+            button.disabled = true;
+            try {
+                await db.collection('users').doc(currentUser.uid).collection('vitals').doc(button.dataset.id).delete();
+                showBanner('Vitals record deleted.');
+                await loadVitals();
+            } catch (err) {
+                showBanner('Delete failed: ' + err.message, true);
+                button.disabled = false;
+            }
+        });
 
         document.getElementById('journal-form').addEventListener('submit', async e => {
             e.preventDefault();
@@ -406,11 +691,24 @@
             let html = '';
             snap.forEach(doc => {
                 const d = doc.data();
-                const date = d.timestamp ? new Date(d.timestamp.toDate()).toLocaleString() : 'Just now';
-                html += `<div class="p-4 rounded-md border border-slate-200 dark:border-slate-800"><div class="flex justify-between mb-1"><span class="font-bold text-sm">${escapeHTML(d.title)}</span><span class="text-xs text-slate-500">${escapeHTML(date)}</span></div><p class="text-sm text-slate-600 dark:text-slate-300 whitespace-pre-line">${escapeHTML(d.content)}</p></div>`;
+                html += `<article class="p-4 rounded-md border border-slate-200 dark:border-slate-800"><div class="flex justify-between gap-3 mb-1"><span class="font-bold text-sm">${escapeHTML(d.title)}</span><div class="flex items-center gap-3"><span class="text-xs text-slate-500">${escapeHTML(displayDate(d.timestamp))}</span><button type="button" class="journal-delete no-print text-xs font-semibold text-red-600 hover:underline" data-id="${escapeAttribute(doc.id)}">Delete</button></div></div><p class="text-sm text-slate-600 dark:text-slate-300 whitespace-pre-line">${escapeHTML(d.content)}</p></article>`;
             });
             box.innerHTML = html;
         }
+
+        document.getElementById('journal-entries').addEventListener('click', async event => {
+            const button = event.target.closest('.journal-delete');
+            if (!button || !currentUser || !confirm('Delete this journal entry?')) return;
+            button.disabled = true;
+            try {
+                await db.collection('users').doc(currentUser.uid).collection('journal').doc(button.dataset.id).delete();
+                showBanner('Journal entry deleted.');
+                await loadJournal();
+            } catch (err) {
+                showBanner('Delete failed: ' + err.message, true);
+                button.disabled = false;
+            }
+        });
 
         document.getElementById('profile-form').addEventListener('submit', async e => {
             e.preventDefault();
@@ -418,13 +716,22 @@
             const btn = document.getElementById('profile-submit-btn');
             btn.disabled = true; btn.textContent = "Saving...";
             try {
-                await db.collection('users').doc(currentUser.uid).collection('profile').doc('main').set({
+                const profile = {
+                    heightCm: document.getElementById('p-height').value ? parseFloat(document.getElementById('p-height').value) : '',
+                    age: document.getElementById('p-age').value ? parseInt(document.getElementById('p-age').value, 10) : '',
+                    biologicalSex: document.getElementById('p-sex').value,
+                    programTrack: document.getElementById('p-track').value,
                     bloodGroup: document.getElementById('p-blood').value,
                     genotype: document.getElementById('p-genotype').value,
                     allergies: document.getElementById('p-allergies').value.trim(),
+                    medications: document.getElementById('p-medications').value.trim(),
                     emergencyPhone: document.getElementById('p-emergency').value.trim(),
                     conditions: document.getElementById('p-conditions').value.trim()
-                }, { merge: true });
+                };
+                await db.collection('users').doc(currentUser.uid).collection('profile').doc('main').set(profile, { merge: true });
+                currentProfile = profile;
+                updateVitalsSummary();
+                renderVitalsRows();
                 showBanner("Profile saved.");
             } catch (err) { showBanner("Save failed: " + err.message, true); }
             finally { btn.disabled = false; btn.textContent = "Save Profile"; }
@@ -432,16 +739,103 @@
 
         async function loadProfile() {
             if (!currentUser) return;
+            document.getElementById('profile-form').reset();
             const doc = await db.collection('users').doc(currentUser.uid).collection('profile').doc('main').get();
             if (doc.exists) {
                 const d = doc.data();
+                currentProfile = d;
+                if (d.heightCm !== undefined) document.getElementById('p-height').value = d.heightCm;
+                if (d.age !== undefined) document.getElementById('p-age').value = d.age;
+                if (d.biologicalSex) document.getElementById('p-sex').value = d.biologicalSex;
+                if (d.programTrack) document.getElementById('p-track').value = d.programTrack;
                 if (d.bloodGroup) document.getElementById('p-blood').value = d.bloodGroup;
                 if (d.genotype) document.getElementById('p-genotype').value = d.genotype;
                 if (d.allergies) document.getElementById('p-allergies').value = d.allergies;
+                if (d.medications) document.getElementById('p-medications').value = d.medications;
                 if (d.emergencyPhone) document.getElementById('p-emergency').value = d.emergencyPhone;
                 if (d.conditions) document.getElementById('p-conditions').value = d.conditions;
+            } else {
+                currentProfile = {};
             }
+            updateVitalsSummary();
+            renderVitalsRows();
         }
+
+        function csvCell(value) {
+            let text = String(value ?? '');
+            if (/^[=+\-@]/.test(text) && !Number.isFinite(Number(text))) text = "'" + text;
+            return `"${text.replace(/"/g, '""')}"`;
+        }
+
+        function downloadVitalsCSV() {
+            if (!currentUser || !currentVitals.length) {
+                showBanner('No vitals records available to download.', true);
+                return;
+            }
+            const rows = [['Date & Time', 'Blood Pressure (mmHg)', 'BP Risk', 'Heart Rate (bpm)', 'Glucose (mg/dL)', 'Glucose Type', 'Glucose Risk', 'Weight (kg)', 'BMI']];
+            const height = Number(currentProfile.heightCm);
+            currentVitals.forEach(entry => {
+                const hasGlucose = entry.bg !== undefined && entry.bg !== 'N/A' && Number.isFinite(Number(entry.bg));
+                const weight = Number(entry.weight);
+                rows.push([
+                    displayDate(entry.timestamp),
+                    entry.bp || '',
+                    bloodPressureRisk(entry.bp).label,
+                    entry.hr || '',
+                    hasGlucose ? entry.bg : '',
+                    hasGlucose ? (entry.bgType === 'fasting' ? 'Fasting' : 'Random/Post-Meal') : '',
+                    hasGlucose ? glucoseRisk(entry.bg, entry.bgType).label : '',
+                    entry.weight ?? '',
+                    Number.isFinite(weight) && height > 0 ? (weight / Math.pow(height / 100, 2)).toFixed(1) : ''
+                ]);
+            });
+            const csv = '\uFEFF' + rows.map(row => row.map(csvCell).join(',')).join('\r\n');
+            const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'sano-meditech-vitals.csv';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        function shareSummary() {
+            const latest = currentVitals[0];
+            if (!currentUser || !latest) {
+                showBanner('Add a vitals record before sharing a summary.', true);
+                return;
+            }
+            const glucoseType = latest.bgType === 'fasting' ? 'Fasting' : 'Random/Post-Meal';
+            const glucose = latest.bg !== undefined && latest.bg !== 'N/A' ? `${latest.bg} mg/dL (${glucoseType})` : 'Not recorded';
+            const height = Number(currentProfile.heightCm);
+            const weight = Number(latest.weight);
+            const bmi = Number.isFinite(weight) && height > 0
+                ? (weight / Math.pow(height / 100, 2)).toFixed(1)
+                : 'Not available';
+            const message = [
+                'Sano Meditech Clinical Vitals Summary',
+                `Name: ${currentUser.displayName || currentUser.email || 'Client'}`,
+                `Date: ${displayDate(latest.timestamp)}`,
+                `Blood Pressure: ${latest.bp} mmHg (${bloodPressureRisk(latest.bp).label})`,
+                `Heart Rate: ${latest.hr} bpm`,
+                `Glucose: ${glucose}`,
+                `Weight: ${latest.weight} kg • BMI: ${bmi}`,
+                'Screening summary only; not a diagnosis.'
+            ].join('\n');
+            window.open(`https://wa.me/2349157713591?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+        }
+
+        document.querySelectorAll('[data-password-toggle]').forEach(button => {
+            button.addEventListener('click', () => {
+                const input = document.getElementById(button.dataset.passwordToggle);
+                const showing = input.type === 'password';
+                input.type = showing ? 'text' : 'password';
+                button.textContent = showing ? 'Hide' : 'Show';
+                button.setAttribute('aria-pressed', String(showing));
+                button.setAttribute('aria-label', showing ? 'Hide password' : 'Show password');
+            });
+        });
     </script>
 </body>
 </html>
